@@ -1,4 +1,3 @@
-// components/OnboardingForm.tsx
 "use client";
 
 import { useState, useEffect } from "react";
@@ -7,7 +6,6 @@ import { InformationStep } from "./steps/InformationStep";
 import { OrderDeliveryStep } from "./steps/OrderDeliveryStep";
 import { IntegrationStep } from "./steps/IntegrationStep";
 import Button from "@/components/ui/button/Button";
-import { ArrowRight, Plus } from "lucide-react";
 
 interface OnboardingFormProps {
   currentStep: number;
@@ -128,28 +126,23 @@ export function OnboardingForm({
     <div className="px-6 py-8">
       {renderStep()}
 
-      <div className="flex justify-between items-center mt-8 pt-6 border-t border-gray-100">
-        {currentStep !== 1 && (
-          <Button
-            onClick={onPrevious}
-            variant="secondary"
-            leftIcon={<span>←</span>}
-          >
-            Back
-          </Button>
-        )}
+      <div className="flex justify-between items-center mt-8 pt-6 border-t border-gray-50">
+        <Button variant="secondary" size="base">
+          Skip for now
+        </Button>
 
         <div className="flex gap-3">
-          <Button variant="secondary" size="md">
-            Skip
-          </Button>
+          {currentStep !== 1 && (
+            <Button onClick={onPrevious} variant="secondary" size="base">
+              Back
+            </Button>
+          )}
 
-         
           <Button
             onClick={handleSaveAndContinue}
             disabled={!isValid}
-            // loading={isLoading}
-            rightIcon={<ArrowRight />}
+            size="base"
+            variant="primary"
           >
             Save & Continue
           </Button>

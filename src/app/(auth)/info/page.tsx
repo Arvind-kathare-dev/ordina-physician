@@ -32,9 +32,9 @@ export default function Home() {
   };
 
   return (
-    <main className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="w-full mx-auto">
-        <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
+    <main className="min-h-screen sm:p-8 lg:p-12 bg-white ">
+      <div className="max-w-[1440px] mx-auto">
+        <div className="bg-white  overflow-hidden">
          
 
           {/* Step Indicator */}

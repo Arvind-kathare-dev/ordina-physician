@@ -16,8 +16,15 @@ export function OrderDeliveryStep({}: OrderDeliveryStepProps) {
   return (
     <div className="space-y-6">
 
-      {/* HEADER */}
-      <div className="flex flex-col gap-4">
+    
+
+      {/* MAIN GRID */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+        {/* LEFT: CHANNELS */}
+        <div className="lg:col-span-2 space-y-4 bg-white border border-ordinaBorder-200 rounded-xl p-4">
+  {/* HEADER */}
+      <div className="flex flex-col gap-6">
         <h1 className="text-xl font-semibold text-gray-900">
           Delivery channels (priority order)
         </h1>
@@ -28,13 +35,6 @@ export function OrderDeliveryStep({}: OrderDeliveryStepProps) {
           Keep the most reliable channel first. You can change per order later.
         </p>
       </div>
-
-      {/* MAIN GRID */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-
-        {/* LEFT: CHANNELS */}
-        <div className="lg:col-span-2 space-y-4 bg-white border border-gray-200 rounded-xl p-4">
-
           <ChannelCard
             title="Primary Email"
             label="Primary"
@@ -89,7 +89,7 @@ export function OrderDeliveryStep({}: OrderDeliveryStepProps) {
         </div>
 
         {/* RIGHT: DELIVERY BEHAVIOR */}
-        <div className="bg-white border border-gray-200 rounded-xl p-5 space-y-4 h-fit">
+        <div className="bg-white border border-ordinaBorder-200 rounded-xl p-5 space-y-4 h-fit">
 
           <div>
             <h2 className="text-sm font-semibold text-gray-900">
@@ -118,12 +118,12 @@ export function OrderDeliveryStep({}: OrderDeliveryStepProps) {
           </p>
 
           {/* TIP BOX */}
-          <div className="text-xs text-gray-600 border border-dashed border-gray-200 rounded-md p-3 bg-gray-50">
+          <div className="text-xs text-gray-600 input-border border-dashed  rounded-md p-3">
             Tip: If one channel fails twice, switch to another channel to avoid delays.
           </div>
 
           {/* HIPAA NOTE */}
-          <div className="text-xs text-gray-600 border border-dashed border-gray-200 rounded-md p-3 bg-gray-50">
+          <div className="text-xs text-gray-600 input-border border-dashed  rounded-md p-3">
             HIPAA note: Emails are connected via Google OAuth (no password stored). 
             eFax requires a short verification step using a test fax.
           </div>
@@ -131,7 +131,7 @@ export function OrderDeliveryStep({}: OrderDeliveryStepProps) {
       </div>
 
       {/* FOOTER */}
-      <div className="border border-dashed border-gray-200 rounded-md p-4 text-xs text-gray-600 bg-gray-50">
+      <div className="max-w-[585px] input-border border-dashed  rounded-md p-4 text-base text-gray-500 ">
         Auto-fallback: If a primary endpoint fails, Ordina retries once, then uses the secondary endpoint. 
         You can override delivery per order from the order screen.
       </div>

@@ -62,16 +62,16 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
                         onFocus={() => setIsFocused(true)}
                         onBlur={() => setIsFocused(false)}
                         className={`
-              w-full input-padding rounded-md border border-border text-gray-400 placeholder:text-gray-400
+              w-full input-padding rounded-md border border-ordinaBorder-300 text-gray-400 placeholder:text-gray-400
               transition-all duration-200 outline-none
               bg-white
               ${leftIcon ? 'pl-10' : ''}
               ${rightIcon || onClear ? 'pr-10' : ''}
               ${error
-                                ? 'border-red-300 focus:border-red-500 focus:ring-2 focus:ring-red-100'
+                                ? 'border-red-300 focus:border-red-500 focus:ring-1 focus:ring-red-100'
                                 : isFocused
-                                    ? 'border-blue-500 ring-2 ring-blue-100'
-                                    : 'border-gray-200 hover:border-gray-300'
+                                    ? 'border-primary ring-1 ring-primary'
+                                    : ' hover:border-primary'
                             }
               ${disabled ? 'bg-gray-50 text-gray-400 cursor-not-allowed' : ''}
               ${className}

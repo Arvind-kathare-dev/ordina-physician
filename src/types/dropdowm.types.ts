@@ -1,7 +1,6 @@
 export type DropdownOption = {
   label: string;
   value: string;
-   className?: string;
 };
 
 export type DropdownProps = {
