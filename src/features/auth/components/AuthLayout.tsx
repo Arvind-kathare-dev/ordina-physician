@@ -8,9 +8,10 @@ export default function AuthLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="min-h-screen flex p-6">
-      {/* LEFT SIDE */}
-      <div className="relative hidden lg:flex w-1/2  rounded-3xl overflow-hidden max-w-[755px]
+    <div className="min-h-screen w-full  flex justify-center bg-white  p-6">
+      <div className="max-w-[1440px] flex gap-6">
+ {/* LEFT SIDE */}
+      <div className="relative hidden lg:flex    rounded-3xl overflow-hidden max-w-[755px]
       ">
         {/* Background Image */}
        <div className="absolute inset-0">
@@ -66,9 +67,11 @@ export default function AuthLayout({
       </div>
 
       {/* RIGHT SIDE */}
-      <div className="flex-1 flex  justify-center p-6">
-        <div className="w-full max-w-md">{children}</div>
+      <div className="flex-1 flex w-[500px] items-center  justify-center p-6">
+        <div className="w-full max-w-md ">{children}</div>
       </div>
+      </div>
+     
     </div>
   );
 }
