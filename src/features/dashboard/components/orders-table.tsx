@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { ordersTableData } from "../data";
+import { ordersTableData } from "../constants/data";
 import { DropdownOption } from "@/types/dropdowm.types";
 import Dropdown from "@/components/ui/dropdown/Dropdown";
 

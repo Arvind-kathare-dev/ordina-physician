@@ -33,3 +33,4 @@ export interface TableProps<T> {
   columns: Column<T>[];
   colNum?: Number;
 }
+

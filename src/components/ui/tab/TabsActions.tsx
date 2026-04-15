@@ -4,7 +4,7 @@ import Button from "../button/Button";
 export function TabsActions() {
   return (
     <>
-      <Button variant="secondary" size="md">
+      <Button variant="outlinePrimary" size="md">
             My Orders
           </Button>
 

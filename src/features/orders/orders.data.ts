@@ -1,4 +1,4 @@
-import { Order } from "./orders.types.";
+import { Order } from "./orders.types";
 
 
 
@@ -14,6 +14,7 @@ export const orders: Order[] = [
     receivedVia: "Symmetry",
     orderReceived: "Today | 07:30 AM",
     tags: ["Modified"],
+    day: "Today",
   },
   {
     id: 2,
@@ -30,6 +31,7 @@ export const orders: Order[] = [
     receivedVia: "Email",
     orderReceived: "Today | 07:30 AM",
     tags: [],
+    day: "2 Days",
   },
   {
     id: 3,
@@ -42,6 +44,7 @@ export const orders: Order[] = [
     receivedVia: "efax",
     orderReceived: "Today | 09:00 AM",
     tags: ["Outbound"],
+    day: "7 Days",
   },
   {
     id: 4,
@@ -54,6 +57,7 @@ export const orders: Order[] = [
     receivedVia: "Email",
     orderReceived: "Today | 09:00 AM",
     tags: [],
+    day: "2 Days",
   },
   {
     id: 5,
@@ -69,6 +73,7 @@ export const orders: Order[] = [
     receivedVia: "Symmetry",
     orderReceived: "Today | 09:00 AM",
     tags: ["Modified"],
+    day: "5 Days",
   },
   {
     id: 6,
@@ -81,6 +86,7 @@ export const orders: Order[] = [
     receivedVia: "Email",
     orderReceived: "Today | 09:00 AM",
     tags: ["Modified", "Outbound"],
+    day: "Today",
   },
 ];
 
