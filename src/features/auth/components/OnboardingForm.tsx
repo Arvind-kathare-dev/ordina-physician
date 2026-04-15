@@ -1,23 +1,34 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+
 import { PECOSStep } from "./steps/PECOSStep";
 import { InformationStep } from "./steps/InformationStep";
 import { OrderDeliveryStep } from "./steps/OrderDeliveryStep";
 import { IntegrationStep } from "./steps/IntegrationStep";
+
 import Button from "@/components/ui/button/Button";
+import SubscriptionPlan from "./SubscriptionPlan";
+import DetailPreviewPage from "./DetailPreviewPage";
 
 interface OnboardingFormProps {
   currentStep: number;
   onSaveAndContinue: () => void;
   onPrevious: () => void;
+  subStep: number;
+  setSubStep: React.Dispatch<React.SetStateAction<number>>;
 }
 
 export function OnboardingForm({
   currentStep,
   onSaveAndContinue,
   onPrevious,
+  subStep,
+  setSubStep,
 }: OnboardingFormProps) {
+  const router = useRouter();
+
   const [formData, setFormData] = useState({
     pecos: {
       enrollmentId: "",
@@ -47,8 +58,6 @@ export function OnboardingForm({
     },
   });
 
-  const [isValid, setIsValid] = useState(false);
-
   const updateFormData = (step: string, data: any) => {
     setFormData((prev) => ({
       ...prev,
@@ -56,36 +65,40 @@ export function OnboardingForm({
     }));
   };
 
-  // Validate current step (simplified - in production you'd have proper validation)
-  useEffect(() => {
-    const validateStep = () => {
-      switch (currentStep) {
-        case 1:
-          setIsValid(!!formData.pecos.enrollmentId);
-          break;
-        case 2:
-          setIsValid(
-            !!formData.information.fullName && !!formData.information.email,
-          );
-          break;
-        case 3:
-          setIsValid(!!formData.orderDelivery.preferredMethod);
-          break;
-        case 4:
-          setIsValid(!!formData.integration.ehrSystem);
-          break;
-        default:
-          setIsValid(false);
-      }
-    };
-    validateStep();
-  }, [currentStep, formData]);
+  /* ========================= */
+  /* SAVE & CONTINUE */
+  /* ========================= */
 
   const handleSaveAndContinue = () => {
-    if (isValid) {
-      onSaveAndContinue();
+    // ✅ Step 4 has substeps
+    if (currentStep === 4) {
+      if (subStep < 3) {
+        setSubStep((prev) => prev + 1);
+      } else {
+        // ✅ Final → Dashboard
+        router.push("/dashboard");
+      }
+      return;
+    }
+
+    onSaveAndContinue();
+  };
+
+  /* ========================= */
+  /* BACK */
+  /* ========================= */
+
+  const handleBack = () => {
+    if (currentStep === 4 && subStep > 1) {
+      setSubStep((prev) => prev - 1);
+    } else {
+      onPrevious();
     }
   };
+
+  /* ========================= */
+  /* RENDER STEP */
+  /* ========================= */
 
   const renderStep = () => {
     switch (currentStep) {
@@ -96,6 +109,7 @@ export function OnboardingForm({
             onChange={(data) => updateFormData("pecos", data)}
           />
         );
+
       case 2:
         return (
           <InformationStep
@@ -103,6 +117,7 @@ export function OnboardingForm({
             onChange={(data) => updateFormData("information", data)}
           />
         );
+
       case 3:
         return (
           <OrderDeliveryStep
@@ -110,41 +125,57 @@ export function OnboardingForm({
             onChange={(data) => updateFormData("orderDelivery", data)}
           />
         );
+
       case 4:
-        return (
-          <IntegrationStep
-            data={formData.integration}
-            onChange={(data) => updateFormData("integration", data)}
-          />
-        );
+        // ✅ Substeps inside Step 4
+        switch (subStep) {
+          case 1:
+            return (
+              <IntegrationStep
+                data={formData.integration}
+                onChange={(data) => updateFormData("integration", data)}
+              />
+            );
+
+          case 2:
+            return <SubscriptionPlan />;
+
+          case 3:
+            return <DetailPreviewPage />;
+
+          default:
+            return null;
+        }
+
       default:
         return null;
     }
   };
 
+  const isFinalStep = currentStep === 4 && subStep === 3;
+
   return (
     <div className="px-6 py-8">
       {renderStep()}
 
-      <div className="flex justify-between items-center mt-8 pt-6 border-t border-gray-50">
+      {/* ========================= */}
+      {/* FOOTER BUTTONS */}
+      {/* ========================= */}
+
+      <div className="flex justify-between items-center mt-8 pt-6 border-t border-gray-200">
         <Button variant="secondary" size="base">
           Skip for now
         </Button>
 
         <div className="flex gap-3">
-          {currentStep !== 1 && (
-            <Button onClick={onPrevious} variant="secondary" size="base">
+          {(currentStep !== 1 || subStep > 1) && (
+            <Button onClick={handleBack} variant="secondary" size="base">
               Back
             </Button>
           )}
 
-          <Button
-            onClick={handleSaveAndContinue}
-            disabled={!isValid}
-            size="base"
-            variant="primary"
-          >
-            Save & Continue
+          <Button onClick={handleSaveAndContinue} size="base" variant="primary">
+            {isFinalStep ? "Finish Setup" : "Save & Continue"}
           </Button>
         </div>
       </div>

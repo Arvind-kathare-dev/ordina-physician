@@ -1,6 +1,6 @@
 "use client";
 
-import EHRCard from "../EHRCard";
+import EHRCard from "../card/EHRCard";
 
 interface IntegrationStepProps {
   data: {
@@ -27,42 +27,42 @@ export function IntegrationStep({ data, onChange }: IntegrationStepProps) {
           name="Kareo"
           status="not_connected"
           description="Secure OAuth connection with drchrono required"
-            onSelect={(name) => onChange({ ehrSystem: name })}
+          onSelect={(name) => onChange({ ehrSystem: name })}
         />
 
         <EHRCard
           name="NextGen"
           status="connected"
           description="Secure OAuth connection with Nextgen required"
-            onSelect={(name) => onChange({ ehrSystem: name })}
+          onSelect={(name) => onChange({ ehrSystem: name })}
         />
 
         <EHRCard
           name="Epic"
           status="not_connected"
           description="Secure OAuth connection with epic required"
-            onSelect={(name) => onChange({ ehrSystem: name })}
+          onSelect={(name) => onChange({ ehrSystem: name })}
         />
 
         <EHRCard
           name="Athenahealth"
           status="not_connected"
           description="Secure OAuth connection with athenahealth required"
-            onSelect={(name) => onChange({ ehrSystem: name })}
+          onSelect={(name) => onChange({ ehrSystem: name })}
         />
 
         <EHRCard
           name="eClinicalWorks"
           status="not_connected"
           description="Secure OAuth connection with eClinicalWorks required"
-            onSelect={(name) => onChange({ ehrSystem: name })}
+          onSelect={(name) => onChange({ ehrSystem: name })}
         />
 
         <EHRCard
           name="Cerner"
           status="not_connected"
           description="Secure OAuth connection with symmetry required"
-            onSelect={(name) => onChange({ ehrSystem: name })}
+          onSelect={(name) => onChange({ ehrSystem: name })}
         />
       </div>
     </div>

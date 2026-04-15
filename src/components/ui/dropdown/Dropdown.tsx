@@ -42,7 +42,7 @@ export default function Dropdown({
       <button
         type="button"
         onClick={() => setOpen((prev) => !prev)}
-        className="flex text-grayCustom-600 items-center justify-between gap-1 px-2 py-1 w-24 bg-white border border-boxBorder rounded-[5px] shadow-sm text-xs font-normal hover:bg-gray-50 focus:outline-none"
+        className="flex text-grayCustom-600 items-center justify-between gap-1 px-2 py-1 w-fit bg-white border border-boxBorder rounded-[5px] shadow-sm text-xs font-normal hover:bg-gray-100 focus:outline-none"
         aria-haspopup="listbox"
         aria-expanded={open}
       >

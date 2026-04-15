@@ -86,17 +86,17 @@ export default function SearchBox({
   return (
     <div
       className={clsx(
-        "w-full max-w-lg",
+        "w-full h-full max-w-lg",
         className
       )}
     >
       <div
         className={clsx(
-          "flex items-center gap-3 rounded-lg border bg-white px-[11px] py-[7px]",
-          "shadow-sm transition-all duration-200",
+          "flex items-center gap-3 border-ordina-300 rounded-md border bg-white px-[11px] py-[8px]",
+          "shadow-search transition-all duration-200",
           isFocused
             ? "border-ordinadark ring-1 ring-ordinadark"
-            : "border-slate-200 hover:border-ordinadark"
+            : "border-ordina-300 hover:border-ordinadark"
         )}
       >
         {/* ICON */}

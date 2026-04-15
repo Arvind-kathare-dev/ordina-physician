@@ -50,6 +50,7 @@ module.exports = {
           90: "#F4F4F4",
           100: "#F3F4F5",
           200: "#EDF1F3",
+          250: "#F3F3F3",
           300: "#9B9B9B",
           400: "#686464",
           500: "#4D4D4D",
@@ -114,7 +115,9 @@ module.exports = {
         card: "0 2px 8px rgba(0,0,0,0.08)",
         dropdown: "0 8px 20px rgba(0,0,0,0.12)",
         stepper: "0px 0px 4.5px 0px #528DB580",
+        search: "2px 2px 7.3px -1px #0000001A",
       },
+
     },
   },
   plugins: [],

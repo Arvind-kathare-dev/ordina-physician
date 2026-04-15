@@ -9,6 +9,7 @@ import { ServicePieChart } from "@/features/dashboard/components/service-pie-cha
 import { StatCard } from "@/features/dashboard/components/stats-card";
 import PhysicianSelector from "@/features/dashboard/components/physician-selector";
 import SearchBox from "@/components/ui/SearchBox";
+import { pendingOrdersData } from "@/features/dashboard/constants/data";
 
 export default function Dashboard() {
   return (
@@ -31,29 +32,58 @@ export default function Dashboard() {
             {/* STATS ROW */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="flex flex-col sm:flex-row gap-4 p-4 rounded-xl bg-gradient-light-yellow border-[0.3px] ">
+               <StatCard
+        title="New Orders for the Day"
+        value={150}
+        desc="Today’s received orders across platform"
+        total={19}
+        breakdown={[
+          { label: "POC / 485", count: 4, color: "blue" },
+          { label: "F2F", count: 6, color: "green" },
+          { label: "IPD", count: 2, color: "yellow" },
+        ]}
+      />
                 <StatCard
-                  title="New Orders for the Day"
-                  value={150}
-                  desc="Today’s received orders across platform"
-                />
-                <StatCard
-                  title="Signed Orders"
-                  value={35}
-                  desc="Completed signatures received across active physician orders"
-                />
+  title="Signed Order Breakdown"
+  value={12}
+  desc="Orders successfully signed"
+  total={12}
+  breakdown={[
+    { label: "POC / 485", count: 4, color: "blue" },
+    { label: "F2F", count: 6, color: "green" },
+    { label: "IPD", count: 2, color: "yellow" },
+  ]}
+/>
               </div>
 
               <div className="flex flex-col sm:flex-row gap-4 p-4 rounded-xl bg-gradient-light-purple border-[0.3px]">
+             <StatCard
+  title="Pending Order Breakdown"
+  value={50}
+  desc="Orders currently pending"
+  total={50}
+  breakdown={[
+    { label: "POC / 485", count: 10, color: "blue" },
+    { label: "F2F", count: 18, color: "green" },
+    { label: "IPD", count: 22, color: "yellow" },
+  ]}
+  aging={[
+    { label: "0–7 days", count: 20 },
+    { label: "8–15 days", count: 30 },
+    { label: "16–30 days", count: 10 },
+  ]}
+/>
                 <StatCard
-                  title="Pending Orders"
-                  value={68}
-                  desc="Orders still awaiting signature before next care step"
-                />
-                <StatCard
-                  title="MD Verification"
-                  value={10}
-                  desc="Received MD Verification orders across platform"
-                />
+        title="New Orders for the Day"
+        value={150}
+        desc="Today’s received orders across platform"
+        total={19}
+        breakdown={[
+          { label: "POC / 485", count: 4, color: "blue" },
+          { label: "F2F", count: 6, color: "green" },
+          { label: "IPD", count: 2, color: "yellow" },
+        ]}
+      />
               </div>
             </div>
 

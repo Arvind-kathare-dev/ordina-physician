@@ -108,7 +108,7 @@ export default function EfaxModal({ isOpen, onClose, onSave }: Props) {
           <button onClick={handleClose} aria-label="Close" className="text-gray-400 hover:text-gray-600 transition-colors mt-0.5 ml-4 shrink-0">
             <CloseIcon />
           </button>
-       
+
         </div>
 
         {/* Body */}
@@ -136,14 +136,14 @@ export default function EfaxModal({ isOpen, onClose, onSave }: Props) {
                 />
               </div> */}
               <Input
-  label="Fax number"
-  type="tel"
-  value={faxNumber}
-  onChange={(e) => setFaxNumber(e.target.value)}
-  placeholder="eg. +1 212 565 0125"
-  required
-  fullWidth
-/>
+                label="Fax number"
+                type="tel"
+                value={faxNumber}
+                onChange={(e) => setFaxNumber(e.target.value)}
+                placeholder="eg. +1 212 565 0125"
+                required
+                fullWidth
+              />
               {/* <div className="flex flex-col gap-1.5">
                 <label className="text-sm font-medium text-gray-700">
                   Label <span className="text-gray-400 font-normal">(optional)</span>
@@ -157,14 +157,14 @@ export default function EfaxModal({ isOpen, onClose, onSave }: Props) {
                 />
               </div> */}
               <Input
-  label="Label (optional)"
-  type="text"
-  value={label}
-  onChange={(e) => setLabel(e.target.value)}
-  placeholder="eg. Main clinic fax"
-  required
-  fullWidth
-/>
+                label="Label (optional)"
+                type="text"
+                value={label}
+                onChange={(e) => setLabel(e.target.value)}
+                placeholder="eg. Main clinic fax"
+                required
+                fullWidth
+              />
             </div>
 
             <p className="text-xs text-gray-400">We&apos;ll send a test fax to verify this line.</p>
@@ -200,8 +200,8 @@ export default function EfaxModal({ isOpen, onClose, onSave }: Props) {
                 ${confirmed
                   ? "border-primary bg-[#4A90B8]/5 text-primary font-medium"
                   : verificationState === "sent"
-                  ? "border-gray-200 bg-white text-gray-600 hover:border-[#4A90B8]/50 cursor-pointer"
-                  : "border-gray-200 bg-white text-gray-300 cursor-not-allowed"}`}
+                    ? "border-gray-200 bg-white text-gray-600 hover:border-[#4A90B8]/50 cursor-pointer"
+                    : "border-gray-200 bg-white text-gray-300 cursor-not-allowed"}`}
             >
               {confirmed ? "✓ I received the test fax" : "I received the test fax"}
             </button>
@@ -218,14 +218,14 @@ export default function EfaxModal({ isOpen, onClose, onSave }: Props) {
 
         {/* Footer */}
         <div className="flex items-center justify-end gap-3 px-6 py-4 border-t border-gray-100">
-         
-          <Button variant="secondary" size="base"  onClick={handleClose}>
-             Cancel
+
+          <Button variant="secondary" size="base" onClick={handleClose}>
+            Cancel
           </Button>
-        
+
           <Button variant="primary" onClick={handleSave}
             disabled={!confirmed} size="base" >
-             Save eFax
+            Save eFax
           </Button>
         </div>
       </div>

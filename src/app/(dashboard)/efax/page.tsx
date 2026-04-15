@@ -11,6 +11,8 @@ import StatCard from "@/features/efax/components/StatCard";
 import SearchBox from "@/components/ui/SearchBox";
 import SegmentedControl from "@/components/ui/button/segmented-control";
 import { TabsActionsMinimal } from "@/components/ui/tab/TabsActionsMinimal";
+import { getFaxColumns } from "@/features/efax/components/getFaxColumns";
+import Table from "@/components/common/table/Table";
 
 export default function EFaxPage() {
   const [activeTab, setActiveTab] = useState(0);
@@ -28,6 +30,8 @@ export default function EFaxPage() {
   const PAGE_SIZE = 2;
 
   const totalPages = Math.ceil(filteredFaxes.length / PAGE_SIZE);
+
+    const columns = getFaxColumns(activeTab);
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -68,7 +72,7 @@ export default function EFaxPage() {
         {/* Table */}
         <div className="w-full overflow-x-auto">
           <div className="min-w-[1200px] mb-4">
-            <FaxTable data={faxData} />
+              <Table data={faxData} columns={columns} colNum={columns.length} />
           </div>
         </div>
         <MinimalPagination

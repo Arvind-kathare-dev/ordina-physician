@@ -1,5 +1,7 @@
 'use client';
 
+import { Check } from "lucide-react";
+
 interface StepIndicatorProps {
   currentStep: number;
 }
@@ -91,7 +93,7 @@ export function StepIndicator({ currentStep }: StepIndicatorProps) {
                   }
                 `}
               >
-                {status === 'completed' ? '✓' : step.id}
+                {status === 'completed' ? <Check/> : step.id}
               </div>
 
               {/* Text */}

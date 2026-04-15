@@ -1,5 +1,6 @@
 "use client";
 
+import Button from "@/components/ui/button/Button";
 import { useState, useRef, useCallback, useEffect } from "react";
 
 // ─── Types ───────────────────────────────────────────────────────────────────
@@ -215,7 +216,7 @@ const TABS: { id: Tab; label: string; Icon: React.FC }[] = [
 ];
 
 const TabBar = ({ active, onChange }: TabBarProps) => (
-  <div className="flex justify-center gap-8 border-b border-slate-100 pb-0 mb-6">
+  <div className="flex justify-center gap-8 border-b border-slate-100 pb-0 pt-6 rounded-tl-lg rounded-tr-lg mb-6 bg-gray-250">
     {TABS.map(({ id, label, Icon }) => {
       const isActive = active === id;
       return (
@@ -741,7 +742,7 @@ export default function ESignatureModal({ isOpen, onClose, onSave }: Props) {
               Close
             </button>
 
-            <button
+            {/* <button
               onClick={handleApplyNext}
               className="text-sm text-white font-medium px-5 py-2.5 rounded-lg transition-opacity hover:opacity-90 active:opacity-80"
               style={{
@@ -749,8 +750,11 @@ export default function ESignatureModal({ isOpen, onClose, onSave }: Props) {
                   "linear-gradient(135deg, #5ba3c9 0%, #4A90B8 60%, #3a7a9e 100%)",
               }}
             >
-              {step === 1 ? "Apply & Next" : "Save"}
-            </button>
+             
+            </button> */}
+            <Button variant="primary" onClick={handleApplyNext}>
+ {step === 1 ? "Apply & Next" : "Save"}
+            </Button>
           </div>
         </div>
       </div>
