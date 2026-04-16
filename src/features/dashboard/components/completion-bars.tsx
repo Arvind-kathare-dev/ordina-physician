@@ -28,8 +28,8 @@ const CompletionBars = () => {
         {/* Row 1 */}
         <div className="flex items-center gap-4">
           {/* Label Box */}
-          <div className="w-28 text-xs text-grayCustom-300 bg-white border border-boxBorder rounded-md px-3 py-2 text-center">
-            MD Verification
+          <div className="w-28 text-xs text-grayCustom-300 bg-white border border-boxBorder rounded-[6px] px-3 py-2 text-center">
+            MD 
           </div>
 
           {/* Bars */}
@@ -61,8 +61,8 @@ const CompletionBars = () => {
         {/* Row 2 */}
         <div className="flex items-center gap-4">
           {/* Label Box */}
-          <div className="w-28 text-xs  text-grayCustom-300 bg-white border border-boxBorder rounded-md px-3 py-2 text-center">
-            Orders
+          <div className="w-28 text-xs  text-grayCustom-300 bg-white border border-boxBorder rounded-[6px] px-3 py-2 text-center">
+           POC/485
           </div>
 
           {/* Bars */}
@@ -93,15 +93,15 @@ const CompletionBars = () => {
       </div>
 
       {/* Legend */}
-      <div className="flex justify-center gap-2">
-        <div className="flex items-center gap-2 border border-border rounded-2xl px-2 py-1">
-          <div className="w-2.5 h-2.5 rounded-full bg-yellow-500" />
-          <span className="text-xs text-gray-500">Selected MD</span>
+      <div className="flex justify-center gap-2 font-normal">
+        <div className="flex  items-center gap-1 border-[0.2px] border-ordinaBorder-150 rounded-3xl px-2 py-1">
+          <div className="w-1.5 h-1.5 rounded-full bg-yellow-500" />
+          <span className="text-[10px]   text-gray-450">Selected MD</span>
         </div>
 
-        <div className="flex items-center gap-2 border border-border rounded-2xl px-2 py-1">
-          <div className="w-2.5 h-2.5 rounded-full bg-yellow-100" />
-          <span className="text-xs text-gray-500">Ordina Avgs</span>
+        <div className="flex items-center gap-1 border-[0.2px] border-ordinaBorder-150 rounded-3xl px-2 py-1">
+          <div className="w-1.5 h-1.5 rounded-full bg-yellow-100" />
+          <span className="text-[10px] text-gray-450">Ordina Avgs</span>
         </div>
       </div>
     </div>

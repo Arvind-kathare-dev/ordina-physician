@@ -9,13 +9,43 @@ interface Physician {
 }
 
 const physicians: Physician[] = [
-  { id: 1, name: "Dr. Daniel Smith", specialty: "Internal Medicine", status: "Active" },
-  { id: 2, name: "Dr. James Miller", specialty: "Pulmonology", status: "Active" },
-  { id: 3, name: "Dr. Olivia Johnson", specialty: "Family Medicine", status: "Active" },
-  { id: 4, name: "Dr. Sophia Martinez", specialty: "Cardiology", status: "Active" },
-  { id: 5, name: "Dr. Michael Brown", specialty: "Orthopedics", status: "Active" },
+  {
+    id: 1,
+    name: "Dr. Daniel Smith",
+    specialty: "Internal Medicine",
+    status: "Active",
+  },
+  {
+    id: 2,
+    name: "Dr. James Miller",
+    specialty: "Pulmonology",
+    status: "Active",
+  },
+  {
+    id: 3,
+    name: "Dr. Olivia Johnson",
+    specialty: "Family Medicine",
+    status: "Active",
+  },
+  {
+    id: 4,
+    name: "Dr. Sophia Martinez",
+    specialty: "Cardiology",
+    status: "Active",
+  },
+  {
+    id: 5,
+    name: "Dr. Michael Brown",
+    specialty: "Orthopedics",
+    status: "Active",
+  },
   { id: 6, name: "Dr. Emily Chen", specialty: "Neurology", status: "Active" },
-  { id: 7, name: "Dr. Robert Davis", specialty: "Dermatology", status: "Active" },
+  {
+    id: 7,
+    name: "Dr. Robert Davis",
+    specialty: "Dermatology",
+    status: "Active",
+  },
 ];
 
 export default function PhysicianSelector() {
@@ -24,14 +54,15 @@ export default function PhysicianSelector() {
   const [selected, setSelected] = useState<number[]>([1]);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  const filtered = physicians.filter((p) =>
-    p.name.toLowerCase().includes(search.toLowerCase()) ||
-    p.specialty.toLowerCase().includes(search.toLowerCase())
+  const filtered = physicians.filter(
+    (p) =>
+      p.name.toLowerCase().includes(search.toLowerCase()) ||
+      p.specialty.toLowerCase().includes(search.toLowerCase()),
   );
 
   const toggle = (id: number) => {
     setSelected((prev) =>
-      prev.includes(id) ? prev.filter((s) => s !== id) : [...prev, id]
+      prev.includes(id) ? prev.filter((s) => s !== id) : [...prev, id],
     );
   };
 
@@ -39,7 +70,10 @@ export default function PhysicianSelector() {
 
   useEffect(() => {
     const handler = (e: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(e.target as Node)
+      ) {
         setOpen(false);
       }
     };
@@ -51,8 +85,10 @@ export default function PhysicianSelector() {
     selected.length === 0
       ? "All Physicians"
       : selected.length === 1
-      ? physicians.find((p) => p.id === selected[0])?.name.replace("Dr. ", "") ?? "1 Selected"
-      : `${selected.length} Selected`;
+        ? (physicians
+            .find((p) => p.id === selected[0])
+            ?.name.replace("Dr. ", "") ?? "1 Selected")
+        : `${selected.length} Selected`;
 
   return (
     <>
@@ -60,7 +96,7 @@ export default function PhysicianSelector() {
         {/* Trigger Button */}
         <button
           onClick={() => setOpen((v) => !v)}
-          className={` flex items-center gap-2 rounded-[10px] border-[0.5px] px-[11px] py-[7px] text-sm bg-white border-border transition-all duration-200 ${
+          className={` flex items-center gap-2 rounded-10 border-[0.5px] px-[11px] py-[9px] text-sm bg-white border-border transition-all duration-200 ${
             open
               ? "border-ordinadark ring-1 ring-ordinadark "
               : "border-slate-200 hover:border-ordinadark"
@@ -92,7 +128,10 @@ export default function PhysicianSelector() {
                 />
                 {search && (
                   <button onClick={() => setSearch("")}>
-                    <X size={13} className="text-slate-400 hover:text-slate-600" />
+                    <X
+                      size={13}
+                      className="text-slate-400 hover:text-slate-600"
+                    />
                   </button>
                 )}
               </div>
@@ -116,7 +155,9 @@ export default function PhysicianSelector() {
             {/* List */}
             <div className="max-h-64 overflow-y-auto">
               {filtered.length === 0 ? (
-                <p className="text-center text-sm text-slate-400 py-6">No physicians found</p>
+                <p className="text-center text-sm text-slate-400 py-6">
+                  No physicians found
+                </p>
               ) : (
                 filtered.map((physician, i) => {
                   const isSelected = selected.includes(physician.id);
@@ -125,7 +166,9 @@ export default function PhysicianSelector() {
                       key={physician.id}
                       onClick={() => toggle(physician.id)}
                       className={`flex items-center gap-3 px-4 py-3 cursor-pointer transition-colors duration-150 ${
-                        i !== filtered.length - 1 ? "border-b border-slate-50" : ""
+                        i !== filtered.length - 1
+                          ? "border-b border-slate-50"
+                          : ""
                       } ${isSelected ? "bg-blue-50/60" : "hover:bg-slate-50"}`}
                     >
                       {/* Checkbox */}
@@ -159,7 +202,9 @@ export default function PhysicianSelector() {
                         <p className="text-sm font-semibold text-slate-800 truncate">
                           {physician.name}
                         </p>
-                        <p className="text-xs text-slate-400 truncate">{physician.specialty}</p>
+                        <p className="text-xs text-slate-400 truncate">
+                          {physician.specialty}
+                        </p>
                       </div>
 
                       {/* Badge */}
@@ -174,8 +219,6 @@ export default function PhysicianSelector() {
           </div>
         )}
       </div>
-
-     
     </>
   );
 }

@@ -36,7 +36,7 @@ export default function EFaxPage() {
   return (
     <div className="min-h-screen flex flex-col">
       <main className="flex-1 flex flex-col gap-4">
-        <div className="flex justify-between items-center gap-2 flex-wrap">
+        <div className="flex justify-between items-center gap-2  flex-wrap">
           <h1 className="text-2xl font-semibold text-grayCustom-600">eFax</h1>
           <div className="w-2/3 justify-end flex items-center gap-3">
             <SearchBox value={searchQuery} onChange={setSearchQuery} />

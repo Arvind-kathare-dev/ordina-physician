@@ -48,12 +48,12 @@ const notifications = [
 
 export const NotificationPanel = () => {
   return (
-    <div className="bg-white p-4 flex flex-col gap-3 rounded-[12px] border border-gray-200">
+    <div className="bg-white p-4 flex flex-col gap-3 rounded-xl border border-roseDust">
       <div className="flex gap-2 items-center">
-        <span className="font-semibold text-base text-grayCustom-600">
+        <span className="font-semibold text-[20px] text-gray-400">
           Notifications
         </span>
-        <span className="bg-ordina-100 text-ordina-300 text-[10px] px-2 py-1 rounded-lg">
+        <span className="bg-ordina-100 text-ordina-300 text-[10px] px-2 py-1 rounded-[50px]">
           1 New
         </span>
       </div>
@@ -61,7 +61,7 @@ export const NotificationPanel = () => {
         {notifications.map((n) => (
           <div
             key={n.id}
-            className="flex items-center justify-between  px-2 py-2.5 rounded-md bg-accent border border-grayCustom-200 gap-3"
+            className="flex items-center justify-between  px-2 py-2.5 rounded-10 bg-neutralLight border border-roseMist gap-3"
           >
             <div className="flex gap-2 items-center">
               <div className={`${n.bg} p-2 rounded-full `}>{n.icon}</div>

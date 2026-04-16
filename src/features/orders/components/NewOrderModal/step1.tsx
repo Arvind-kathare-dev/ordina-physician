@@ -32,7 +32,7 @@ export default function Step1({ update,state,next }: Props) {
   };
 
   return (
-    <div className="px-2 py-4">
+    <div className="px-2 py-4 w-[800px]">
 
       {/* ───────── NORMAL STEP1 UI ───────── */}
       {!showUploadUI && (

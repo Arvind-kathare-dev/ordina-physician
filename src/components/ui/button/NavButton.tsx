@@ -33,7 +33,7 @@ const NavButton: React.FC<NavButtonProps> = ({
         />
       )}
 
-      <span>{label}</span>
+      <span className="text-gray-400 font-medium text-[12px]">{label}</span>
     </Link>
   );
 };

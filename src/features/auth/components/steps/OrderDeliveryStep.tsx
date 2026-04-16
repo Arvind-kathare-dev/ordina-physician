@@ -1,6 +1,9 @@
 'use client';
 
+import CustomSelect from "@/components/ui/select/CustomSelect";
 import ChannelCard from "../card/ChannelCard";
+import { useState } from "react";
+import { channelData } from "@/data/channelData";
 
 interface OrderDeliveryStepProps {
   data: {
@@ -13,6 +16,8 @@ interface OrderDeliveryStepProps {
 }
 
 export function OrderDeliveryStep({ }: OrderDeliveryStepProps) {
+    const [role, setRole] = useState("");
+
   return (
     <div className="space-y-6">
 
@@ -35,57 +40,11 @@ export function OrderDeliveryStep({ }: OrderDeliveryStepProps) {
               Keep the most reliable channel first. You can change per order later.
             </p>
           </div>
-          <ChannelCard
-            title="Primary Email"
-            label="Primary"
-            type="Email"
-            description="Used first for order delivery"
-            placeholder="Connect a Google account to fill this"
-            status="not_connected"
-            avatarLetter="K"
-            primaryActionLabel="Connect Primary Email"
-            secondaryActionLabel="Change"
-            dangerActionLabel="Disconnect"
-          />
 
-          <ChannelCard
-            title="Secondary Email"
-            label="Secondary"
-            type="Email"
-            optional
-            description="Fallback if primary email fails"
-            placeholder="Connect a Google account to fill this"
-            status="not_connected"
-            primaryActionLabel="Connect Secondary Email"
-            secondaryActionLabel="Change"
-            dangerActionLabel="Disconnect"
-          />
-
-          <ChannelCard
-            title="Primary eFax"
-            label="Primary"
-            type="eFax"
-            description="Primary fax number (optional)"
-            placeholder="Set up to fill a fax number"
-            status="not_configured"
-            avatarLetter="M"
-            primaryActionLabel="Set up primary eFax"
-            secondaryActionLabel="Edit"
-            dangerActionLabel="Remove"
-          />
-
-          <ChannelCard
-            title="Secondary eFax"
-            label="Secondary"
-            type="eFax"
-            optional
-            description="Backup fax number (optional)"
-            placeholder="Set up to fill a fax number"
-            status="not_configured"
-            primaryActionLabel="Set up secondary eFax"
-            secondaryActionLabel="Edit"
-            dangerActionLabel="Remove"
-          />
+         {channelData.map((channel, index) => (
+             <ChannelCard key={index} {...channel} />
+           ))}
+           
         </div>
 
         {/* RIGHT: DELIVERY BEHAVIOR */}
@@ -100,17 +59,18 @@ export function OrderDeliveryStep({ }: OrderDeliveryStepProps) {
             </p>
           </div>
 
-          {/* SELECT */}
-          <div>
-            <label className="text-sm text-gray-700">
-              Notify on delivery failure
-            </label>
-
-            <select className="mt-2 w-full border border-gray-200 rounded-md px-3 py-2 text-sm">
-              <option>No</option>
-              <option>Yes</option>
-            </select>
-          </div>
+         
+          <CustomSelect
+        label="Notify on delivery failure"
+        required
+        value={role}
+        onChange={setRole}
+        options={[
+          { label: "Physician", value: "physician" },
+          { label: "Nurse", value: "nurse" },
+          { label: "Admin", value: "admin" },
+        ]}
+      />
 
           {/* RECOMMENDATION */}
           <p className="text-xs text-gray-500">

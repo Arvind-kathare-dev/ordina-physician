@@ -10,8 +10,9 @@ module.exports = {
         secondary: "#0F172A",
         accent: "#F7F7F7",
         danger: "#EF4444",
+       
         border: "#CCCCCC",
-        boxBorder: "#CDCDCD",
+        boxBorder: "#D6D6D6",
         btn: "#528DB521",
 
         primary: {
@@ -28,17 +29,20 @@ module.exports = {
         ordina: {
           100: "#E2F2F8",
           200: "#528DB517",
+          220: "#579EBA2E",
           300: "#579EBA",
           400: "#528DB5",
           500: "#7CBAD3",
         },
         ordinaBorder: {
           100: "#579EBA85",
+          150: "#CCCCCC",
           200: "#DDDDDD",
           300: "rgba(104, 100, 100, 0.6)",
         },
         grayCustom: {
           200: "#FBE3EC",
+           220: "#E6E6E6",
           300: "#606060",
           400: "#9B9B9B",
           500: "#858585",
@@ -49,23 +53,38 @@ module.exports = {
           50: "#D4D4D4",
           90: "#F4F4F4",
           100: "#F3F4F5",
+          120: "#E9EFF2",
           200: "#EDF1F3",
+          220: "#E0E0E0",
           250: "#F3F3F3",
           300: "#9B9B9B",
+          350: "#858585",
           400: "#686464",
+          450: "#606060",
           500: "#4D4D4D",
+          520: "#B6C0C4",
+          550: "#CDCDCD",
           600: "#303030",
-          
+        },
+        purple: {
+          150: "#EBF3F9",
+          250: "#E5DEEF",
+          450: "#99A9E8",
         },
         green: {
+          150: "#E3F2E7",
           200: "#E9F8ED",
           400: "#319F43",
+          420: "#38C360",
+          540: "#209F7F",
         },
         yellow: {
           90: "#FFF6E6",
           100: "#F7EAD4",
+          150: "#F8EEDD",
           200: "#FFF2DA",
           400: "#FFA90A",
+          450: "#E5B082",
           500: "#ECBF75",
           650: "#AC7F5E",
         },
@@ -77,10 +96,14 @@ module.exports = {
           600: "#E33629",
         },
 
+         roseDust: "#E1A8BE",
+           roseMist: "#FBE3EC",
+            neutralLight: "#F7F7F7",
+
         success: "#38C360",
         warning: "#FFA90A",
         danger: "#EF4444",
-        border: "#68646499",
+        border: "#BFBFBF",
       },
 
       backgroundImage: {
@@ -104,9 +127,9 @@ module.exports = {
       },
 
       borderRadius: {
-        md: "10px",
-        lg: "14px",
-        xl: "20px",
+        xl2: "12px",
+        md2: "9px",
+        10: "10px",
       },
 
       boxShadow: {
@@ -117,7 +140,6 @@ module.exports = {
         stepper: "0px 0px 4.5px 0px #528DB580",
         search: "2px 2px 7.3px -1px #0000001A",
       },
-
     },
   },
   plugins: [],

@@ -32,8 +32,8 @@ const Navbar = () => {
             <Link href="/" className="flex items-center gap-2">
               <Image src="/images/logo/ordina-logo.svg" alt="logo" width={36} height={36} />
               <div className="leading-tight">
-                <p className="text-lg font-semibold text-gray-900">Ordina</p>
-                <p className="text-[8px] tracking-widest text-black font-medium">
+                <p className="text-lg font-extrabold text-gray-900">Ordina</p>
+                <p className="text-[8px] tracking-[0.24em] text-black font-medium">
                   PHYSICIAN
                 </p>
               </div>
@@ -54,18 +54,21 @@ const Navbar = () => {
             </nav>
 
             {/* SETTINGS */}
+            <Link href="/settings">
             <div className="hidden sm:flex w-9 h-9 items-center justify-center rounded-full bg-gray-100 hover:bg-gray-200 cursor-pointer transition">
               ⚙️
             </div>
+            </Link>
+            
 
             {/* USER */}
             <div className="flex items-center gap-2 cursor-pointer">
               <div className="w-9 h-9 rounded-full bg-gradient-to-r from-blue-500 to-blue-600 flex items-center justify-center text-white text-sm font-semibold shadow">
-                AK
+                WC
               </div>
 
               <span className="hidden sm:block text-sm font-medium text-gray-700">
-                Arvind Kathare
+                William Christiana 
               </span>
 
               <svg

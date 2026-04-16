@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { ArrowLeft, Plus, ArrowUpFromLine, CloudSync } from "lucide-react";
+import { ArrowLeft, Plus, ArrowUpFromLine, CloudSync, ChevronDown } from "lucide-react";
 import Tabs from "@/components/ui/tab/Tabs";
 import { TabsActions } from "@/components/ui/tab/TabsActions";
 import Button from "@/components/ui/button/Button";
@@ -37,7 +37,7 @@ export default function OrdersTable() {
     <div className="min-h-screen">
       <div className="w-full mx-auto">
         {/* ── Top Bar ── */}
-        <div className="flex items-center gap-2 mb-4 flex-wrap">
+        <div className="flex items-center gap-2 mb-6 flex-wrap">
           {/* <button className="flex items-center gap-1.5 text-slate-600 hover:text-slate-800 text-sm font-medium transition-colors">
             <ArrowLeft size={16} />
           </button> */}
@@ -55,10 +55,15 @@ export default function OrdersTable() {
           >
             Export Orders
           </Button>
-          <Button variant="teal" size="md" leftIcon={<CloudSync size={14} />}>
+          <Button variant="tealGreen" size="md" leftIcon={<CloudSync size={14} />}>
             Sync
           </Button>
-          <Button variant="primary" size="md" onClick={() => setOpen(true)} leftIcon={<Plus size={14}  />}>
+          <div className="h-[40px] flex items-center justify-center rounded-lg border border-green-540 text-green-540 hover:opacity-80 font-normal">
+            <ChevronDown />
+
+          </div>
+
+          <Button variant="primary" size="md" onClick={() => setOpen(true)} leftIcon={<Plus size={14} />}>
             New Order
           </Button>
         </div>
@@ -67,7 +72,12 @@ export default function OrdersTable() {
           tabs={tabs}
           activeIndex={activeTab}
           onChange={setActiveTab}
-          rightSection={<TabsActions />}
+          rightSection={
+            <TabsActions
+              activeTab={activeTab}
+              onMyOrdersClick={() => setActiveTab(6)} // 👈 change tab index here
+            />
+          }
         />
 
         {/* Sync timestamp */}

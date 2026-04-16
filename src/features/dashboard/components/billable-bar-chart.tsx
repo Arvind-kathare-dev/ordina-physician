@@ -3,7 +3,6 @@
 import {
   Bar,
   BarChart,
-  CartesianGrid,
   Cell,
   ResponsiveContainer,
   Tooltip,
@@ -48,20 +47,24 @@ const CustomBarLabel = ({ x, y, width, value }: any) => (
 
 // 🎯 Exact Color Mapping (Not Threshold Based)
 const getBarColor = (name: string) => {
-  if (name === "Order") return "#1d9a7c"; // highlighted bar
-  if (name === "Lab" || name === "Hospice") return "#8fc3b6";
-  if (name === "DME") return "#a8c8c0";
-  return "#cfe5df";
+  if (name === "Order") return "#209F7F"; // highlighted bar
+  if (name === "MD\nVerification" || name === "DME")
+    return "rgba(32, 159, 127, 0.2)";
+  if (name === "Lab") return "rgba(32, 159, 127, 0.4)";
+  if (name === "485") return "rgba(32, 159, 127, 0.3)";
+  if (name === "Hospice") return "rgba(32, 159, 127, 0.6)";
+
+  return "#209F7F";
 };
 
 export const BillableBarChart = () => {
   const [value, setValue] = useState("month");
 
   return (
-    <div className="col-span-5 bg-white rounded-xl border border-gray-200 p-5 shadow-sm">
+    <div className="col-span-5 bg-white rounded-xl2   p-4 shadow-card-shadow">
       {/* Header */}
-      <div className="flex items-center justify-between mb-2">
-        <h3 className="text-base font-semibold text-grayCustom-600">
+      <div className="flex items-center justify-between mb-6">
+        <h3 className="text-[20px] font-semibold text-gray-400">
           Billable Orders
         </h3>
 
@@ -76,23 +79,21 @@ export const BillableBarChart = () => {
 
       {/* Subtext */}
       <div className="flex items-center gap-2 mb-4">
-        <div className="w-2 h-2 rounded-full bg-gray-300" />
-        <span className="text-sm text-grayCustom-400 font-medium">
+        <div className="w-3 h-3 rounded-full bg-gray-550" />
+        <span className="text-[15px] text-gray-300 font-medium">
           Over 1500 Submissions
         </span>
       </div>
 
       {/* Chart Wrapper */}
       <div className="w-full overflow-x-auto">
-        <div className="min-w-[600px] h-[235px]">
+        <div className="min-w-[490px] h-[260px]">
           <ResponsiveContainer width="100%" height="100%">
             <BarChart
               data={data}
-              margin={{ top: 25, right: 10, left: -10, bottom: 0 }}
-              barSize={26}
+              barSize={37}
+              style={{ pointerEvents: "none" }}
             >
-              <CartesianGrid vertical={false} stroke="#f3f4f6" />
-
               <XAxis
                 dataKey="name"
                 tick={{ fontSize: 10, fill: "#9ca3af" }}
@@ -115,7 +116,7 @@ export const BillableBarChart = () => {
 
               <Bar
                 dataKey="value"
-                radius={[6, 6, 0, 0]}
+                radius={[2, 2, 0, 0]}
                 label={<CustomBarLabel />}
               >
                 {data.map((entry, index) => (

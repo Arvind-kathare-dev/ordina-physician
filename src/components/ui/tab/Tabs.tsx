@@ -38,12 +38,12 @@ export default function Tabs({
 
               {tab.count !== null && tab.count !== undefined && (
                 <span
-                  className={`text-xs font-bold px-1.5 py-0.5 rounded-full ${
+                  className={`text-xs font-normal px-1.5 py-0.5 rounded-full ${
                     tab.alert
                       ? "bg-red-500 text-white"
                       : isActive
-                      ? "bg-blue-100 text-ordinadark"
-                      : "bg-slate-100 text-grayCustom-600"
+                      ? "bg-ordina-220 text-ordinadark"
+                      : "bg-grayCustom-220 text-grayCustom-500"
                   }`}
                 >
                   {tab.count}

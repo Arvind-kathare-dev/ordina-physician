@@ -215,6 +215,17 @@ const actionsColumn: Column<Order> = {
         actionsColumn,
       ];
 
+        case 6: // Rejected
+      return [
+         dateColumn,
+        orderTypeColumn,
+        serviceTypeColumn,
+        agencyColumn,
+         labelColumn,
+        timeColumn,
+        actionsColumn,
+      ];
+
     default:
       return [
         dateColumn,

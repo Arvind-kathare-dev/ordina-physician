@@ -5,14 +5,16 @@ import clsx from "clsx";
 
 /* ───────────────── TYPES ───────────────── */
 
-type Variant = "primary" | "secondary" | "ghost" | "teal" | "danger" | "outlinePrimary";
-type Size = "sm" | "md" | "lg" | "base";
+type Variant = "primary" | "secondary" | "ghost" | "tealGreen" | "danger" | "outlinePrimary";
+type Size = "xs" | "sm" | "md" | "lg" | "base";
 type Radius = "sm" | "md" | "lg" | "xl"  | "full";
+type Padding = "none" | "xs" | "sm" | "md" | "lg" | "xl";
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: Variant;
   size?: Size;
   radius?: Radius;
+   padding?: Padding;
   leftIcon?: React.ReactNode;
   rightIcon?: React.ReactNode;
   loading?: boolean;
@@ -31,10 +33,10 @@ const variantStyles: Record<Variant, string> = {
     "bg-primary-gradient text-white  hover:opacity-90 active:scale-[0.98]",
 
   secondary:
-    " text-gray-400 border border-ordinaBorder-200 hover:opacity-90",
+    " text-gray-400 bg-white border border-ordinaBorder-200 hover:opacity-90",
 
-  teal:
-    "bg-teal-500 text-white hover:bg-teal-600",
+  tealGreen:
+    "border border-green-540 text-green-540 hover:opacity-80",
 
   ghost:
     "text-gray-500 hover:bg-gray-100",
@@ -49,6 +51,7 @@ const variantStyles: Record<Variant, string> = {
 /* ───────────────── SIZES ───────────────── */
 
 const sizeStyles: Record<Size, string> = {
+  xs: "px-[11px] py-[7px]",
   base: "text-base px-[18px] py-[13px] font-normal",
   sm: "text-xs px-3 py-1.5 font-normal",
   md: "text-sm px-4 py-2.5 font-mediem",
@@ -63,6 +66,16 @@ const radiusStyles: Record<Radius, string> = {
   lg: "rounded-lg",
   xl: "rounded-xl",
   full: "rounded-full",
+};
+
+/* ─────────────────  PADING ───────────────── */
+const paddingStyles: Record<Padding, string> = {
+  none: "p-0",
+  xs: "px-2 py-1",
+  sm: "px-3 py-1.5",
+  md: "px-4 py-2",
+  lg: "px-5 py-2.5",
+  xl: "px-6 py-3",
 };
 
 /* ───────────────── COMPONENT ───────────────── */

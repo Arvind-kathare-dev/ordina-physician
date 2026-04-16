@@ -63,7 +63,7 @@ export default function SearchBox({
         onChange?.(val);
       }
     },
-    [isControlled, debounce, onChange]
+    [isControlled, debounce, onChange],
   );
 
   const handleClear = useCallback(() => {
@@ -80,23 +80,18 @@ export default function SearchBox({
       }
       if (e.key === "Escape") handleClear();
     },
-    [query, onSearch, handleClear]
+    [query, onSearch, handleClear],
   );
 
   return (
-    <div
-      className={clsx(
-        "w-full h-full max-w-lg",
-        className
-      )}
-    >
+    <div className={clsx("w-full h-full max-w-lg", className)}>
       <div
         className={clsx(
-          "flex items-center gap-3 border-ordina-300 rounded-md border bg-white px-[11px] py-[8px]",
+          "flex items-center gap-[20px] border-ordina-300 rounded-lg border-[0.8px] bg-white px-[11px] py-[9px]",
           "shadow-search transition-all duration-200",
           isFocused
             ? "border-ordinadark ring-1 ring-ordinadark"
-            : "border-ordina-300 hover:border-ordinadark"
+            : "border-ordina-300 hover:border-ordinadark",
         )}
       >
         {/* ICON */}
@@ -104,7 +99,7 @@ export default function SearchBox({
           size={18}
           className={clsx(
             "shrink-0 transition-colors",
-            isFocused ? "text-ordinadark" : "text-slate-400"
+            isFocused ? "text-ordinadark" : "text-slate-400",
           )}
         />
 
@@ -121,7 +116,7 @@ export default function SearchBox({
           aria-label="Search"
           className={clsx(
             "flex-1 bg-transparent outline-none",
-            "text-sm text-slate-700 placeholder-slate-400"
+            "text-sm text-slate-700 placeholder-slate-400",
           )}
           {...props}
         />
@@ -135,7 +130,7 @@ export default function SearchBox({
             className={clsx(
               "shrink-0 rounded-full ",
               "text-slate-400 hover:text-slate-600",
-              "hover:bg-slate-100 transition"
+              "hover:bg-slate-100 transition",
             )}
           >
             <X size={14} />
