@@ -111,6 +111,19 @@ const actionsColumn: Column<Order> = {
     render: (row) => (
       <div className="text-sm text-gray-400">
         {row.date ?? "-"}
+         {/* Tags */}
+      {row.tags && row.tags.length > 0 && (
+        <div className="flex gap-1 absolute bottom-0 left-0">
+          {row.tags.map((tag) => (
+            <span
+              key={tag}
+              className={` ${tag == "Modified" ? "bg-yellow-200 text-yellow-400" : "bg-ordina-200 text-ordina-400"} text-[8px] font-normal px-2   rounded-tr-lg rounded-bl-lg`}
+            >
+              {tag}
+            </span>
+          ))}
+        </div>
+      )}
       </div>
     ),
   };

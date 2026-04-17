@@ -1,6 +1,7 @@
 "use client";
 
 import Button from "@/components/ui/button/Button";
+import Image from "next/image";
 import { useState, useRef, useCallback, useEffect } from "react";
 
 // ─── Types ───────────────────────────────────────────────────────────────────
@@ -120,43 +121,64 @@ const XIcon = () => (
 // ─── Sign Bookmark Badge ─────────────────────────────────────────────────────
 
 const SignBadge = ({ size = "lg" }: { size?: "lg" | "sm" }) => {
-  const w = size === "lg" ? 44 : 36;
-  const h = size === "lg" ? 120 : 96;
+   const width = size === "lg" ? 48 : 38;
+  const height = size === "lg" ? 140 : 110;
+
+  const centerX = width / 2;
+
+  const logoSize = size === "lg" ? 20 : 16;
   return (
     <svg
-      width={w}
-      height={h}
-      viewBox={`0 0 ${w} ${h}`}
-      fill="none"
+      width={width}
+      height={height}
+      viewBox={`0 0 ${width} ${height}`}
       xmlns="http://www.w3.org/2000/svg"
       className="flex-shrink-0"
     >
+      {/* Ribbon Shape */}
       <path
-        d={`M0 0h${w}v${h - 18}l-${w / 2} 18-${w / 2}-18V0z`}
-        fill="#4A90B8"
+        d={`
+          M0 0 
+          H${width} 
+          V${height - 28} 
+          L${centerX} ${height} 
+          L0 ${height - 28} 
+          Z
+        `}
+        fill="#5B97AE"
       />
-      {/* pen/sign icon */}
-      <g transform={size === "lg" ? "translate(8,30)" : "translate(7,22)"}>
-        <path
-          d="M14 2l4 4L6 18l-4 1 1-4L14 2z"
-          stroke="white"
-          strokeWidth="1.5"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          fill="none"
-        />
-      </g>
-      {/* "Sign" text rotated */}
+
+      {/* Logo (Centered) */}
+      <foreignObject
+        x={centerX - logoSize / 2}
+        y={size === "lg" ? 28 : 22}
+        width={logoSize}
+        height={logoSize}
+      >
+        <div className="w-full h-full flex items-center justify-center">
+          <Image
+            src="/images/logo/eSign-logo.svg" 
+            alt="logo"
+            width={logoSize}
+            height={logoSize}
+            className="object-contain"
+          />
+        </div>
+      </foreignObject>
+
+      {/* Vertical Text */}
       <text
-        x={size === "lg" ? 22 : 18}
-        y={size === "lg" ? 90 : 72}
+        x={centerX}
+        y={size === "lg" ? height - 35 : height - 28}
         fill="white"
-        fontSize={size === "lg" ? 11 : 9}
+        fontSize={size === "lg" ? 13 : 10}
         fontFamily="Georgia, serif"
         fontStyle="italic"
+        letterSpacing="1.2"
         textAnchor="middle"
-        letterSpacing="1"
-        transform={`rotate(-90, ${size === "lg" ? 22 : 18}, ${size === "lg" ? 90 : 72})`}
+        transform={`rotate(-90, ${centerX}, ${
+          size === "lg" ? height - 35 : height - 28
+        })`}
       >
         Sign
       </text>
@@ -216,7 +238,7 @@ const TABS: { id: Tab; label: string; Icon: React.FC }[] = [
 ];
 
 const TabBar = ({ active, onChange }: TabBarProps) => (
-  <div className="flex justify-center gap-8 border-b border-slate-100 pb-0 pt-6 rounded-tl-lg rounded-tr-lg mb-6 bg-gray-250">
+  <div className="flex justify-center gap-8 border-b border-slate-100 pb-0 pt-8 rounded-tl-2xl rounded-tr-2xl mb-6 bg-gray-250">
     {TABS.map(({ id, label, Icon }) => {
       const isActive = active === id;
       return (
@@ -224,10 +246,10 @@ const TabBar = ({ active, onChange }: TabBarProps) => (
           key={id}
           onClick={() => onChange(id)}
           className={`flex flex-col items-center gap-1.5 pb-3 border-b-2 transition-all duration-200 -mb-px
-            ${isActive ? "border-[#4A90B8] text-[#4A90B8]" : "border-transparent text-slate-400 hover:text-slate-600"}`}
+            ${isActive ? "border-ordina-400 text-ordina-400" : "border-transparent text-gray-400 hover:text-ordina-400"}`}
         >
-          <Icon />
-          <span className="text-xs font-medium tracking-wide">{label}</span>
+          <Icon  />
+          <span className="text-sm font-medium">{label}</span>
         </button>
       );
     })}
@@ -288,19 +310,23 @@ const TypeTab = ({
     <div className="flex flex-col gap-4">
       {/* Signature area */}
       <div className="border border-slate-200 rounded-xl overflow-hidden bg-white">
-        <div className="flex items-stretch min-h-[130px]">
+        <div className="flex items-stretch min-h-[130px] pt-6 px-4">
           {/* Badge */}
-          <div className="flex items-center justify-center px-2 bg-white border-r border-slate-100">
+          {/* <div className="flex items-center justify-center px-2 bg-white">
             <SignBadge size="lg" />
-          </div>
+          </div> */}
 
           {/* Input area */}
-          <div className="flex-1 flex flex-col justify-center px-6 border-b border-slate-200">
-            <input
+          <div className="flex-1 flex  border-b border-ordina-300">
+             <div className="flex items-center justify-center px-2 bg-white">
+            <SignBadge size="lg" />
+          </div>
+          <div className="w-full justify-end flex items-end">
+             <input
               value={value}
               onChange={(e) => onChange(e.target.value)}
               placeholder="Type your signature Here"
-              className={`w-full bg-transparent outline-none text-slate-800 placeholder:text-slate-300 
+              className={`w-full bg-transparent p-2 outline-none text-slate-800 placeholder:text-slate-300 
                 ${FONT_STYLES[fontIdx].className}`}
               style={{
                 fontFamily:
@@ -311,6 +337,8 @@ const TypeTab = ({
                       : "inherit",
               }}
             />
+          </div>
+           
           </div>
         </div>
 
@@ -444,7 +472,7 @@ const DrawTab = ({ canvasRef, onClear, name, onNameChange }: DrawTabProps) => {
       <div className="border border-slate-200 rounded-xl overflow-hidden bg-white">
         <div className="flex items-stretch min-h-[160px]">
           {/* Badge */}
-          <div className="flex items-center justify-center px-2 bg-white border-r border-slate-100">
+          <div className="flex items-center justify-center px-2 bg-white">
             <SignBadge size="lg" />
           </div>
 
@@ -465,7 +493,7 @@ const DrawTab = ({ canvasRef, onClear, name, onNameChange }: DrawTabProps) => {
               onTouchEnd={stopDraw}
             />
             {/* Bottom line */}
-            <div className="absolute bottom-0 left-0 right-0 h-px bg-[#4A90B8]/40" />
+            <div className="absolute bottom-0 left-0 right-0 h-px bg-ordina-300" />
           </div>
         </div>
 

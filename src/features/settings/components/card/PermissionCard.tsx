@@ -1,21 +1,38 @@
-interface Props {
+"use client";
+
+interface PermissionCardProps {
   title: string;
+  description: string;
   actions: string[];
 }
 
-export default function PermissionCard({ title, actions }: Props) {
+export default function PermissionCard({
+  title,
+  description,
+  actions,
+}: PermissionCardProps) {
   return (
-    <div className="border border-gray-200 rounded-lg p-4 mb-3">
-      <h4 className="text-sm font-medium mb-2">{title}</h4>
+    <div className="border w-full border-gray-220 rounded-[15px] px-5 py-4 flex items-center justify-between bg-white">
+      
+      {/* Left Content */}
+      <div>
+        <h3 className="text-sm font-medium text-grayCustom-300 mb-1">
+          {title}
+        </h3>
+        <p className="text-xs text-gray-300 max-w-[260px]">
+          {description}
+        </p>
+      </div>
 
-      <div className="flex flex-wrap gap-2">
-        {actions.map((a) => (
-          <span
-            key={a}
-            className="text-xs bg-gray-100 px-2 py-1 rounded"
+      {/* Right Actions */}
+      <div className="flex gap-1 flex-wrap justify-end">
+        {actions.map((action, index) => (
+          <button
+            key={index}
+            className="px-3 py-1 text-xs font-normal rounded-full border border-ordinaBorder-350 text-ordina-400  hover:opacity-80 transition"
           >
-            {a}
-          </span>
+            {action}
+          </button>
         ))}
       </div>
     </div>

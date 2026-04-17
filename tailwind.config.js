@@ -30,23 +30,31 @@ module.exports = {
           100: "#E2F2F8",
           200: "#528DB517",
           220: "#579EBA2E",
+          240: "#6392A4",
           300: "#579EBA",
           400: "#528DB5",
           500: "#7CBAD3",
+
         },
         ordinaBorder: {
           100: "#579EBA85",
           150: "#CCCCCC",
           200: "#DDDDDD",
+          250: "rgba(87, 158, 186, 0.36)",
           300: "rgba(104, 100, 100, 0.6)",
+          350: "rgba(82, 141, 181, 0.34)",
         },
         grayCustom: {
+          100: "#F6F9FB",
           200: "#FBE3EC",
            220: "#E6E6E6",
           300: "#606060",
           400: "#9B9B9B",
           500: "#858585",
           600: "#686464",
+           320: "#E8F3FB",
+           340: "rgba(232, 240, 243, 1)",
+           330: "rgba(248, 248, 248, 1)",
         },
 
         gray: {
@@ -62,14 +70,19 @@ module.exports = {
           400: "#686464",
           450: "#606060",
           500: "#4D4D4D",
+         
           520: "#B6C0C4",
           550: "#CDCDCD",
           600: "#303030",
         },
         purple: {
+          120:"#EFF6FB",
           150: "#EBF3F9",
           250: "#E5DEEF",
+           220: "#F2EBFF",
           450: "#99A9E8",
+          560: "#8F65E3",
+
         },
         green: {
           150: "#E3F2E7",
@@ -83,6 +96,7 @@ module.exports = {
           100: "#F7EAD4",
           150: "#F8EEDD",
           200: "#FFF2DA",
+          250: "#FCF5E9",
           400: "#FFA90A",
           450: "#E5B082",
           500: "#ECBF75",
@@ -126,6 +140,7 @@ module.exports = {
           "linear-gradient(93.18deg, #6FB4CF 0%, #8FC3D8 100%)",
       },
 
+
       borderRadius: {
         xl2: "12px",
         md2: "9px",
@@ -139,6 +154,8 @@ module.exports = {
         dropdown: "0 8px 20px rgba(0,0,0,0.12)",
         stepper: "0px 0px 4.5px 0px #528DB580",
         search: "2px 2px 7.3px -1px #0000001A",
+        card2: "0px 4px 20px -6px #0000000D",
+
       },
     },
   },

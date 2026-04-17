@@ -20,7 +20,7 @@ export default function SettingsHeader() {
         </p>
 
         <div className="w-full bg-gray-200 rounded-full h-2">
-          <div className="bg-blue-600 h-2 rounded-full w-[25%]" />
+          <div className="bg-ordina-400 h-2 rounded-full w-[25%]" />
         </div>
       </div>
     </div>

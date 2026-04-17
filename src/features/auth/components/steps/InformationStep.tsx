@@ -10,6 +10,7 @@ import CustomSelect from "@/components/ui/select/CustomSelect";
 export function InformationStep({ data, onChange }: InformationStepProps) {
   const [role, setRole] = useState("");
   const [open, setOpen] = useState(false);
+  const [signature, setSignature] = useState(null);
 
   const stateOptions = [
     { label: "Chhattisgarh", value: "chhattisgarh" },
@@ -69,17 +70,16 @@ export function InformationStep({ data, onChange }: InformationStepProps) {
             required
           />
 
-          <CustomSelect
-            label="Create e-signature & Initial"
-            value={role}
-            onChange={setRole}
-            options={[
-              { label: "Physician", value: "physician" },
-              { label: "Nurse", value: "nurse" },
-              { label: "Admin", value: "admin" },
-            ]}
-            placeholder="Your Signature"
-          />
+        
+            <Input
+                label="Create e-signature & Initial"
+                name="signature"
+                value={signature ? "Signature Added" : ""}
+  onClick={() => setOpen(true)}
+                placeholder="Your e-signature"
+                required
+                readOnly 
+              />
         </div>
 
         <hr className="border-gray-50" />
@@ -201,7 +201,6 @@ export function InformationStep({ data, onChange }: InformationStepProps) {
         isOpen={open}
         onClose={() => setOpen(false)}
         onSave={(sig, initial) => {
-          // setResult({ sig: `${sig.type}: ${sig.value.slice(0, 40)}...`, initial });
           setOpen(false);
         }}
       />

@@ -181,7 +181,7 @@ const IntegrationSection = () => (
 export default function DetailPreviewPage() {
   return (
     <div className="min-h-screen  flex items-start justify-center p-4 sm:p-6 lg:p-8">
-      <div className="w-full max-w-4xl">
+      <div className="w-full max-w-3xl">
         {/* Page heading */}
         <h1 className="text-xl font-bold text-gray-900 mb-4">Detail Preview</h1>
 

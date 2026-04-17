@@ -1,23 +1,25 @@
 import SectionWrapper from "../SectionWrapper";
-import FormSelect from "../FormSelect";
 import { FileText } from "lucide-react";
 import FormRow from "../FormRow";
 import SearchBox from "@/components/ui/SearchBox";
 import Table from "../Table";
 import CustomSelect from "@/components/ui/select/CustomSelect";
 import { useState } from "react";
+import { SectionWrapperBox } from "../SectionWrapperBox";
+import Button from "@/components/ui/button/Button";
 
 export default function VendorSettingsSection() {
     const [role, setRole] = useState("");
     return (
-        <div>
-            <SectionWrapper
+        <div className="flex flex-col gap-6">
+  <SectionWrapperBox  title="Vendor Settings">
+<SectionWrapper
                 title="Vendor Settings"
                 description="Ordina will route the signed order to the selected supplier agency"
                 icon={FileText}
             >
                 {/* Form */}
-                <FormRow>
+                <FormRow col="3">
                     <CustomSelect
                         label="Service Type"
                         value={role}
@@ -52,18 +54,18 @@ export default function VendorSettingsSection() {
                 </FormRow>
 
                 <div className="flex justify-end gap-3 mb-6">
-                    <button className="px-4 py-2 text-red-500 border border-red-200 rounded-lg text-sm">
+                    <Button variant="danger">
                         Clear
-                    </button>
-                    <button className="px-4 py-2 bg-blue-600 text-white rounded-lg text-sm">
+                    </Button>
+                    <Button variant="primary">
                         Save Settings
-                    </button>
+                    </Button>
                 </div>
 
                 {/* Search */}
                 <div className="flex justify-between items-center mb-4">
                     <SearchBox />
-                    <button className="text-red-500 text-sm">Clear All</button>
+                    <Button variant="danger" >Clear All</Button>
                 </div>
 
                 <Table />
@@ -73,16 +75,41 @@ export default function VendorSettingsSection() {
                 </p>
             </SectionWrapper>
 
-            {/* Audit */}
-            <div className="border border-gray-200 rounded-lg p-4 mt-6">
-                <h3 className="text-sm font-semibold mb-2">Audit & Safety</h3>
-                <div className="space-y-3 text-sm text-gray-500">
-                    <div className="border rounded-lg px-3 py-2">Last Saved</div>
-                    <div className="border rounded-lg px-3 py-2 flex justify-between">
-                        Storage <span>local (demo)</span>
-                    </div>
-                </div>
-            </div>
+           
+        </SectionWrapperBox>
+        {/* Audit & Safety */}
+<div className="bg-white shadow-card2 rounded-xl p-5">
+  
+  {/* Title */}
+  <h3 className="text-sm font-semibold text-gray-900 mb-1">
+    Audit & Safety
+  </h3>
+
+  {/* Description */}
+  <p className="text-xs text-gray-500 mb-4 leading-4">
+    If routing is misconfigured, signed DME orders may be sent to the wrong supplier. 
+    Keep this limited to admins and log every routing change.
+  </p>
+
+  {/* Inner Container */}
+  <div className="border border-gray-220 rounded-lg p-4 space-y-3">
+    
+    {/* Last Saved */}
+    <div className="flex items-center justify-between border border-gray-200 rounded-lg px-3 py-2 bg-white text-sm text-gray-500">
+      <span>Last Saved</span>
+      <span className="text-gray-400">—</span>
+    </div>
+
+    {/* Storage */}
+    <div className="flex items-center justify-between border border-gray-200 rounded-lg px-3 py-2 bg-white text-sm text-gray-500">
+      <span>Storage</span>
+      <span className="text-gray-400">local (demo)</span>
+    </div>
+
+  </div>
+</div>
         </div>
+      
+            
     );
 }

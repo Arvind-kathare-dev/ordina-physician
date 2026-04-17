@@ -163,18 +163,18 @@ export function OnboardingForm({
       {/* ========================= */}
 
       <div className="flex justify-between items-center mt-8 pt-6 border-t border-gray-200">
-        <Button variant="secondary" size="base">
+        <Button variant="secondary" size="base" className="px-[20px] py-[10px] rounded-xl">
           Skip for now
         </Button>
 
         <div className="flex gap-3">
           {(currentStep !== 1 || subStep > 1) && (
-            <Button onClick={handleBack} variant="secondary" size="base">
+            <Button onClick={handleBack} variant="secondary" size="base" className="px-[20px] py-[10px] rounded-xl">
               Back
             </Button>
           )}
 
-          <Button onClick={handleSaveAndContinue} size="base" variant="primary">
+          <Button onClick={handleSaveAndContinue} size="base" variant="primary" className="px-[20px] py-[10px] rounded-xl">
             {isFinalStep ? "Finish Setup" : "Save & Continue"}
           </Button>
         </div>

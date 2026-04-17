@@ -14,9 +14,9 @@ export default function SettingsLayout({ sidebar, header, children }: Props) {
           {sidebar}
 
           <div className="flex-1">
-            <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-8">
+            {/* <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-8"> */}
               {children}
-            </div>
+            {/* </div> */}
           </div>
         </div>
       </div>

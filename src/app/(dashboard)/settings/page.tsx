@@ -6,6 +6,7 @@ import ManageUsersSection from "@/features/settings/components/sections/ManageUs
 import { OrderDeliverySection } from "@/features/settings/components/sections/OrderDeliverySection";
 import PecosSection from "@/features/settings/components/sections/PecosSection";
 import ReturnedDaysSection from "@/features/settings/components/sections/ReturnedDaysSection";
+import { SubscriptionSettingSection } from "@/features/settings/components/sections/SubscriptionSettingSection";
 import VendorSettingsSection from "@/features/settings/components/sections/VendorSettingsSection";
 import SettingsHeader from "@/features/settings/components/SettingsHeader";
 import SettingsLayout from "@/features/settings/components/SettingsLayout";
@@ -31,6 +32,8 @@ export default function SettingsPage() {
                 return <ReturnedDaysSection />;
                   case "manage-users":
                 return <ManageUsersSection />;
+                  case "subscriptions":
+                return <SubscriptionSettingSection />;
             case "vendor-settings":
                 return <VendorSettingsSection />;
             default:

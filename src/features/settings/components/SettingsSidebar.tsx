@@ -2,6 +2,7 @@
 
 import { ChevronDown, ChevronUp } from "lucide-react";
 import { SettingsSection } from "../hooks/useSettings";
+import { mainItems, profileItems } from "../constant/data";
 
 interface Props {
   activeSection: SettingsSection;
@@ -16,40 +17,25 @@ export default function SettingsSidebar({
   profileExpanded,
   setProfileExpanded,
 }: Props) {
-  // 🔹 Profile Sub-sections
-  const profileItems: { key: SettingsSection; label: string; sub?: string }[] = [
-    { key: "pecos", label: "PECOS", sub: "NPI / PECOS" },
-    { key: "information", label: "Information", sub: "Details" },
-    { key: "order-delivery", label: "Order delivery prefer..", sub: "Details" },
-    { key: "integration", label: "Integration", sub: "Details" },
 
-  ];
-
-  // 🔹 Main Sections
-  const mainItems: { key: SettingsSection; label: string }[] = [
-    { key: "returned-days", label: "Returned-in Days Thre.." },
-    { key: "manage-users", label: "Manage Users" },
-    { key: "subscriptions", label: "Subscriptions" },
-    { key: "vendor-settings", label: "Vendor Settings" },
-  ];
 
   return (
     <div className="w-80">
       <div className="bg-white rounded-lg shadow-sm border border-gray-200">
         {/* Header */}
         <div className="p-4 border-b border-gray-200">
-          <h2 className="text-xs font-semibold text-blue-600 uppercase tracking-wide">
+          <h2 className="text-sm font-medium text-ordina-400 uppercase">
             SETTINGS
           </h2>
         </div>
 
         {/* Profile Section */}
-        <div className="border-b border-gray-200">
+        <div className="">
           <button
             onClick={() => setProfileExpanded(!profileExpanded)}
-            className="w-full px-4 py-3 flex justify-between items-center hover:bg-gray-50 transition-colors"
+            className="w-full px-4 py-3 flex justify-between items-center border-transparent border-[0.5px] hover:border-ordinaBorder-250 transition-colors"
           >
-            <span className="font-medium text-gray-900">Profile</span>
+            <span className="text-base font-medium text-black">Profile</span>
 
             {profileExpanded ? (
               <ChevronUp className="w-4 h-4 text-gray-400" />
@@ -60,19 +46,19 @@ export default function SettingsSidebar({
 
           {profileExpanded && (
             <div className="pb-2">
-              {profileItems.map((item) => (
+              {profileItems?.map((item) => (
                 <button
                   key={item.key}
                   onClick={() => setActiveSection(item.key)}
-                  className={`w-full px-4 py-2.5 flex justify-between items-center text-sm transition-colors ${
+                  className={`w-full  px-4 py-2.5 flex justify-between items-center text-sm  ${
                     activeSection === item.key
-                      ? "bg-gray-100 text-gray-900"
-                      : "text-gray-600 hover:bg-gray-50"
+                      ? "bg-grayCustom-340 text-gray-900"
+                      : "text-gray-600 bg-grayCustom-330"
                   }`}
                 >
                   <span>{item.label}</span>
                   {item.sub && (
-                    <span className="text-xs text-gray-400">{item.sub}</span>
+                    <span className="text-xs text-gray-300">{item.sub}</span>
                   )}
                 </button>
               ))}
@@ -81,14 +67,14 @@ export default function SettingsSidebar({
         </div>
 
         {/* Main Sections */}
-        {mainItems.map((item, index) => (
+        {mainItems?.map((item, index) => (
           <button
             key={item.key}
             onClick={() => setActiveSection(item.key)}
-            className={`w-full px-4 py-3 text-left font-medium transition-colors border-b border-gray-200 ${
+            className={`w-full px-4 py-3 text-black border-[0.5px]  text-left text-base font-semibold transition-colors  ${
               activeSection === item.key
-                ? "bg-gray-100 text-gray-900"
-                : "text-gray-900 hover:bg-gray-50"
+                ? " border-ordinaBorder-250"
+                : " hover:border-ordinaBorder-250 border-transparent"
             }`}
           >
             {item.label}

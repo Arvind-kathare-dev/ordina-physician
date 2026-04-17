@@ -84,7 +84,7 @@ export function StepIndicator({ currentStep }: StepIndicatorProps) {
               {/* Icon */}
               <div
                 className={`
-                  w-12 h-12 flex items-center justify-center rounded-2xl text-xl font-semibold
+                  w-12 h-12 flex items-center justify-center rounded-[11px] text-xl font-semibold
                   ${status === 'completed'
                     ? 'bg-green-100 text-green-600'
                     : status === 'current'
