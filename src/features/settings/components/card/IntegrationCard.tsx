@@ -1,50 +1,110 @@
-import Image from "next/image";
-import Button from "@/components/ui/button/Button";
+'use client';
 
-interface Props {
+import  { useState } from 'react';
+import clsx from 'clsx';
+import Image from 'next/image';
+import ConnectEHRModal from '@/features/auth/model/ConnectEHRModal';
+
+type Status = 'connected' | 'not_connected';
+
+interface EHRCardProps {
   name: string;
+  logo?: string;
+  status?: Status;
   description: string;
-  status: "connected" | "not_connected";
-  logo: string;
+  onSelect?: (name: string) => void; // ✅ NEW
 }
+
+const statusConfig = {
+  connected: {
+    label: 'Connected',
+    color: 'text-green-600',
+    dot: 'bg-green-500',
+  },
+  not_connected: {
+    label: 'Not Connected',
+    color: 'text-orange-500',
+    dot: 'bg-orange-500',
+  },
+};
 
 export default function IntegrationCard({
   name,
-  description,
-  status,
   logo,
-}: Props) {
-  const isConnected = status === "connected";
+  description,
+  status = 'not_connected',
+  onSelect,
+}: EHRCardProps) {
+  const [currentStatus, setCurrentStatus] = useState<Status>(status);
+  const [open, setOpen] = useState(false);
+
+  const statusData = statusConfig[currentStatus];
+
+  const handleConnect = () => {
+    if (currentStatus === 'connected') {
+      setCurrentStatus('not_connected');
+      onSelect?.(''); // optional reset
+    } else {
+      setOpen(true);
+    }
+  };
+
+  const handleAuthorize = () => {
+    setCurrentStatus('connected');
+    setOpen(false);
+
+    onSelect?.(name); // ✅ parent ko batao kaunsa select hua
+  };
 
   return (
-    <div className="border border-gray-200 rounded-xl p-5 bg-white hover:shadow-sm transition">
-      {/* Logo */}
-      <div className="mb-3">
-        <Image src={logo} alt={name} width={110} height={32} />
+    <>
+      <div className="bg-white flex flex-col justify-between border border-gray-200 rounded-xl p-4 w-full shadow-sm hover:shadow-md transition-all">
+
+<div>
+ {/* Header */}
+        <div className="flex items-center gap-2 mb-2">
+          {logo ? (
+            <Image src={logo} alt={name} width={80} height={50} />
+          ) : (
+            <span className="text-sm font-semibold text-gray-700">{name}</span>
+          )}
+        </div>
+
+        {/* Status */}
+        <div className="flex items-center gap-1 text-xs mb-2">
+          <span className={clsx('w-2 h-2 rounded-full', statusData.dot)} />
+          <span className={clsx(statusData.color)}>
+            {statusData.label}
+          </span>
+        </div>
+
+        {/* Description */}
+        <p className="text-xs text-gray-500 mb-4 leading-relaxed">
+          {description}
+        </p>
+</div>
+       
+
+        {/* Button */}
+        <button
+          onClick={handleConnect}
+          className={clsx(
+            'w-full py-2 text-sm rounded-md font-medium transition-all',
+            currentStatus === 'connected'
+              ? 'border border-red-200 text-red-500 hover:bg-red-50'
+              : 'bg-primary-gradient text-white'
+          )}
+        >
+          {currentStatus === 'connected' ? 'Disconnect' : 'Connect'}
+        </button>
       </div>
 
-      {/* Status */}
-      <div className="flex items-center gap-2 mb-1">
-        <span
-          className={`w-2 h-2 rounded-full ${
-            isConnected ? "bg-green-500" : "bg-orange-400"
-          }`}
-        />
-        <span className="text-sm font-medium text-gray-800">
-          {isConnected ? "Connected" : "Not Connected"}
-        </span>
-      </div>
-
-      {/* Description */}
-      <p className="text-xs text-gray-500 mb-4">{description}</p>
-
-      {/* Action */}
-      <Button
-        variant="primary"
-        className="w-full h-10 text-sm font-medium"
-      >
-        {isConnected ? "Manage" : "Connect"}
-      </Button>
-    </div>
+      {/* Modal */}
+      <ConnectEHRModal
+        isOpen={open}
+        onClose={() => setOpen(false)}
+        onAuthorize={handleAuthorize}
+      />
+    </>
   );
 }

@@ -8,12 +8,103 @@ import CustomSelect from "@/components/ui/select/CustomSelect";
 import { useState } from "react";
 import { SectionWrapperBox } from "../SectionWrapperBox";
 import Button from "@/components/ui/button/Button";
+import { Rule } from "../../types/settings.types";
+
+const serviceOptions = [
+  { label: "Hospice Care", value: "hospice" },
+  { label: "Home Health", value: "home_health" },
+  { label: "Skilled Nursing", value: "skilled_nursing" },
+  { label: "Durable Medical Equipment (DME)", value: "dme" },
+];
+
+const orderOptions = [
+  { label: "Medication Orders", value: "medication" },
+  { label: "Lab Test Orders", value: "lab_tests" },
+  { label: "Radiology Orders", value: "radiology" },
+  { label: "Physician Certification", value: "physician_cert" },
+  { label: "Treatment Plan Approval", value: "treatment_plan" },
+];
+
+const thresholdOptions = [
+  { label: "24", value: "24" },
+  { label: "48", value: "48" },
+  { label: "72", value: "72" },
+  { label: "5", value: "5" },
+  { label: "7", value: "7" },
+];
+
+const unitOptions = [
+  { label: "Hours", value: "hours" },
+  { label: "Days", value: "days" },
+];
+
+const columns: any[] = [
+  {
+    key: "serviceType",
+    header: "Service Type",
+    accessor: "serviceType",
+  },
+  {
+    key: "order",
+    header: "Order",
+    accessor: "order",
+  },
+  {
+    key: "threshold",
+    header: "Threshold",
+    accessor: "threshold",
+  },
+];
 
 export default function ReturnedDaysSection() {
     const [serviceType, setServiceType] = useState("");
 const [orderType, setOrderType] = useState("");
 const [threshold, setThreshold] = useState("");
 const [unit, setUnit] = useState("");
+ const [rules, setRules] = useState<Rule[]>([]);
+
+  const handleAddRule = () => {
+    if (!serviceType || !orderType || !threshold || !unit) return;
+
+    const newRule: Rule = {
+      serviceType,
+      orderType,
+      threshold,
+      unit,
+    };
+
+    // Update if exists (Service + Order unique)
+    setRules((prev) => {
+      const exists = prev.find(
+        (r) =>
+          r.serviceType === serviceType &&
+          r.orderType === orderType
+      );
+
+      if (exists) {
+        return prev.map((r) =>
+          r.serviceType === serviceType &&
+          r.orderType === orderType
+            ? newRule
+            : r
+        );
+      }
+
+      return [...prev, newRule];
+    });
+
+    // Reset form (optional)
+    setServiceType("");
+    setOrderType("");
+    setThreshold("");
+    setUnit("");
+  };
+
+    const handleDelete = (row: Rule) => {
+  setRules((prev) => prev.filter((r) => r !== row));
+};
+
+  
   return (
     <div className="flex flex-col gap-6">
     <SectionWrapperBox title="Returned-in Days Thresholds">
@@ -56,54 +147,47 @@ const [unit, setUnit] = useState("");
       label="Service Type"
       value={serviceType}
       onChange={setServiceType}
-      options={[
-        { label: "PECOS", value: "pecos" },
-      ]}
+      options={serviceOptions}
     />
 
     <CustomSelect
       label="Order Type (within service)"
       value={orderType}
       onChange={setOrderType}
-      options={[
-        { label: "PECOS", value: "pecos" },
-      ]}
+     options={orderOptions}
     />
 
     <CustomSelect
       label="Threshold"
       value={threshold}
       onChange={setThreshold}
-      options={[
-        { label: "2", value: "2" },
-      ]}
+       options={thresholdOptions}
     />
 
     <CustomSelect
       label="Unit"
       value={unit}
       onChange={setUnit}
-      options={[
-        { label: "Days", value: "days" },
-      ]}
+      options={unitOptions}
     />
   </FormRow>
 
   {/* Tip Text */}
-  <p className="text-xs text-gray-400 mt-3 leading-4">
+  <p className="text-[13px] text-gray-400 mt-3 leading-5">
     Tip: If you want "Returned-in Time" to turn "late" after 48 hours, set 2 Days (or 48 Hours). 
     We recommend keeping units consistent (days) unless your workflow is hour-based.
   </p>
 
   {/* Actions */}
   <div className="flex justify-end gap-3 mt-4">
-    <button className="px-4 py-2 text-sm border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50">
-      Set Default
-    </button>
-
-    <button className="px-4 py-2 text-sm bg-[#5B97AE] text-white rounded-lg hover:opacity-90">
-      Add / Update
-    </button>
+   
+<Button variant="secondary">
+   Set Default
+</Button>
+   
+    <Button variant="primary"  onClick={handleAddRule}>
+ Add / Update
+    </Button>
   </div>
 </div>
 
@@ -113,9 +197,11 @@ const [unit, setUnit] = useState("");
           <Button variant="danger" >Clear All</Button>
         </div>
 
-        <Table />
+        <Table  data={rules}
+         columns={columns}
+         onDelete={handleDelete}  />
 
-        <p className="text-xs text-gray-400 mt-2">
+        <p className="text-[13px] text-gray-400 mt-4">
           Evaluation order: Exact match (Service+Order) → Default → otherwise no SLA applied.
         </p>
       </SectionWrapper>
@@ -140,15 +226,22 @@ const [unit, setUnit] = useState("");
   <div className="border border-ordinaBorder-200 rounded-lg p-4">
     
     {/* Header */}
-    <div className="flex items-center justify-between mb-2">
-      <span className="text-xs font-semibold text-gray-700">
+    <div className="flex  justify-between gap-4">
+      <div className="flex flex-col gap-1">
+<span className="text-xs font-semibold text-gray-700">
         Example logic (recommended)
       </span>
+       {/* Helper text */}
+    <p className="text-[11px] text-gray-400 ">
+      Green / Amber / Red based on how close to threshold you are
+    </p>
+      </div>
+      
 
       {/* Collapse icon */}
-      <button className="w-5 h-5 flex items-center justify-center border border-ordinaBorder-200 rounded-md bg-white">
+      <button className="w-10 h-10 flex items-center justify-center border border-ordinaBorder-200 rounded-md bg-white">
         <svg
-          className="w-3 h-3 text-gray-400"
+          className="w-4 h-4 text-gray-400"
           fill="none"
           stroke="currentColor"
           strokeWidth={2}
@@ -159,22 +252,9 @@ const [unit, setUnit] = useState("");
       </button>
     </div>
 
-    {/* Helper text */}
-    <p className="text-[11px] text-gray-400 mb-3 leading-4">
-      Green / Amber / Red based on how close to threshold you are
-    </p>
+   
 
-    {/* Rules */}
-    <ul className="text-[11px] text-gray-600 space-y-1 leading-4">
-      <li>• Green: elapsed ≤ 60% of threshold</li>
-      <li>• Amber: 60% &lt; elapsed ≤ 100% of threshold</li>
-      <li>• Red: elapsed &gt; threshold</li>
-    </ul>
-
-    {/* Footer Note */}
-    <p className="text-[11px] text-gray-400 mt-3 leading-4">
-      This page only configures the threshold. Your backend/FE can apply the above color rules consistently.
-    </p>
+   
   </div>
 </div>
     </div>

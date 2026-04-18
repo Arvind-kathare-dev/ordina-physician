@@ -1,3 +1,6 @@
+
+
+
 import SectionWrapper from "../SectionWrapper";
 import { FileText } from "lucide-react";
 import FormRow from "../FormRow";
@@ -7,9 +10,60 @@ import CustomSelect from "@/components/ui/select/CustomSelect";
 import { useState } from "react";
 import { SectionWrapperBox } from "../SectionWrapperBox";
 import Button from "@/components/ui/button/Button";
+import { LOCATIONS, SERVICE_TYPES, SUPPLIERS } from "../../constant/vendorOptions";
+
+type Rule = {
+  serviceType: string;
+  location: string;
+  supplier: string;
+};
+
+const columns: any[] = [
+  {
+    key: "serviceType",
+    header: "Service Type",
+    accessor: "serviceType",
+  },
+  {
+    key: "location",
+    header: "Location",
+    accessor: "location",
+  },
+  {
+    key: "supplier",
+    header: "Supplier",
+    accessor: "supplier",
+  },
+];
 
 export default function VendorSettingsSection() {
-    const [role, setRole] = useState("");
+    const [serviceType, setServiceType] = useState("");
+const [location, setLocation] = useState("");
+const [supplier, setSupplier] = useState("");
+   const [rules, setRules] = useState<Rule[]>([]);
+
+   const handleAddRule = () => {
+  if (!serviceType || !location || !supplier) return;
+
+  const newRule: Rule = {
+    serviceType,
+    location,
+    supplier,
+  };
+
+  setRules((prev) => [...prev, newRule]);
+
+  // reset form
+  setServiceType("");
+  setLocation("");
+  setSupplier("");
+};
+
+   const handleDelete = (row: Rule) => {
+  setRules((prev) => prev.filter((r) => r !== row));
+};
+
+
     return (
         <div className="flex flex-col gap-6">
   <SectionWrapperBox  title="Vendor Settings">
@@ -20,44 +74,38 @@ export default function VendorSettingsSection() {
             >
                 {/* Form */}
                 <FormRow col="3">
-                    <CustomSelect
-                        label="Service Type"
-                        value={role}
-                        onChange={setRole}
-                        options={[
-                            { label: "Physician", value: "physician" },
-                            { label: "Nurse", value: "nurse" },
-                            { label: "Admin", value: "admin" },
-                        ]}
-                    />
-                    <CustomSelect
-                        label="Location"
-                        value={role}
-                        onChange={setRole}
-                        options={[
-                            { label: "Physician", value: "physician" },
-                            { label: "Nurse", value: "nurse" },
-                            { label: "Admin", value: "admin" },
-                        ]}
-                    />
-                    <CustomSelect
-                        label="Supplier"
-                        value={role}
-                        onChange={setRole}
-                        options={[
-                            { label: "Physician", value: "physician" },
-                            { label: "Nurse", value: "nurse" },
-                            { label: "Admin", value: "admin" },
-                        ]}
-                    />
+                     <CustomSelect
+              label="Service Type"
+              value={serviceType}
+              onChange={setServiceType}
+              options={SERVICE_TYPES}
+            />
+
+            <CustomSelect
+              label="Location"
+              value={location}
+              onChange={setLocation}
+              options={LOCATIONS}
+            />
+
+            <CustomSelect
+              label="Supplier"
+              value={supplier}
+              onChange={setSupplier}
+              options={SUPPLIERS}
+            />
 
                 </FormRow>
 
                 <div className="flex justify-end gap-3 mb-6">
-                    <Button variant="danger">
+                    <Button variant="danger"   onClick={() => {
+                setServiceType("");
+                setLocation("");
+                setSupplier("");
+              }}>
                         Clear
                     </Button>
-                    <Button variant="primary">
+                    <Button variant="primary" onClick={handleAddRule}>
                         Save Settings
                     </Button>
                 </div>
@@ -68,7 +116,9 @@ export default function VendorSettingsSection() {
                     <Button variant="danger" >Clear All</Button>
                 </div>
 
-                <Table />
+                <Table  data={rules}
+  columns={columns}
+  onDelete={handleDelete}  />
 
                 <p className="text-xs text-gray-400 mt-2">
                     Evaluation order: Exact match → Default → otherwise no SLA applied.

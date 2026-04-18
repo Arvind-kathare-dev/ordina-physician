@@ -1,14 +1,15 @@
 'use client';
 
-import React, { useState } from 'react';
+import  { useState } from 'react';
 import clsx from 'clsx';
 import ConnectEHRModal from '../../model/ConnectEHRModal';
+import Image from 'next/image';
 
 type Status = 'connected' | 'not_connected';
 
 interface EHRCardProps {
   name: string;
-  logo?: React.ReactNode;
+  logo?: string;
   status?: Status;
   description: string;
   onSelect?: (name: string) => void; // ✅ NEW
@@ -57,12 +58,13 @@ export default function EHRCard({
 
   return (
     <>
-      <div className="bg-white border border-gray-200 rounded-xl p-4 w-full shadow-sm hover:shadow-md transition-all">
+      <div className="bg-white flex flex-col justify-between border border-gray-200 rounded-xl p-4 w-full shadow-sm hover:shadow-md transition-all">
 
-        {/* Header */}
+<div>
+ {/* Header */}
         <div className="flex items-center gap-2 mb-2">
           {logo ? (
-            <div className="h-5 w-auto">{logo}</div>
+            <Image src={logo} alt={name} width={80} height={50} />
           ) : (
             <span className="text-sm font-semibold text-gray-700">{name}</span>
           )}
@@ -80,6 +82,8 @@ export default function EHRCard({
         <p className="text-xs text-gray-500 mb-4 leading-relaxed">
           {description}
         </p>
+</div>
+       
 
         {/* Button */}
         <button

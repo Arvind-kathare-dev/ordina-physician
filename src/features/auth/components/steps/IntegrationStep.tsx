@@ -1,5 +1,6 @@
 "use client";
 
+import { integrations } from "@/data/integrations";
 import EHRCard from "../card/EHRCard";
 
 interface IntegrationStepProps {
@@ -23,7 +24,7 @@ export function IntegrationStep({ data, onChange }: IntegrationStepProps) {
 
       {/* Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <EHRCard
+        {/* <EHRCard
           name="Kareo"
           status="not_connected"
           description="Secure OAuth connection with drchrono required"
@@ -63,7 +64,11 @@ export function IntegrationStep({ data, onChange }: IntegrationStepProps) {
           status="not_connected"
           description="Secure OAuth connection with symmetry required"
           onSelect={(name) => onChange({ ehrSystem: name })}
-        />
+        /> */}
+
+         {integrations.map((item) => (
+                  <EHRCard key={item.id} {...item} />
+                ))}
       </div>
     </div>
   );

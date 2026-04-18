@@ -27,7 +27,7 @@ export function OrderDeliveryStep({ }: OrderDeliveryStepProps) {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
 
         {/* LEFT: CHANNELS */}
-        <div className="lg:col-span-2 space-y-4 bg-white border border-ordinaBorder-200 rounded-xl p-4">
+        <div className="lg:col-span-2  bg-white border border-ordinaBorder-200 rounded-xl p-4">
           {/* HEADER */}
           <div className="flex flex-col gap-6">
             <h1 className="text-xl font-semibold text-gray-900">
@@ -36,14 +36,16 @@ export function OrderDeliveryStep({ }: OrderDeliveryStepProps) {
             <h3 className="text-[17px] text-gray-600">
               Add one or more channels
             </h3>
-            <p className="text-sm text-gray-400">
+            <p className="text-sm text-gray-400 mb-4">
               Keep the most reliable channel first. You can change per order later.
             </p>
           </div>
-
-         {channelData.map((channel, index) => (
+<div className="flex flex-col gap-4">
+{channelData.map((channel, index) => (
              <ChannelCard key={index} {...channel} />
            ))}
+</div>
+         
            
         </div>
 

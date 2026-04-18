@@ -4,7 +4,8 @@ import { integrations } from "@/data/integrations";
 
 export default function IntegrationSection() {
   return (
-    <div className="border border-gray-200 rounded-xl p-6">
+    <div className="bg-white shadow-card2 rounded-[20px] p-6">
+ <div className="border border-gray-200 rounded-xl p-4">
       {/* Info Banner */}
       <div className="border border-gray-200 rounded-lg p-4 bg-white mb-6 text-sm text-gray-600">
         Ordina securely connects to your EHR using OAuth-based authorization.
@@ -24,5 +25,7 @@ export default function IntegrationSection() {
         <Button variant="primary">Save</Button>
       </div>
     </div>
+    </div>
+   
   );
 }

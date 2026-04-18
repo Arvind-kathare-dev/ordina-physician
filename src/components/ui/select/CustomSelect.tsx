@@ -71,11 +71,11 @@ export default function CustomSelect({
                         "w-full  input-padding flex items-center justify-between",
                         "border rounded-lg bg-white text-sm",
                         "transition-all duration-150",
-                        "focus:outline-none focus:ring-2 focus:ring-blue-500",
+                        "focus:outline-none focus:ring-1 focus:ring-ordina-400",
                         disabled && "bg-gray-100 cursor-not-allowed",
                         error
                             ? "border-red-400"
-                            : "border-gray-300 hover:border-gray-400"
+                            : "border-gray-200 hover:border-gray-220"
                     )}
                 >
                     <span
@@ -113,7 +113,7 @@ export default function CustomSelect({
                                     }}
                                     className={clsx(
                                         "w-full text-left px-4 py-2.5 text-sm",
-                                        "hover:bg-gray-50 transition",
+                                        "hover:bg-gray-200 transition",
                                         value === opt.value
                                             ? "bg-gray-100 text-gray-900 font-medium"
                                             : "text-gray-700"

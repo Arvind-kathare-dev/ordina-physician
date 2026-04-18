@@ -25,6 +25,7 @@ export interface Order {
 export interface Column<T> {
   key: string;
   header: string;
+  accessor?: keyof T;
   render: (row: T) => React.ReactNode;
 }
 
