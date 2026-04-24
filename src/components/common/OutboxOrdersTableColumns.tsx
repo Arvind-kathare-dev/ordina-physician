@@ -82,7 +82,7 @@ export function useOutboxOrdersTableColumns(): DataTableColumn<OrderTableRow>[] 
         className: "min-w-0",
         cell: (row) => (
           <span
-            className={`inline-flex shrink-0 whitespace-nowrap rounded-[5px] px-4 flex items-center justify-center sm:h-[26px] h-[20px] text-[10px] font-semibold sm:text-xs ${SERVICE_BADGE_STYLES[row.serviceType.variant]}`}
+            className={`flex shrink-0 whitespace-nowrap rounded-[5px] px-4 items-center justify-center sm:h-[26px] h-[20px] text-[10px] font-semibold sm:text-xs ${SERVICE_BADGE_STYLES[row.serviceType.variant]}`}
           >
             {row.serviceType.text}
           </span>

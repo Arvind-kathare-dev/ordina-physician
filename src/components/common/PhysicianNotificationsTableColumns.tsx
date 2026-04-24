@@ -4,9 +4,9 @@ import type { StaticImageData } from "next/image";
 import type { CSSProperties } from "react";
 import { useId, useMemo, useState } from "react";
 import type { DataTableColumn } from "./DataTable";
-import PhysicianNotificationDocumentDialog from "../physician-notifications/PhysicianNotificationDocumentDialog";
 import type { PhysicianNotificationRow } from "../../data/physicianNotificationsStaticData";
 import doctorimage from "../../assets/images/physician.png";
+import PhysicianNotificationDocumentDialog from "./physician-notifications/PhysicianNotificationDocumentDialog";
 
 /** Ordina accent — exact #528DB5 for conditional icon (mask fill) + tooltip */
 const ORDINA_BRAND = "#528DB5";
