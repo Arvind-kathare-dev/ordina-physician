@@ -28,7 +28,7 @@ export default function Tabs({
             <button
               key={tab.label}
               onClick={() => onChange(i)}
-              className={`flex items-center gap-1.5 px-4 py-2.5 text-lg font-medium whitespace-nowrap border-b-2 transition-colors ${
+              className={`flex justify-center items-center w-[200px] gap-1.5 px-4 py-2.5 text-lg font-medium whitespace-nowrap border-b-2 transition-colors ${
                 isActive
                   ? "border-ordinadark text-ordinadark"
                   : "border-transparent text-grayCustom-500 hover:text-grayCustom-600"
