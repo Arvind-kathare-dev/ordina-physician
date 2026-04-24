@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Dialog from "../../components/common/Dialog";
 import CustomReportBuilderStep from "../components/CustomReportBuilderStep";
+import Dialog from "@/components/common/Dialog";
 
 const ARCHIVE_PAGE = {
   title: "Archive Reports",
