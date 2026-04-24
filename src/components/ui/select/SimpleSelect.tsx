@@ -11,7 +11,7 @@ interface SimpleSelectProps {
   label?: string;
   required?: boolean;
   placeholder?: string;
-  options?: Option[];
+  options?: any[];
   value: string; // selected value
   onChange: (val: any) => void; // ✅ only value
   className?: string;
