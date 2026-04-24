@@ -147,11 +147,10 @@ export default function PhysicianReportPage() {
       <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between sm:gap-4">
         <div className="min-w-0 space-y-1">
           <h2 className="text-lg font-semibold text-neutral-900 sm:text-xl">
-            Physician Report
+            Agency Report
           </h2>
           <p className="max-w-2xl text-xs leading-relaxed text-[#858585] sm:text-sm">
-            Select a physician → then click any report to open its detailed
-            view.
+            Break pending by aging buckets and surface the backlog risk (30+ days) immediately.
           </p>
         </div>
         <div className="flex shrink-0 flex-wrap items-center gap-2 sm:justify-end">
@@ -216,9 +215,9 @@ export default function PhysicianReportPage() {
                   <span className="block">
                     Specialty: {PROFILE.specialty}
                   </span>
-                  <LuDot/>
+                  <LuDot />
                   <span className="block">Location: {PROFILE.location}</span>
-                  <LuDot/>
+                  <LuDot />
                   <span className="block">NPI: {PROFILE.npi}</span>
                 </p>
                 <div className="flex flex-wrap  flex-row items-center gap-2 pt-2">
@@ -298,7 +297,7 @@ export default function PhysicianReportPage() {
           setArchiveSuccessOpen(false);
           setArchiveModalOpen(false);
         }}
-        reportNoun="Physician"
+        reportNoun="Agency"
         labelledBy={archiveTitleId}
         describedBy={archiveDescId}
         onConfirmArchive={() => {

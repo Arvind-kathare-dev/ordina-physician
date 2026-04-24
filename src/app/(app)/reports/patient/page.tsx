@@ -43,7 +43,7 @@ export default function PatientReportPage() {
     }
     const parts: string[] = [];
     if (physicianSelection.length > 0) {
-      parts.push(`Physician: ${physicianSelection.join(", ")}`);
+      parts.push(`Agency: ${physicianSelection.join(", ")}`);
     }
     if (orderTypeSelection.length > 0) {
       parts.push(`Order type: ${orderTypeSelection.join(", ")}`);
@@ -65,12 +65,12 @@ export default function PatientReportPage() {
       {
         kind: "multiSelect",
         id: "physician",
-        label: "Physician",
+        label: "Agency",
         values: physicianSelection,
         onValuesChange: setPhysicianSelection,
         options: [...REPORT_PHYSICIAN_MULTI_OPTIONS],
-        searchPlaceholder: "Search physician…",
-        emptySummaryLabel: "All Physicians",
+        searchPlaceholder: "Search agency…",
+        emptySummaryLabel: "All agencies",
       },
       {
         kind: "multiSelect",

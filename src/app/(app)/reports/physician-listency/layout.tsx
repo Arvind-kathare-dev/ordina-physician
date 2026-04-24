@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Physician Latency | Ordina Agency",
+  title: "Hospice Report | Ordina Agency",
 };
 
 export default function PhysicianListencyReportLayout({

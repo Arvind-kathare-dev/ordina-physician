@@ -90,15 +90,14 @@ function useClickOutside(
 }
 
 function navPillClass(active: boolean) {
-    const base =
-      "inline-flex h-[33px] border-[0.5px] shrink-0 items-center justify-center gap-[10px] shadow-[0px_2px_4px_rgba(0,0,0,0.25)] whitespace-nowrap rounded-[12px] bg-white px-3 text-center text-xs font-medium text-slate-600 transition hover:text-slate-900 border";
-  
-    return `${base} ${
-      active
-        ? "border-[#1696C8] text-[#686464]"
-        : "border-transparent"
+  const base =
+    "inline-flex h-[33px] border-[0.5px] shrink-0 items-center justify-center gap-[10px] shadow-[0px_2px_4px_rgba(0,0,0,0.25)] whitespace-nowrap rounded-[12px] bg-white px-3 text-center text-xs font-medium text-slate-600 transition hover:text-slate-900 border";
+
+  return `${base} ${active
+    ? "border-[#1696C8] text-[#686464]"
+    : "border-transparent"
     }`;
-  }
+}
 
 export default function Header() {
   const pathname = usePathname();
@@ -132,8 +131,8 @@ export default function Header() {
   };
 
   return (
-    <header className="sticky top-0 z-40 border-b-[0.5px] border-slate-200 bg-white">
-      <div className="mx-auto flex max-w-[1600px] items-center justify-between gap-1.5 px-3 py-2 sm:gap-2 sm:px-4 sm:py-2.5 md:px-5 lg:px-6">
+    <header className="sticky top-0 z-40  bg-white">
+      <div className="mx-auto flex max-w-[1600px] max-h-20 items-center justify-between gap-1.5 px-3 py-2 sm:gap-8 sm:px-4 sm:py-2.5 md:px-5 lg:px-6">
         <div className="flex shrink-0 items-center gap-1.5 sm:gap-2 md:gap-2.5">
           <button
             type="button"
@@ -151,22 +150,22 @@ export default function Header() {
           </button>
 
           <Link href="/" className="flex items-center gap-2">
-              <Image src="/images/logo/ordina-logo.svg" alt="logo" width={36} height={36} />
-              <div className="leading-tight">
-                <p className="text-lg font-extrabold text-gray-900">Ordina</p>
-                <p className="text-[8px] tracking-[0.24em] text-black font-medium">
-                  PHYSICIAN
-                </p>
-              </div>
-            </Link>
+            <Image src="/images/logo/ordina-logo.svg" alt="logo" width={36} height={36} />
+            <div className="leading-tight">
+              <p className="text-lg font-extrabold text-gray-900">Ordina</p>
+              <p className="text-[8px] tracking-[0.24em] text-black font-medium">
+                PHYSICIAN
+              </p>
+            </div>
+          </Link>
         </div>
 
         <nav
           className="relative hidden min-h-0 min-w-0 flex-1 md:block"
           aria-label="Primary"
         >
-          <div className="header-nav-scroll -mx-0.5 max-h-10  overflow-x-auto overflow-y-hidden overscroll-x-contain scroll-smooth">
-            <div className="mx-auto flex w-max flex-nowrap items-center gap-[10px] px-0.5 py-0.5">
+          <div className="header-nav-scroll  scroll-smooth  flex justify-end items-start">
+            <div className=" flex w-max flex-nowrap items-center gap-[10px] px-0.5 py-0.5">
               {NAV_ITEMS.map((item) => {
                 const active = navItemIsActive(pathname, item.href);
                 const pillClass = navPillClass(active);
@@ -290,9 +289,8 @@ export default function Header() {
                 </span>
               </span>
               <HiChevronDown
-                className={`hidden h-3 w-3 shrink-0 text-slate-500 transition sm:block sm:h-3.5 sm:w-3.5 ${
-                  profileOpen ? "rotate-180" : ""
-                }`}
+                className={`hidden h-3 w-3 shrink-0 text-slate-500 transition sm:block sm:h-3.5 sm:w-3.5 ${profileOpen ? "rotate-180" : ""
+                  }`}
                 aria-hidden
               />
             </button>
@@ -309,11 +307,10 @@ export default function Header() {
                       key={opt.id}
                       href="#"
                       role="menuitem"
-                      className={`flex items-center gap-2 px-3 py-2 text-xs hover:bg-slate-50 ${
-                        opt.id === "signout"
-                          ? "text-red-600"
-                          : "text-slate-700"
-                      }`}
+                      className={`flex items-center gap-2 px-3 py-2 text-xs hover:bg-slate-50 ${opt.id === "signout"
+                        ? "text-red-600"
+                        : "text-slate-700"
+                        }`}
                       onClick={() => setProfileOpen(false)}
                     >
                       <Icon className="h-4 w-4 shrink-0 opacity-70" />
@@ -328,17 +325,15 @@ export default function Header() {
       </div>
 
       <div
-        className={`fixed inset-0 z-50 md:hidden ${
-          mobileOpen ? "pointer-events-auto" : "pointer-events-none"
-        }`}
+        className={`fixed inset-0 z-50 md:hidden ${mobileOpen ? "pointer-events-auto" : "pointer-events-none"
+          }`}
         aria-hidden={!mobileOpen}
       >
         <button
           type="button"
           tabIndex={mobileOpen ? 0 : -1}
-          className={`absolute inset-0 bg-slate-900/45 transition-opacity duration-300 ease-out ${
-            mobileOpen ? "opacity-100" : "opacity-0"
-          }`}
+          className={`absolute inset-0 bg-slate-900/45 transition-opacity duration-300 ease-out ${mobileOpen ? "opacity-100" : "opacity-0"
+            }`}
           aria-label="Close menu"
           onClick={() => setMobileOpen(false)}
         />
@@ -349,9 +344,8 @@ export default function Header() {
           aria-modal="true"
           aria-labelledby="mobile-nav-title"
           aria-hidden={!mobileOpen}
-          className={`absolute left-0 top-0 flex h-full w-[min(90vw,20rem)] max-w-full flex-col bg-white shadow-2xl ring-1 ring-slate-200/80 transition-transform duration-300 ease-out ${
-            mobileOpen ? "translate-x-0" : "-translate-x-full"
-          }`}
+          className={`absolute left-0 top-0 flex h-full w-[min(90vw,20rem)] max-w-full flex-col bg-white shadow-2xl ring-1 ring-slate-200/80 transition-transform duration-300 ease-out ${mobileOpen ? "translate-x-0" : "-translate-x-full"
+            }`}
         >
           <div className="flex shrink-0 items-center justify-between gap-2 border-b border-slate-200 px-4 py-3">
             <span
@@ -459,9 +453,8 @@ export default function Header() {
                     key={opt.id}
                     href="#"
                     tabIndex={mobileOpen ? 0 : -1}
-                    className={`flex items-center gap-2 rounded-lg px-2 py-2.5 text-xs hover:bg-slate-50 ${
-                      opt.id === "signout" ? "text-red-600" : "text-slate-700"
-                    }`}
+                    className={`flex items-center gap-2 rounded-lg px-2 py-2.5 text-xs hover:bg-slate-50 ${opt.id === "signout" ? "text-red-600" : "text-slate-700"
+                      }`}
                     onClick={() => setMobileOpen(false)}
                   >
                     <Icon className="h-4 w-4 opacity-70" />

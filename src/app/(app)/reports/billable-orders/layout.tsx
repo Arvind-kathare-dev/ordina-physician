@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Agency Report | Ordina Agency",
+  title: "Billable Orders | Reports",
 };
 
-export default function PhysicianReportLayout({
+export default function BillableOrdersLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return children;

@@ -10,14 +10,21 @@ export const RICH_RECENT = [
   {
     id: "physician" as const,
     href: "/reports/physician",
-    label: "Physician Report",
-    tag: "Physicians",
+    label: "Agency Report",
+    tag: "Agencies",
     description:
-      "Who is slowing the workflow? Workload + signed rate + trend for quick follow-ups.",
+      "Break pending by aging buckets and surface the backlog risk (30+ days) immediately.",
   },
 ] as const;
 
 export const RICH_ONE_CLICK = [
+  {
+    id: "billable" as const,
+    href: "/reports/billable-orders",
+    label: "Billable Orders",
+    tag: "Finance",
+    description: "Financial overview of billable orders, Lab, 485, and MD Verification.",
+  },
   {
     id: "f2f" as const,
     href: "/reports/face-2-face",
@@ -36,7 +43,7 @@ export const RICH_ONE_CLICK = [
   {
     id: "addon" as const,
     href: "/reports/add-on",
-    label: "Add-on Reports",
+    label: "DME Report",
     tag: "Finance",
     description: "Supplemental report packs and optional analytics modules.",
   },
@@ -50,7 +57,7 @@ export const RICH_ONE_CLICK = [
   {
     id: "listency" as const,
     href: "/reports/physician-listency",
-    label: "Physician Latency",
+    label: "Hospice Report",
     tag: "Finance",
     description: "Latency and turnaround trends by physician and site.",
   },

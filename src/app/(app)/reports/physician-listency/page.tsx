@@ -55,7 +55,7 @@ export default function PhysicianListencyReportPage() {
     }
     const parts: string[] = [];
     if (physicianSelection.length > 0) {
-      parts.push(`Physician: ${physicianSelection.join(", ")}`);
+      parts.push(`Agency: ${physicianSelection.join(", ")}`);
     }
     if (orderTypeSelection.length > 0) {
       parts.push(`Order type: ${orderTypeSelection.join(", ")}`);
@@ -77,12 +77,12 @@ export default function PhysicianListencyReportPage() {
       {
         kind: "multiSelect",
         id: "physician",
-        label: "Physician",
+        label: "Agency",
         values: physicianSelection,
         onValuesChange: setPhysicianSelection,
         options: [...REPORT_PHYSICIAN_MULTI_OPTIONS],
-        searchPlaceholder: "Search physician…",
-        emptySummaryLabel: "All Physicians",
+        searchPlaceholder: "Search agency…",
+        emptySummaryLabel: "All Agency",
       },
       {
         kind: "multiSelect",
@@ -142,7 +142,7 @@ export default function PhysicianListencyReportPage() {
       <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between sm:gap-4">
         <div className="min-w-0 space-y-1">
           <h2 className="text-lg font-semibold text-neutral-900 sm:text-xl">
-            Physician Latency
+            Hospice Report
           </h2>
           <p className="max-w-2xl text-xs leading-relaxed text-[#858585] sm:text-sm">
             Signing-time tiers, order load, and specialty at a glance—spot who

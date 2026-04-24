@@ -31,6 +31,7 @@ const WHITE = [
 ] as const;
 
 const ID_TO_SLOT: Record<string, number> = {
+  billable: 0,
   patient: 0,
   physician: 1,
   f2f: 2,

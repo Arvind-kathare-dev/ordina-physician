@@ -48,7 +48,7 @@ export function usePhysicianListencyTableColumns(): DataTableColumn<PhysicianLis
       },
       {
         key: "physicianName",
-        header: "Physician Name",
+        header: "Agency Name",
         className: "min-w-0",
         cell: (row) => (
           <span className="whitespace-nowrap text-[#374151]">
