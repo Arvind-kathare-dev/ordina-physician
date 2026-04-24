@@ -1,9 +1,9 @@
 // app/page.tsx
 "use client";
 
-import { OnboardingForm } from "@/features/auth/components/OnboardingForm";
-import { StepIndicator } from "@/features/auth/components/steps/StepIndicator";
 import { useState } from "react";
+import { StepIndicator } from "../components/steps/StepIndicator";
+import { OnboardingForm } from "../components/OnboardingForm";
 
 export default function Home() {
   const [currentStep, setCurrentStep] = useState(1);

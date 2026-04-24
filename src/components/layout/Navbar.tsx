@@ -15,7 +15,7 @@ const navItems: NavItem[] = [
   { label: "ProHealth Dashboard", href: "/dashboard", icon: "nav-icon" },
   { label: "Orders", href: "/orders", icon: "" },
   { label: "Efax", href: "/efax", icon: "" },
-  { label: "Reports", href: "#", icon: "" },
+  { label: "Reports", href: "/reports/physician", icon: "" },
 ];
 
 const Navbar = () => {
@@ -25,7 +25,7 @@ const Navbar = () => {
 
   return (
     <header className="sticky top-0 z-50 bg-white border-b border-gray-200 shadow-sm">
-      <div className="mx-auto px-4 lg:px-6">
+      <div className="max-w-[1600px] mx-auto px-4 lg:px-6">
         <div className="flex items-center justify-between h-20">
           {/* LEFT */}
           <div className="flex items-center gap-10">
