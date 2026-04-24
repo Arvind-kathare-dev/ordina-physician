@@ -1,12 +1,10 @@
 "use client";
 
+import { DataTableColumn } from "@/components/common/DataTable";
+import { PhysicianListencyRow, PhysicianListencyStatusLabel } from "@/data/physicianListencyStaticData";
 import { useMemo } from "react";
 import { HiChevronDown, HiChevronUp } from "react-icons/hi";
-import type { DataTableColumn } from "../../components/common/DataTable";
-import {
-  type PhysicianListencyRow,
-  type PhysicianListencyStatusLabel,
-} from "../../data/physicianListencyStaticData";
+
 
 function latencyStatusSquareClass(label: PhysicianListencyStatusLabel) {
   switch (label) {
