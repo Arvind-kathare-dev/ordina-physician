@@ -72,7 +72,7 @@ function Stepper({ step }: { step: WizardStep }) {
               }`}
           >
             <span
-              className={`flex h-5 w-5 items-center border-[0.5px] justify-center rounded-full text-[10px] font-semibold sm:text-[11px] ${active ? "bg-[#528DB5] border-[#528DB5] text-white" : "bg-white border-[#D1D5DB] text-[#858585]"
+              className={`flex h-5 w-5 items-center border-[0.5px] justify-center rounded-full text-[10px] font-semibold sm:text-[11px] ${active ? "bg-primary-color border-primary-color text-white" : "bg-white border-[#D1D5DB] text-[#858585]"
                 }`}
             >
               <span>{item.n}</span>
@@ -212,7 +212,7 @@ export default function QuickReportBuilderModal({
                           className={`flex w-full cursor-pointer items-start gap-3 rounded-[10px] border-[0.5px] bg-white p-3.5 text-left shadow-sm transition border-[#D1D5DB]`}
                         >
                           <span
-                            className={`mt-0.5 flex h-[18px] w-[18px] shrink-0 items-center justify-center rounded border-[0.5px] border-[#D1D5DB] ${checked ? "border-[#528DB5] bg-[#528DB5]" : ""}`}
+                            className={`mt-0.5 flex h-[18px] w-[18px] shrink-0 items-center justify-center rounded border-[0.5px] border-[#D1D5DB] ${checked ? "border-primary-color bg-primary-color" : ""}`}
                             aria-hidden
                           >
                             {checked ? (
@@ -250,14 +250,14 @@ export default function QuickReportBuilderModal({
                 <div className="flex flex-col-reverse items-stretch justify-end gap-2.5 sm:flex-row sm:items-center sm:gap-3">
                   <button
                     type="button"
-                    className="inline-flex items-center cursor-pointer justify-center rounded-lg border-[0.5px] border-[#528DB5] bg-white px-4 py-2.5 text-[13px] font-semibold text-[#528DB5] transition"
+                    className="inline-flex items-center cursor-pointer justify-center rounded-lg border-[0.5px] border-primary-color bg-white px-4 py-2.5 text-[13px] font-semibold text-primary-color transition"
                     onClick={handleCreateCustom}
                   >
                     Create Custom Report
                   </button>
                   <button
                     type="button"
-                    className="inline-flex items-center cursor-pointer bg-[#528DB5] border-[0.5px] border-[#528DB5] justify-center rounded-lg px-5 py-2.5 text-[13px] font-semibold text-white shadow-sm transition"
+                    className="inline-flex items-center cursor-pointer bg-primary-color border-[0.5px] border-primary-color justify-center rounded-lg px-5 py-2.5 text-[13px] font-semibold text-white shadow-sm transition"
                     onClick={onClose}
                   >
                     Save
@@ -381,7 +381,7 @@ export default function QuickReportBuilderModal({
                       </button>
                       <button
                         type="button"
-                        className="inline-flex items-center justify-center cursor-pointer gap-1.5 rounded-lg border-[0.5px] border-[#528DB5] bg-[#528DB5] px-5 py-2.5 text-[13px] font-semibold text-white shadow-sm transition"
+                        className="inline-flex items-center justify-center cursor-pointer gap-1.5 rounded-lg border-[0.5px] border-primary-color bg-primary-color px-5 py-2.5 text-[13px] font-semibold text-white shadow-sm transition"
                         style={{ backgroundColor: PRIMARY }}
                         onClick={handleNextFromDetails}
                       >

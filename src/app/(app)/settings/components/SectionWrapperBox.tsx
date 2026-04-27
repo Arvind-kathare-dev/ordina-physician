@@ -12,16 +12,19 @@ export const SectionWrapperBox = ({
     group
 }: Props) => {
     return (
-        <div className=' bg-white  shadow-card2 rounded-[20px]'>
-            <div className="py-6 border-b border-gray-220 mb-6">
-                <h1 className="px-6 text-base font-medium "> Account settings
-                    {group && ` / ${group}`}
-                    {title && ` / ${title}`}</h1>
+        <div className='bg-white shadow-card2 rounded-[20px] overflow-hidden'>
+            <div className="py-4 sm:py-5 px-4 sm:px-6 ">
+                <h1 className="text-sm font-bold text-[#858585] flex items-center gap-2">
+                    <span>Account Settings</span>
+                    {group && <span className="text-gray-300 font-normal">/</span>}
+                    {group && <span className="text-[#606060]">{group}</span>}
+                    {title && <span className="text-gray-300 font-normal">/</span>}
+                    {title && <span className="text-[#528DB5]">{title}</span>}
+                </h1>
             </div>
-            <div className='pb-6 flex flex-col gap-6'>
+            <div className='p-3 sm:p-0 sm:pb-6 flex flex-col gap-6'>
                 {children}
             </div>
-
         </div>
     )
 }

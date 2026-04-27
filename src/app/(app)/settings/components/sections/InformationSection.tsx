@@ -18,7 +18,7 @@ export const InformationSection = () => {
         description="Your account info used in ordina"
         icon={User}
       >
-            <div className="grid grid-cols-2 gap-4 mb-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
               <Input
                 label=" Full Name"
                 name="fullName"
@@ -41,7 +41,7 @@ export const InformationSection = () => {
               />
             </div>
 
-            <div className="grid grid-cols-2 gap-4 mb-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
               <Input
                 label="Email"
                 name="email"
@@ -58,7 +58,7 @@ export const InformationSection = () => {
               />
             </div>
 
-            <div className="grid grid-cols-2 gap-4 mb-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
               <Input
                 label="State license number"
                 name="license"
@@ -91,7 +91,7 @@ export const InformationSection = () => {
         icon={FileText}
       >
         <div className="mb-8">
-          <div className="grid grid-cols-2 gap-4 mb-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
             <Input
               label="Practice / organization name"
               name="practice"
@@ -114,7 +114,7 @@ export const InformationSection = () => {
             />
           </div>
 
-          <div className="grid grid-cols-2 gap-4 mb-2">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-2">
             <Input
               label="City"
               name="city"

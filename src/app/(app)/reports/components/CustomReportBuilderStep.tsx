@@ -719,7 +719,7 @@ export default function CustomReportBuilderStep({
                     className="grid h-6 w-6 shrink-0 place-items-center rounded-[10px] border border-[rgba(31,95,125,0.14)] bg-linear-to-b from-white to-[#eef6fb] text-[#1f5f7d] shadow-[inset_0_0_0_1px_rgba(79,148,181,0.12)]"
                   >
                     <ActionIcon
-                      className={`h-3.5 w-3.5 sm:h-4 sm:w-4 ${m.iconClassName ?? "text-[#528DB5]"}`}
+                      className={`h-3.5 w-3.5 sm:h-4 sm:w-4 ${m.iconClassName ?? "text-primary-color"}`}
                       aria-hidden
                     />
                   </div>
@@ -997,7 +997,7 @@ export default function CustomReportBuilderStep({
                           : "Select a tile to configure"}
                       </span>
                     </div>
-                    <span className="shrink-0 whitespace-nowrap rounded-full border border-[#1696C8]/25 bg-[#1696C8]/10 px-2.5 py-1.5 text-[11px] font-semibold text-[#1485b3]">
+                    <span className="shrink-0 whitespace-nowrap rounded-full border border-[#528DB5]/25 bg-[#528DB5]/10 px-2.5 py-1.5 text-[11px] font-semibold text-[#1485b3]">
                       {selectedTile ? selectedTile.type.toUpperCase() : "—"}
                     </span>
                   </div>
@@ -1029,7 +1029,7 @@ export default function CustomReportBuilderStep({
                                 )
                               );
                             }}
-                            className="w-full rounded-[14px] border border-[#E0E0E0] bg-white px-3 py-3 text-sm font-bold text-[#606060] outline-none focus:border-[#1696C8] focus:ring-[0.5px] focus:ring-[#1696C8] focus:shadow-[0_0_0_3px_rgba(22,150,200,0.15)]"
+                            className="w-full rounded-[14px] border border-[#E0E0E0] bg-white px-3 py-3 text-sm font-bold text-[#606060] outline-none focus:border-[#528DB5] focus:ring-[0.5px] focus:ring-[#528DB5] focus:shadow-[0_0_0_3px_rgba(22,150,200,0.15)]"
                           />
                         </div>
 
@@ -1054,7 +1054,7 @@ export default function CustomReportBuilderStep({
                                     )
                                   );
                                 }}
-                                className="w-full rounded-[14px] border border-[#E0E0E0] bg-white px-3 py-3 text-sm font-bold outline-none focus:border-[#1696C8] focus:ring-[0.5px] focus:ring-[#1696C8] focus:shadow-[0_0_0_3px_rgba(22,150,200,0.15)]"
+                                className="w-full rounded-[14px] border border-[#E0E0E0] bg-white px-3 py-3 text-sm font-bold outline-none focus:border-[#528DB5] focus:ring-[0.5px] focus:ring-[#528DB5] focus:shadow-[0_0_0_3px_rgba(22,150,200,0.15)]"
                               >
                                 {KPI_METRICS.map((m) => (
                                   <option key={m.key} value={m.key}>
@@ -1092,7 +1092,7 @@ export default function CustomReportBuilderStep({
                                     )
                                   );
                                 }}
-                                className="w-full rounded-[14px] border border-[#E0E0E0] bg-white px-3 py-3 text-sm font-bold outline-none focus:border-[#1696C8] focus:ring-[0.5px] focus:ring-[#1696C8] focus:shadow-[0_0_0_3px_rgba(22,150,200,0.15)]"
+                                className="w-full rounded-[14px] border border-[#E0E0E0] bg-white px-3 py-3 text-sm font-bold outline-none focus:border-[#528DB5] focus:ring-[0.5px] focus:ring-[#528DB5] focus:shadow-[0_0_0_3px_rgba(22,150,200,0.15)]"
                               >
                                 {KPI_METRICS.map((m) => (
                                   <option key={m.key} value={m.key}>
@@ -1121,7 +1121,7 @@ export default function CustomReportBuilderStep({
                                     )
                                   );
                                 }}
-                                className="w-full rounded-[14px] border border-[#E0E0E0] bg-white px-3 py-3 text-sm font-bold outline-none focus:border-[#1696C8] focus:ring-[0.5px] focus:ring-[#1696C8] focus:shadow-[0_0_0_3px_rgba(22,150,200,0.15)]"
+                                className="w-full rounded-[14px] border border-[#E0E0E0] bg-white px-3 py-3 text-sm font-bold outline-none focus:border-[#528DB5] focus:ring-[0.5px] focus:ring-[#528DB5] focus:shadow-[0_0_0_3px_rgba(22,150,200,0.15)]"
                               >
                                 {CHART_TYPES.map((c) => (
                                   <option key={c.key} value={c.key}>
@@ -1185,7 +1185,7 @@ export default function CustomReportBuilderStep({
                                           );
                                         }}
                                         className={`inline-flex cursor-pointer items-center gap-2 rounded-full border px-2.5 py-2 text-xs font-semibold transition ${sel
-                                          ? "border-[#1696C8]/35 bg-[#1696C8]/10 text-[#1485b3]"
+                                          ? "border-[#528DB5]/35 bg-[#528DB5]/10 text-[#1485b3]"
                                           : "border-[#E0E0E0] bg-white text-[#606060]"
                                           }`}
                                       >
@@ -1261,7 +1261,7 @@ export default function CustomReportBuilderStep({
                                             );
                                           }}
                                           className={`cursor-pointer rounded-full border px-3 py-2 text-xs font-semibold transition active:translate-y-px ${on
-                                            ? "border-[#1696C8]/40 bg-[#1696C8]/10 text-[#1485b3] shadow-[0_0_0_3px_rgba(22,150,200,0.12)]"
+                                            ? "border-[#528DB5]/40 bg-[#528DB5]/10 text-[#1485b3] shadow-[0_0_0_3px_rgba(22,150,200,0.12)]"
                                             : "border-[#E0E0E0] bg-white text-[#858585]"
                                             }`}
                                         >
@@ -1297,7 +1297,7 @@ export default function CustomReportBuilderStep({
                       type="button"
                       disabled={!hasSelection}
                       onClick={() => showToast("Applied")}
-                      className="flex flex-1 cursor-pointer items-center justify-center rounded-[10px] bg-[#1696C8] px-3 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-[#1485b3] disabled:cursor-not-allowed disabled:opacity-50"
+                      className="flex flex-1 cursor-pointer items-center justify-center rounded-[10px] bg-[#528DB5] px-3 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-[#1485b3] disabled:cursor-not-allowed disabled:opacity-50"
                     >
                       Apply
                     </button>
@@ -1315,7 +1315,7 @@ export default function CustomReportBuilderStep({
                         Drag onto canvas
                       </span>
                     </div>
-                    <span className="rounded-full border border-[#1696C8]/25 bg-[#1696C8]/10 px-2.5 py-1.5 text-[11px] font-semibold text-[#1485b3]">
+                    <span className="rounded-full border border-[#528DB5]/25 bg-[#528DB5]/10 px-2.5 py-1.5 text-[11px] font-semibold text-[#1485b3]">
                       Drag
                     </span>
                   </div>
@@ -1348,7 +1348,7 @@ export default function CustomReportBuilderStep({
                               {desc}
                             </span>
                           </div>
-                          <span className="absolute right-3 top-3 rounded-full border border-[#1696C8]/25 bg-[#1696C8]/10 px-2 py-1 text-[11px] font-semibold text-[#1485b3]">
+                          <span className="absolute right-3 top-3 rounded-full border border-[#528DB5]/25 bg-[#528DB5]/10 px-2 py-1 text-[11px] font-semibold text-[#1485b3]">
                             Drag
                           </span>
                         </div>
@@ -1377,7 +1377,7 @@ export default function CustomReportBuilderStep({
 
             <div
               className={`relative flex min-h-[min(400px,55vh)] flex-col overflow-hidden rounded-xl border-[0.5px] border-dashed p-3.5 shadow-[0_4px_-6px_rgba(0,0,0,0.06)] transition-colors sm:rounded-2xl ${dropzoneOver
-                ? "border-[#1696C8]/55 bg-[rgba(22,150,200,0.1)]"
+                ? "border-[#528DB5]/55 bg-[rgba(22,150,200,0.1)]"
                 : "border-[#579EBA]/35 bg-white"
                 }`}
               onDragOver={(e) => {
@@ -1443,7 +1443,7 @@ export default function CustomReportBuilderStep({
                         gridColumn: `span ${tile.colSpan} / span ${tile.colSpan}`,
                       }}
                       className={`relative min-h-30 cursor-pointer overflow-hidden rounded-xl border bg-white p-3 shadow-[0_1px_3px_rgba(15,23,42,0.06)] transition hover:-translate-y-px sm:rounded-2xl ${isSel
-                        ? "border-[#1696C8]/55 shadow-[0_0_0_3px_rgba(22,150,200,0.2),0_1px_3px_rgba(15,23,42,0.06)]"
+                        ? "border-[#528DB5]/55 shadow-[0_0_0_3px_rgba(22,150,200,0.2),0_1px_3px_rgba(15,23,42,0.06)]"
                         : "border-[#E0E0E0]"
                         }`}
                     >
@@ -1528,7 +1528,7 @@ export default function CustomReportBuilderStep({
         <button
           type="button"
           onClick={requestSave}
-          className="inline-flex h-10 cursor-pointer items-center justify-center gap-2 rounded-[10px] bg-[#1696C8] px-4 text-sm font-semibold text-white shadow-sm transition hover:bg-[#1485b3] sm:order-2"
+          className="inline-flex h-10 cursor-pointer items-center justify-center gap-2 rounded-[10px] bg-[#528DB5] px-4 text-sm font-semibold text-white shadow-sm transition hover:bg-[#1485b3] sm:order-2"
         >
           Save Report
         </button>

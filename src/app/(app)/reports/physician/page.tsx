@@ -156,7 +156,7 @@ export default function PhysicianReportPage() {
         <div className="flex shrink-0 flex-wrap items-center gap-2 sm:justify-end">
           <button
             type="button"
-            className="inline-flex h-9 cursor-pointer items-center gap-1.5 rounded-[10px] bg-[#1696C8] px-3 text-xs font-semibold text-white shadow-sm transition hover:bg-[#1485b3] sm:h-10 sm:px-4 sm:text-sm"
+            className="inline-flex h-9 cursor-pointer items-center gap-1.5 rounded-[10px] bg-[#528DB5] px-3 text-xs font-semibold text-white shadow-sm transition hover:bg-[#1485b3] sm:h-10 sm:px-4 sm:text-sm"
             aria-haspopup="dialog"
             aria-expanded={archiveModalOpen}
             onClick={() => setArchiveModalOpen(true)}
@@ -190,7 +190,7 @@ export default function PhysicianReportPage() {
           placeholder="Search physician"
           aria-label="Search physician"
           wrapperClassName="w-full"
-          className="h-11 rounded-[10px] py-2.5 focus:border-[#1696C8] focus:ring-[0.5px] focus:ring-[#1696C8]"
+          className="h-11 rounded-[10px] py-2.5 focus:border-[#528DB5] focus:ring-[0.5px] focus:ring-[#528DB5]"
           isNoShadow={true}
           isGoButton={true}
         />
@@ -202,7 +202,7 @@ export default function PhysicianReportPage() {
           <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
             <div className="flex min-w-0 gap-3 sm:gap-4">
               <div
-                className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#D4EAF5] text-sm font-bold text-[#1696C8] sm:h-14 sm:w-14 sm:text-base"
+                className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#D4EAF5] text-sm font-bold text-[#528DB5] sm:h-14 sm:w-14 sm:text-base"
                 aria-hidden
               >
                 {PROFILE.initials}
@@ -221,13 +221,13 @@ export default function PhysicianReportPage() {
                   <span className="block">NPI: {PROFILE.npi}</span>
                 </p>
                 <div className="flex flex-wrap  flex-row items-center gap-2 pt-2">
-                  <span className="inline-flex items-center rounded-full border-[0.5px] border-[#579EBA29] bg-[#EFF5F8] px-2.5 py-1 text-[10px] font-semibold text-[#528DB5] sm:text-[11px]">
+                  <span className="inline-flex items-center rounded-full border-[0.5px] border-[#579EBA29] bg-[#EFF5F8] px-2.5 py-1 text-[10px] font-semibold text-primary-color sm:text-[11px]">
                     Avg Signing: {PROFILE.avgSigning}
                   </span>
-                  <span className="inline-flex items-center rounded-full border-[0.5px] border-[#579EBA29] bg-[#EFF5F8] px-2.5 py-1 text-[10px] font-semibold text-[#528DB5] sm:text-[11px]">
+                  <span className="inline-flex items-center rounded-full border-[0.5px] border-[#579EBA29] bg-[#EFF5F8] px-2.5 py-1 text-[10px] font-semibold text-primary-color sm:text-[11px]">
                     Last Signed: {PROFILE.lastSigned}
                   </span>
-                  <span className="inline-flex items-center rounded-full border-[0.5px] border-[#579EBA29] bg-[#EFF5F8] px-2.5 py-1 text-[10px] font-semibold text-[#528DB5] sm:text-[11px]">
+                  <span className="inline-flex items-center rounded-full border-[0.5px] border-[#579EBA29] bg-[#EFF5F8] px-2.5 py-1 text-[10px] font-semibold text-primary-color sm:text-[11px]">
                     Alerts: {PROFILE.alerts}
                   </span>
                 </div>
@@ -238,14 +238,14 @@ export default function PhysicianReportPage() {
                 type="button"
                 className="inline-flex h-9 cursor-pointer items-center gap-1.5 rounded-[10px] border-[0.5px] border-[#E0E0E0] bg-white px-3 text-xs font-semibold text-[#686464] shadow-sm transition hover:bg-slate-50 sm:h-10 sm:px-4 sm:text-sm"
               >
-                <HiOutlinePhone className="h-4 w-4 text-[#528DB5]" aria-hidden />
+                <HiOutlinePhone className="h-4 w-4 text-primary-color" aria-hidden />
                 Call
               </button>
               <button
                 type="button"
                 className="inline-flex h-9 cursor-pointer items-center gap-1.5 rounded-[10px] border-[0.5px] border-[#E0E0E0] bg-white px-3 text-xs font-semibold text-[#686464] shadow-sm transition hover:bg-slate-50 sm:h-10 sm:px-4 sm:text-sm"
               >
-                <HiOutlineMail className="h-4 w-4 text-[#528DB5]" aria-hidden />
+                <HiOutlineMail className="h-4 w-4 text-primary-color" aria-hidden />
                 Message
               </button>
             </div>

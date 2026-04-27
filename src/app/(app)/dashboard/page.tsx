@@ -81,11 +81,11 @@ export default function Dashboard() {
                   value={10}
                   desc="Received MD Verification orders across platform"
                   total={10}
-                  // breakdown={[
-                  //   { label: "POC / 485", count: 4, color: "blue" },
-                  //   { label: "F2F", count: 6, color: "green" },
-                  //   { label: "IPD", count: 2, color: "yellow" },
-                  // ]}
+                // breakdown={[
+                //   { label: "POC / 485", count: 4, color: "blue" },
+                //   { label: "F2F", count: 6, color: "green" },
+                //   { label: "IPD", count: 2, color: "yellow" },
+                // ]}
                 />
               </div>
             </div>
@@ -99,11 +99,11 @@ export default function Dashboard() {
                 <BillableBarChart />
               </div>
             </div>
-            <div className="w-full flex gap-4">
-              <div className="w-[60%] ">
+            <div className="w-full flex flex-col  md:flex-row gap-4">
+              <div className="w-full md:w-[60%] ">
                 <CompletionBars />
               </div>
-              <div className="w-[40%]">
+              <div className="w-full md:w-[40%]">
                 <ServicePieChart />
               </div>
             </div>

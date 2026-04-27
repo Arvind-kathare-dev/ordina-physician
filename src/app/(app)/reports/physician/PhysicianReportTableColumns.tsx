@@ -71,7 +71,7 @@ export function usePhysicianReportTableColumns(): DataTableColumn<PhysicianRepor
                 {row.dateTags.map((t) => (
                   <span
                     key={t.text}
-                    className={`w-fit rounded-tr-[9px] rounded-bl-[9px] bg-[#528DB5]/[0.09] px-1.5 py-px pb-[4px] pl-[8px] pr-[8px] pt-[4px] text-left text-[9px] leading-tight sm:text-[10px] ${t.className}`}
+                    className={`w-fit rounded-tr-[9px] rounded-bl-[9px] bg-primary-color/[0.09] px-1.5 py-px pb-[4px] pl-[8px] pr-[8px] pt-[4px] text-left text-[9px] leading-tight sm:text-[10px] ${t.className}`}
                   >
                     {t.text}
                   </span>
@@ -174,17 +174,17 @@ export function usePhysicianReportTableColumns(): DataTableColumn<PhysicianRepor
             <div className="flex flex-nowrap items-center gap-1 sm:gap-2">
               <button
                 type="button"
-                className="cursor-pointer text-[14px] font-medium text-[#528DB5] underline"
+                className="cursor-pointer text-[14px] font-medium text-primary-color underline"
               >
                 Open
               </button>
               <button
                 type="button"
-                className="cursor-pointer text-[14px] font-medium text-[#528DB5] underline"
+                className="cursor-pointer text-[14px] font-medium text-primary-color underline"
               >
                 Resend
               </button>
-              <div className="flex flex-nowrap items-center gap-1 text-slate-500 sm:gap-2">
+              <div className="flex flex-nowrap items-center gap-1 text-primary-subtitle sm:gap-2">
                 <OutboxNotifyBellWithDialog row={orderRow} />
                 <OrderDetailsInfoDialog row={orderRow} />
               </div>

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo, useId, Fragment } from "react";
+import { useState, useMemo, useId, Fragment, useEffect } from "react";
 import { HiChevronLeft, HiChevronRight, HiOutlinePlus, HiOutlineTrash, HiOutlineSearch, HiX } from "react-icons/hi";
 import { useBillableOrdersTableColumns, BillableOrderRow } from "./BillableOrdersTableColumns";
 import DataTable from "@/components/common/DataTable";
@@ -15,8 +15,8 @@ const SUMMARY_CARDS = [
     value: "$1093",
     count: "21 orders",
     avg: "$58/ order",
-    color: "text-[#528DB5]",
-    bgColor: "bg-[#E8F4FC]",
+    color: "text-primary-color",
+    bgColor: "bg-primary-background",
   },
   {
     id: "485",
@@ -35,8 +35,8 @@ const SUMMARY_CARDS = [
     value: "$368",
     count: "9 orders",
     avg: "$67/ order",
-    color: "text-[#2E7AAF]",
-    bgColor: "bg-[#E8F4FC]",
+    color: "text-primary-color",
+    bgColor: "bg-primary-background",
   },
   {
     id: "other",
@@ -117,6 +117,72 @@ const MOCK_ROWS: BillableOrderRow[] = [
     days: { text: "Today", dot: "green" },
     amount: 84,
   },
+  {
+    id: "7",
+    date: "09/20/2025",
+    type: { text: "Order", bgColor: "bg-emerald-100", color: "text-emerald-600" },
+    patientName: "Ava Martinez",
+    agencyName: "CarePlus Health Plans",
+    insurance: "MediSure Health",
+    location: "San Jose",
+    days: { text: "5 Days", dot: "orange" },
+    amount: 120,
+  },
+  {
+    id: "8",
+    date: "09/15/2025",
+    type: { text: "Lab", bgColor: "bg-sky-100", color: "text-sky-600" },
+    patientName: "Jordan Kim",
+    agencyName: "ABC Pvt-Ltd",
+    insurance: "VitalCare Coverage",
+    location: "Stackton",
+    days: { text: "10 Days", dot: "red" },
+    amount: 45,
+  },
+  {
+    id: "9",
+    date: "09/10/2025",
+    type: { text: "485", bgColor: "bg-orange-100", color: "text-orange-600" },
+    patientName: "Morgan Lee",
+    agencyName: "MedSync",
+    insurance: "HealthBridge Insurance",
+    location: "Walnut Creek",
+    days: { text: "15 Days", dot: "red" },
+    amount: 210,
+  },
+  {
+    id: "10",
+    date: "09/05/2025",
+    type: { text: "Order", bgColor: "bg-emerald-100", color: "text-emerald-600" },
+    patientName: "Riley Chen",
+    agencyName: ".AlphaCure",
+    insurance: "ProHealth Insurance",
+    location: "San Jose",
+    days: { text: "Today", dot: "green" },
+    amount: 75,
+  },
+  {
+    id: "11",
+    date: "08/30/2025",
+    type: { text: "Lab", bgColor: "bg-sky-100", color: "text-sky-600" },
+    patientName: "Taylor Sutton",
+    agencyName: "PureWell Health",
+    insurance: "NovaHealth Insurance",
+    location: "Walnut Creek",
+    days: { text: "1 Day", dot: "green" },
+    amount: 32,
+  },
+  {
+    id: "12",
+    date: "08/25/2025",
+    type: { text: "MD Verification", bgColor: "bg-purple-100", color: "text-purple-600" },
+    patientName: "Amelia Carter",
+    agencyName: "CurePoint",
+    insurance: "CarePlus Health",
+    location: "San Jose",
+    days: { text: "3 Days", dot: "orange" },
+    amount: 98,
+  },
 ];
 
 const MONTHS = ["Mar-26", "Feb-26", "Jan-26", "Dec-25", "Nov-25", "Oct-25", "Sep-25", "Aug-25", "Jul-25", "Jun-25"];
@@ -130,6 +196,7 @@ export default function BillableOrdersPage() {
   const [sendModalOpen, setSendModalOpen] = useState(false);
   const [archiveModalOpen, setArchiveModalOpen] = useState(false);
   const [archiveSuccessOpen, setArchiveSuccessOpen] = useState(false);
+  const [tablePage, setTablePage] = useState(1);
 
   const archiveTitleId = useId();
   const archiveDescId = useId();
@@ -155,6 +222,10 @@ export default function BillableOrdersPage() {
       return matchesSearch && matchesFilter;
     });
   }, [search, filter]);
+
+  useEffect(() => {
+    setTablePage(1);
+  }, [search, filter, selectedMonth]);
 
   const selectedAmount = useMemo(() => {
     return MOCK_ROWS.filter((r) => selectedRows.includes(r.id)).reduce(
@@ -183,7 +254,7 @@ export default function BillableOrdersPage() {
         <div className="flex shrink-0 items-center gap-3">
           <button
             onClick={() => setArchiveModalOpen(true)}
-            className="inline-flex h-10 items-center gap-2 rounded-xl bg-[#2E7AAF] px-4 text-sm font-semibold text-white shadow-sm transition hover:bg-[#25638f]"
+            className="inline-flex h-10 items-center gap-2 rounded-xl bg-primary-color px-4 text-sm font-semibold text-white shadow-sm transition hover:bg-[#25638f]"
           >
             <HiOutlinePlus className="h-4 w-4" />
             Add to Archive
@@ -204,9 +275,9 @@ export default function BillableOrdersPage() {
 
       {/* Month Selector */}
       <div className="mb-8 flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
-        <div className="relative flex items-center gap-2 overflow-hidden text-slate-400">
+        <div className="relative flex items-center gap-2 overflow-hidden text-primary-description">
           {/* Carousel Simulation */}
-          <button className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-400 hover:text-slate-600">
+          <button className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-slate-200 bg-white text-primary-description hover:text-slate-600">
             <HiChevronLeft className="h-5 w-5" />
           </button>
           <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-hide">
@@ -215,7 +286,7 @@ export default function BillableOrdersPage() {
                 key={month}
                 onClick={() => setSelectedMonth(month)}
                 className={`shrink-0 rounded-full px-4 py-1.5 text-sm font-medium transition-colors ${selectedMonth === month
-                    ? "bg-[#E8F4FC] text-[#2E7AAF] ring-1 ring-[#2E7AAF]"
+                    ? "bg-primary-background text-primary-color ring-1 ring-primary-color"
                     : "bg-[#F3F4F6] text-[#6B7280] hover:bg-slate-200"
                   }`}
               >
@@ -223,7 +294,7 @@ export default function BillableOrdersPage() {
               </button>
             ))}
           </div>
-          <button className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-400 hover:text-slate-600">
+          <button className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-slate-200 bg-white text-primary-description hover:text-slate-600">
             <HiChevronRight className="h-5 w-5" />
           </button>
         </div>
@@ -233,7 +304,7 @@ export default function BillableOrdersPage() {
               key={mode}
               onClick={() => setViewMode(mode as any)}
               className={`rounded-lg px-4 py-1.5 text-sm font-semibold transition-all ${viewMode === mode
-                  ? "bg-white text-[#2E7AAF] shadow-sm"
+                  ? "bg-white text-primary-color shadow-sm"
                   : "text-[#6B7280] hover:text-[#4B5563]"
                 }`}
             >
@@ -248,11 +319,11 @@ export default function BillableOrdersPage() {
         {SUMMARY_CARDS.map((card) => (
           <div key={card.id} className="rounded-2xl border border-slate-100 bg-white p-5 shadow-sm">
             <div className="mb-3 flex items-center gap-1.5">
-              <span className="text-xs font-bold text-slate-400">{card.label}</span>
-              <span className="rounded bg-slate-100 px-1.5 py-0.5 text-[10px] font-bold text-slate-500">{card.subLabel}</span>
+              <span className="text-xs font-bold text-primary-description">{card.label}</span>
+              <span className="rounded bg-slate-100 px-1.5 py-0.5 text-[10px] font-bold text-primary-subtitle">{card.subLabel}</span>
             </div>
-            <div className="mb-1 text-3xl font-bold text-slate-800">{card.value}</div>
-            <div className="mb-4 text-sm font-medium text-slate-400">{card.count}</div>
+            <div className="mb-1 text-3xl font-bold text-primary-title">{card.value}</div>
+            <div className="mb-4 text-sm font-medium text-primary-description">{card.count}</div>
             <div className={`inline-flex items-center rounded-full px-3 py-1 text-xs font-bold ${card.bgColor} ${card.color}`}>
               Avg:{card.avg}
             </div>
@@ -264,23 +335,23 @@ export default function BillableOrdersPage() {
       <div className="rounded-2xl border border-slate-100 bg-white shadow-sm overflow-hidden">
         <div className="flex flex-col gap-4 border-b border-slate-100 p-4 sm:flex-row sm:items-center sm:justify-between sm:p-6">
           <div className="flex items-center gap-3">
-            <h3 className="text-lg font-bold text-slate-800">Orders • {selectedMonth.includes("Mar") ? "Mar 2026" : selectedMonth}</h3>
-            <span className="rounded-full bg-slate-100 px-3 py-1 text-sm font-medium text-slate-500">
+            <h3 className="text-lg font-bold text-primary-title">Orders • {selectedMonth.includes("Mar") ? "Mar 2026" : selectedMonth}</h3>
+            <span className="rounded-full bg-slate-100 px-3 py-1 text-sm font-medium text-primary-subtitle">
               {selectedRows.length} selected • ${selectedAmount}
             </span>
           </div>
           <div className="flex flex-wrap items-center gap-3">
             <div className="relative">
-              <HiOutlineSearch className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
+              <HiOutlineSearch className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-primary-description" />
               <input
                 type="text"
                 placeholder="Search billable orders..."
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
-                className="h-10 w-full rounded-xl border border-slate-200 bg-white pl-9 pr-8 text-sm focus:border-[#2E7AAF] focus:outline-none sm:w-64"
+                className="h-10 w-full rounded-xl border border-slate-200 bg-white pl-9 pr-8 text-sm focus:border-primary-color focus:outline-none sm:w-64"
               />
               {search && (
-                <button onClick={() => setSearch("")} className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600">
+                <button onClick={() => setSearch("")} className="absolute right-2.5 top-1/2 -translate-y-1/2 text-primary-description hover:text-slate-600">
                   <HiX className="h-4 w-4" />
                 </button>
               )}
@@ -290,7 +361,7 @@ export default function BillableOrdersPage() {
                 <button
                   key={f}
                   onClick={() => setFilter(f)}
-                  className={`rounded-lg px-4 py-1.5 text-xs font-bold transition-all ${filter === f ? "bg-white text-[#2E7AAF] shadow-sm" : "text-slate-500 hover:text-slate-700"
+                  className={`rounded-lg px-4 py-1.5 text-xs font-bold transition-all ${filter === f ? "bg-white text-primary-color shadow-sm" : "text-primary-subtitle hover:text-slate-700"
                     }`}
                 >
                   {f}
@@ -299,7 +370,7 @@ export default function BillableOrdersPage() {
             </div>
             <button
               onClick={() => setSendModalOpen(true)}
-              className="inline-flex h-10 items-center justify-center rounded-xl border border-[#2E7AAF] px-4 text-sm font-bold text-[#2E7AAF] hover:bg-[#E8F4FC] transition-colors"
+              className="inline-flex h-10 items-center justify-center rounded-xl border border-primary-color px-4 text-sm font-bold text-primary-color hover:bg-primary-background transition-colors"
             >
               Send to Billers
             </button>
@@ -312,13 +383,13 @@ export default function BillableOrdersPage() {
             rows={filteredRows}
             getRowKey={(r) => r.id}
             isBorderlessTable={true}
-            headerClassName="bg-[#528DB5] text-white"
+            headerClassName="bg-primary-color text-white"
             pagination={{
-              page: 1,
-              onPageChange: () => { },
-              pageSize: 8,
-              totalCount: 150,
-              summaryLabel: "Orders"
+              page: tablePage,
+              onPageChange: setTablePage,
+              pageSize: 6,
+              totalCount: filteredRows.length,
+              summaryLabel: "Orders",
             }}
           />
         </div>
@@ -343,23 +414,23 @@ export default function BillableOrdersPage() {
       <div className="mt-8">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between rounded-2xl border border-slate-100 bg-white p-6 shadow-sm">
           <div className="flex items-center gap-4">
-            <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#E8F4FC] text-[#2E7AAF]">
+            <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-primary-background text-primary-color">
               <span className="text-xl font-bold">Σ</span>
             </div>
             <div>
-              <div className="text-sm font-bold text-slate-800 sm:text-base">Total Billable • {selectedMonth.includes("Mar") ? "Mar 2026" : selectedMonth} (Month)</div>
-              <div className="text-xs font-medium text-slate-400 sm:text-sm">Based on current filters • Selected: {selectedRows.length} orders</div>
+              <div className="text-sm font-bold text-primary-title sm:text-base">Total Billable • {selectedMonth.includes("Mar") ? "Mar 2026" : selectedMonth} (Month)</div>
+              <div className="text-xs font-medium text-primary-description sm:text-sm">Based on current filters • Selected: {selectedRows.length} orders</div>
             </div>
           </div>
           <div className="flex flex-wrap items-center gap-4 sm:gap-8">
-            <span className="text-2xl font-bold text-slate-800 sm:text-3xl">${selectedAmount.toLocaleString()}</span>
+            <span className="text-2xl font-bold text-primary-title sm:text-3xl">${selectedAmount.toLocaleString()}</span>
             <div className="flex items-center gap-3">
               <button className="h-11 rounded-xl border border-slate-200 px-6 text-sm font-bold text-slate-600 hover:bg-slate-50 transition-colors">
                 Export CSV
               </button>
               <button
                 onClick={() => setSendModalOpen(true)}
-                className="h-11 rounded-xl bg-[#528DB5] px-6 text-sm font-bold text-white shadow-lg shadow-[#528DB5]/20 hover:bg-[#45799c] transition-all"
+                className="h-11 rounded-xl bg-primary-color px-6 text-sm font-bold text-white shadow-lg shadow-[#528DB5]/20 hover:bg-[#45799c] transition-all"
               >
                 Send Selected to Billers
               </button>
@@ -376,34 +447,34 @@ export default function BillableOrdersPage() {
         ariaLabel="Send to Billers"
       >
         <div className="flex items-center justify-between mb-8">
-          <h3 className="text-2xl font-bold text-slate-800">
+          <h3 className="text-2xl font-bold text-primary-title">
             Send to Billers
           </h3>
-          <button onClick={() => setSendModalOpen(false)} className="text-slate-400 hover:text-slate-600 transition-colors">
+          <button onClick={() => setSendModalOpen(false)} className="text-primary-description hover:text-slate-600 transition-colors">
             <HiX className="h-6 w-6" />
           </button>
         </div>
 
-        <p className="mb-6 text-slate-500 font-medium">
+        <p className="mb-6 text-primary-subtitle font-medium">
           You're about to send {selectedRows.length} billable orders to billers for Feb 2026. Review selection below.
         </p>
 
         <div className="mb-6 rounded-[16px] border border-slate-100 bg-[#F9FAFB] p-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <input type="checkbox" checked={true} readOnly className="h-5 w-5 rounded border-slate-300 text-[#528DB5] focus:ring-[#528DB5]" />
+            <input type="checkbox" checked={true} readOnly className="h-5 w-5 rounded border-slate-300 text-primary-color focus:ring-primary-color" />
             <span className="font-bold text-slate-700">Select all in selection</span>
           </div>
-          <span className="text-sm font-medium text-slate-500">Selected Amount: <span className="font-bold text-slate-800">${selectedAmount}</span></span>
+          <span className="text-sm font-medium text-primary-subtitle">Selected Amount: <span className="font-bold text-primary-title">${selectedAmount}</span></span>
         </div>
 
         <div className="mb-8 max-h-[300px] overflow-y-auto pr-2 space-y-3 custom-scrollbar">
           {MOCK_ROWS.filter(r => selectedRows.includes(r.id)).map(row => (
             <div key={row.id} className="rounded-xl border border-slate-100 bg-white p-4 flex items-center justify-between hover:border-slate-200 transition-colors">
               <div className="flex items-center gap-4">
-                <input type="checkbox" checked={true} readOnly className="h-5 w-5 rounded border-slate-300 text-[#528DB5] focus:ring-[#528DB5]" />
+                <input type="checkbox" checked={true} readOnly className="h-5 w-5 rounded border-slate-300 text-primary-color focus:ring-primary-color" />
                 <div>
-                  <div className="font-bold text-slate-800">{row.type.text} • {row.patientName}</div>
-                  <div className="text-xs font-medium text-slate-400">Dr. Noah Patel • {row.date} • {row.location}</div>
+                  <div className="font-bold text-primary-title">{row.type.text} • {row.patientName}</div>
+                  <div className="text-xs font-medium text-primary-description">Dr. Noah Patel • {row.date} • {row.location}</div>
                 </div>
               </div>
               <span className="font-bold text-slate-700">${row.amount}</span>
@@ -412,11 +483,11 @@ export default function BillableOrdersPage() {
         </div>
 
         <div className="flex items-center justify-between pt-6 border-t border-slate-100">
-          <span className="text-lg font-bold text-slate-800">Total to send: ${selectedAmount}</span>
+          <span className="text-lg font-bold text-primary-title">Total to send: ${selectedAmount}</span>
           <div className="flex items-center gap-3">
             <button
               onClick={() => setSendModalOpen(false)}
-              className="h-11 rounded-xl px-6 text-sm font-bold text-slate-500 hover:bg-slate-50 transition-colors"
+              className="h-11 rounded-xl px-6 text-sm font-bold text-primary-subtitle hover:bg-slate-50 transition-colors"
             >
               Cancel
             </button>
@@ -425,7 +496,7 @@ export default function BillableOrdersPage() {
                 setSendModalOpen(false);
                 // Handle send logic
               }}
-              className="h-11 rounded-xl bg-[#528DB5] px-8 text-sm font-bold text-white shadow-lg shadow-[#528DB5]/20 hover:bg-[#45799c] transition-all"
+              className="h-11 rounded-xl bg-primary-color px-8 text-sm font-bold text-white shadow-lg shadow-[#528DB5]/20 hover:bg-[#45799c] transition-all"
             >
               Confirm Send
             </button>

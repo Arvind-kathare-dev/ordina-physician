@@ -27,7 +27,7 @@ function sidebarOneClickCardClass(active: boolean, isCustom: boolean) {
     return `${base} border-[#FFA90A] bg-[#FAF6F0] shadow-[rgba(87, 158, 186, 0.2)] ring-1 ring-[#FFA90A]/35`;
   }
   if (active) {
-    return `${base} border-[#528DB5]/80 bg-[#E8F4FC] shadow-[rgba(87, 158, 186, 0.2)]`;
+    return `${base} border-primary-color/80 bg-primary-background shadow-[rgba(87, 158, 186, 0.2)]`;
   }
   return `${base} border border-slate-200/95 bg-white hover:border-slate-300 hover:shadow-[rgba(87, 158, 186, 0.2)]`;
 }
@@ -36,7 +36,7 @@ function sidebarRecentCardClass(active: boolean) {
   const base =
     "relative z-0 flex min-h-[110px] min-w-[132px] shrink-0 flex-col items-start justify-start gap-2.5 rounded-[12px] border px-3 pb-3 pt-5 text-center shadow-sm transition sm:min-w-[148px] lg:w-full lg:min-w-0";
   if (active) {
-    return `${base} border-[#528DB5]/80 bg-[#E8F4FC] shadow-[rgba(87, 158, 186, 0.2)]`;
+    return `${base} border-primary-color/80 bg-primary-background shadow-[rgba(87, 158, 186, 0.2)]`;
   }
   return `${base} border border-slate-200/95 bg-white hover:border-slate-300 hover:shadow-[rgba(87, 158, 186, 0.2)]`;
 }
@@ -68,7 +68,7 @@ export function SidebarDefaultBody({ pathname }: DefaultBodyProps) {
               setQuickReportMountKey((k) => k + 1);
               setQuickReportOpen(true);
             }}
-            className="inline-flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-[#1696C8] text-white shadow-sm transition hover:bg-[#1485b3]"
+            className="inline-flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-[#528DB5] text-white shadow-sm transition hover:bg-[#1485b3]"
             aria-label="Add report"
           >
             <HiOutlinePlus className="h-5 w-5" aria-hidden />
@@ -76,7 +76,7 @@ export function SidebarDefaultBody({ pathname }: DefaultBodyProps) {
           <button
             type="button"
             onClick={() => router.push("/reports/archive")}
-            className="inline-flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-[#1696C8] text-white shadow-sm transition hover:bg-[#1485b3]"
+            className="inline-flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-[#528DB5] text-white shadow-sm transition hover:bg-[#1485b3]"
             aria-label="Documents"
           >
             <span className="sr-only">Documents</span>
@@ -90,7 +90,7 @@ export function SidebarDefaultBody({ pathname }: DefaultBodyProps) {
           <div className="flex items-stretch gap-1.5 lg:block lg:space-y-3">
             <button
               type="button"
-              className="z-[2] inline-flex h-8 w-8 shrink-0 items-center justify-center self-center rounded-lg border border-slate-200/90 bg-white text-slate-500 shadow-sm lg:hidden"
+              className="z-[2] inline-flex h-8 w-8 shrink-0 items-center justify-center self-center rounded-lg border border-slate-200/90 bg-white text-primary-subtitle shadow-sm lg:hidden"
               aria-label="Scroll left"
             >
               <HiChevronLeft className="h-4 w-4" />
@@ -119,7 +119,7 @@ export function SidebarDefaultBody({ pathname }: DefaultBodyProps) {
                         <ReportSidebarNavIcon id={item.id} active={active} />
                         <span
                           className={`max-w-[11rem] text-left text-[12px] ps-1 font-semibold leading-snug sm:text-xs ${
-                            active ? "text-[#528DB5]" : "text-[#606060]"
+                            active ? "text-primary-color" : "text-[#606060]"
                           }`}
                         >
                           {item.label}
@@ -127,7 +127,7 @@ export function SidebarDefaultBody({ pathname }: DefaultBodyProps) {
                       </Link>
                       {active ? (
                         <span
-                          className="pointer-events-none absolute left-[2px] top-4 bottom-4 z-[2] w-[5px] rounded-full bg-[#1696C8]"
+                          className="pointer-events-none absolute left-[2px] top-4 bottom-4 z-[2] w-[5px] rounded-full bg-[#528DB5]"
                           aria-hidden
                         />
                       ) : null}
@@ -138,7 +138,7 @@ export function SidebarDefaultBody({ pathname }: DefaultBodyProps) {
             </div>
             <button
               type="button"
-              className="z-[2] inline-flex h-8 w-8 shrink-0 items-center justify-center self-center rounded-lg border border-slate-200/90 bg-white text-slate-500 shadow-sm lg:hidden"
+              className="z-[2] inline-flex h-8 w-8 shrink-0 items-center justify-center self-center rounded-lg border border-slate-200/90 bg-white text-primary-subtitle shadow-sm lg:hidden"
               aria-label="Scroll right"
             >
               <HiChevronRight className="h-4 w-4" />
@@ -175,7 +175,7 @@ export function SidebarDefaultBody({ pathname }: DefaultBodyProps) {
                         active && isCustom
                           ? "text-[#606060]"
                           : active
-                            ? "text-[#1696C8]"
+                            ? "text-[#528DB5]"
                             : "text-[#606060]"
                       }`}
                     >
@@ -184,7 +184,7 @@ export function SidebarDefaultBody({ pathname }: DefaultBodyProps) {
                   </Link>
                   {active && !isCustom ? (
                     <span
-                      className="pointer-events-none absolute left-[2px] top-4 bottom-4 z-[2] w-[5px] rounded-full bg-[#1696C8]"
+                      className="pointer-events-none absolute left-[2px] top-4 bottom-4 z-[2] w-[5px] rounded-full bg-[#528DB5]"
                       aria-hidden
                     />
                   ) : null}
@@ -205,7 +205,7 @@ function richCardClass(active: boolean, isCustom: boolean) {
     return `${base} border-[#FFA90A] bg-[#FAF6F0] shadow-[rgba(87,158,186,0.2)] ring-[0.5px] ring-[#FFA90A]/35 hover:border-[#f59e0b]`;
   }
   if (active) {
-    return `${base} border-[#b8d4eb] bg-[#E8F4FC] shadow-[0_4px_14px_rgba(43,119,184,0.14)]`;
+    return `${base} border-[#b8d4eb] bg-primary-background shadow-[0_4px_14px_rgba(43,119,184,0.14)]`;
   }
   return `${base} border-slate-200/90 bg-white hover:border-slate-300/95`;
 }

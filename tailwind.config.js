@@ -10,7 +10,7 @@ module.exports = {
         secondary: "#0F172A",
         accent: "#F7F7F7",
         danger: "#EF4444",
-       
+
         border: "#CCCCCC",
         boxBorder: "#D6D6D6",
         btn: "#528DB521",
@@ -19,6 +19,20 @@ module.exports = {
           DEFAULT: "#528DB5",
           light: "#7CBAD3",
           dark: "#3A6F95",
+          background: "#528DB50D",
+          color: "#528DB5",
+          border: "#528DB540",
+          title: "#333333",
+          subtitle: "#666666",
+          description: "#262626",
+          primaryGradient: "linear-gradient(225.61deg, #579EBA 18.17%, #4F81B2 89.91%)",
+          gradientButton: "linear-gradient(225.61deg, #579EBA 18.17%, #4F81B2 89.91%)",
+          gradientText: "linear-gradient(93.18deg, #6FB4CF 0%, #8FC3D8 100%)",
+          gradientHover: "linear-gradient(225.61deg, #579EBA 18.17%, #4F81B2 89.91%)",
+          shadowButton: "0px 4px 0px 0px #00000040",
+          shadowHeader: "0px 0px 10px 0px #0000000D",
+          cardShadow: "0px 4px 20px -6px #0000000D",
+
         },
 
         background: {
@@ -47,14 +61,14 @@ module.exports = {
         grayCustom: {
           100: "#F6F9FB",
           200: "#FBE3EC",
-           220: "#E6E6E6",
+          220: "#E6E6E6",
           300: "#606060",
           400: "#9B9B9B",
           500: "#858585",
           600: "#686464",
-           320: "#E8F3FB",
-           340: "rgba(232, 240, 243, 1)",
-           330: "rgba(248, 248, 248, 1)",
+          320: "#E8F3FB",
+          340: "rgba(232, 240, 243, 1)",
+          330: "rgba(248, 248, 248, 1)",
         },
 
         gray: {
@@ -70,16 +84,16 @@ module.exports = {
           400: "#686464",
           450: "#606060",
           500: "#4D4D4D",
-         
+
           520: "#B6C0C4",
           550: "#CDCDCD",
           600: "#303030",
         },
         purple: {
-          120:"#EFF6FB",
+          120: "#EFF6FB",
           150: "#EBF3F9",
           250: "#E5DEEF",
-           220: "#F2EBFF",
+          220: "#F2EBFF",
           450: "#99A9E8",
           560: "#8F65E3",
 
@@ -110,9 +124,9 @@ module.exports = {
           600: "#E33629",
         },
 
-         roseDust: "#E1A8BE",
-           roseMist: "#FBE3EC",
-            neutralLight: "#F7F7F7",
+        roseDust: "#E1A8BE",
+        roseMist: "#FBE3EC",
+        neutralLight: "#F7F7F7",
 
         success: "#38C360",
         warning: "#FFA90A",
@@ -156,6 +170,14 @@ module.exports = {
         search: "2px 2px 7.3px -1px #0000001A",
         card2: "0px 4px 20px -6px #0000000D",
 
+      },
+      keyframes: {
+        shine: {
+          "100%": { transform: "translateX(100%)" },
+        },
+      },
+      animation: {
+        shine: "shine 2s infinite linear",
       },
     },
   },

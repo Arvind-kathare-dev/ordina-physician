@@ -76,7 +76,7 @@ export function usePatientReportTableColumns(): DataTableColumn<PatientReportRow
                 {row.dateTags.map((t) => (
                   <span
                     key={t.text}
-                    className={`w-fit rounded-tr-[9px] rounded-bl-[9px] pt-[4px] pr-[8px] pb-[4px] pl-[8px] bg-[#528DB5]/[0.09] px-1.5 py-px text-left text-[9px] leading-tight sm:text-[10px] ${t.className}`}
+                    className={`w-fit rounded-tr-[9px] rounded-bl-[9px] pt-[4px] pr-[8px] pb-[4px] pl-[8px] bg-primary-color/[0.09] px-1.5 py-px text-left text-[9px] leading-tight sm:text-[10px] ${t.className}`}
                   >
                     {t.text}
                   </span>
@@ -84,6 +84,16 @@ export function usePatientReportTableColumns(): DataTableColumn<PatientReportRow
               </div>
             ) : null}
           </div>
+        ),
+      },
+      {
+        key: "patient",
+        header: "Patient",
+        className: "min-w-0",
+        cell: (row) => (
+          <span className="whitespace-nowrap font-medium text-[#686464]">
+            {row.patientName}
+          </span>
         ),
       },
       {
@@ -109,19 +119,12 @@ export function usePatientReportTableColumns(): DataTableColumn<PatientReportRow
         ),
       },
       {
-        key: "physician",
-        header: "Physician Name",
+        key: "agency",
+        header: "Agency",
         className: "min-w-0",
         cell: (row) => (
-          <span className="inline-flex items-center gap-1.5 whitespace-nowrap">
-            <Image
-              src={doctorimage}
-              className="h-4 w-4"
-              alt="Physician"
-              width={16}
-              height={16}
-            />
-            <span>{row.physicianName}</span>
+          <span className="whitespace-nowrap text-[#686464]">
+            {row.agency}
           </span>
         ),
       },
@@ -178,17 +181,17 @@ export function usePatientReportTableColumns(): DataTableColumn<PatientReportRow
             <div className="flex flex-nowrap items-center gap-1 sm:gap-2">
               <button
                 type="button"
-                className="cursor-pointer text-[14px] font-medium text-[#528DB5] underline"
+                className="cursor-pointer text-[14px] font-medium text-primary-color underline"
               >
                 Open
               </button>
               <button
                 type="button"
-                className="cursor-pointer text-[14px] font-medium text-[#528DB5] underline"
+                className="cursor-pointer text-[14px] font-medium text-primary-color underline"
               >
                 Resend
               </button>
-              <div className="flex flex-nowrap items-center gap-1 text-slate-500 sm:gap-2">
+              <div className="flex flex-nowrap items-center gap-1 text-primary-subtitle sm:gap-2">
                 <OutboxNotifyBellWithDialog row={orderRow} />
                 <OrderDetailsInfoDialog row={orderRow} />
               </div>

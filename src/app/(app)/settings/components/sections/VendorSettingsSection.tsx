@@ -111,9 +111,9 @@ export default function VendorSettingsSection() {
           </div>
 
           {/* Search */}
-          <div className="flex justify-between items-center mb-4">
-            <SearchBox />
-            <Button variant="danger" >Clear All</Button>
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 mb-4">
+            <SearchBox className="w-full sm:w-auto" />
+            <Button variant="danger" className="w-full sm:w-auto">Clear All</Button>
           </div>
 
           <Table data={rules}

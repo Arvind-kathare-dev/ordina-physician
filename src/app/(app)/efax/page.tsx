@@ -26,9 +26,14 @@ export default function EFaxPage() {
       f.faxNo.toLowerCase().includes(searchQuery.toLowerCase()),
   );
 
-  const PAGE_SIZE = 2;
+  const PAGE_SIZE = 4;
 
-  const totalPages = Math.ceil(filteredFaxes.length / PAGE_SIZE);
+  const totalPages = Math.ceil(filteredFaxes.length / PAGE_SIZE) || 1;
+
+  const paginatedFaxes = filteredFaxes.slice(
+    (currentPage - 1) * PAGE_SIZE,
+    currentPage * PAGE_SIZE
+  );
 
   const columns = getFaxColumns(activeTab);
 
@@ -69,9 +74,9 @@ export default function EFaxPage() {
           rightSection={<TabsActionsMinimal />}
         />
         {/* Table */}
-        <div className="w-full overflow-x-auto">
+        <div className="w-full overflow-x-auto mt-4">
           <div className="min-w-[1200px] mb-4">
-            <Table data={faxData} columns={columns} colNum={columns.length} />
+            <Table data={paginatedFaxes} columns={columns} colNum={columns.length} />
           </div>
         </div>
         <MinimalPagination

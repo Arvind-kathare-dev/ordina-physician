@@ -49,7 +49,7 @@ export default function ArchiveReportsPage() {
               <button
                 type="button"
                 onClick={() => setOpenCardId(card.id)}
-                className="flex min-h-33 w-full min-w-0 flex-col rounded-xl border-[0.5px] border-[#BFBFBF] bg-[#F8F8F8] p-5 text-left shadow-[0_1px_2px_rgba(0,0,0,0.04)] outline-none ring-[#1696C8]/30 transition focus-visible:ring-2 sm:min-h-35 cursor-pointer hover:bg-[#F0F0F0]"
+                className="flex min-h-33 w-full min-w-0 flex-col rounded-xl border-[0.5px] border-[#BFBFBF] bg-[#F8F8F8] p-5 text-left shadow-[0_1px_2px_rgba(0,0,0,0.04)] outline-none ring-[#528DB5]/30 transition focus-visible:ring-2 sm:min-h-35 cursor-pointer hover:bg-[#F0F0F0]"
               >
                 <span className="text-base font-semibold text-neutral-900 sm:text-[17px]">
                   {card.title}

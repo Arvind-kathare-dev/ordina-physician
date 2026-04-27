@@ -22,11 +22,11 @@ export default function AuthForm({ type }: Props) {
   };
 
   return (
-    <div className=" flex flex-col min-h-[680px]  justify-between">
+    <div className="flex flex-col min-h-[80vh] md:min-h-[680px] justify-between py-6 md:py-0">
       {/* HEADER */}
-      <div className="flex flex-col gap-12">
+      <div className="flex flex-col gap-8 md:gap-12">
         <div>
-          <h1 className="text-4xl font-semibold text-black">
+          <h1 className="text-3xl md:text-4xl font-semibold text-black">
             {type === "login" ? "Login to your account" : "Create an account"}
           </h1>
           <p className="text-gray-400 mt-2">

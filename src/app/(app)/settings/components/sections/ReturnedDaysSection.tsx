@@ -26,11 +26,11 @@ const orderOptions = [
 ];
 
 const thresholdOptions = [
-  { label: "24", value: "24" },
-  { label: "48", value: "48" },
-  { label: "72", value: "72" },
-  { label: "5", value: "5" },
-  { label: "7", value: "7" },
+  { label: "24 Hours", value: "24" },
+  { label: "48 Hours", value: "48" },
+  { label: "72 Hours", value: "72" },
+  { label: "5 Days", value: "5" },
+  { label: "7 Days", value: "7" },
 ];
 
 const unitOptions = [
@@ -192,9 +192,9 @@ export default function ReturnedDaysSection() {
           </div>
 
           {/* Search + Table */}
-          <div className="flex justify-between items-center mb-4">
-            <SearchBox />
-            <Button variant="danger" >Clear All</Button>
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 mb-4">
+            <SearchBox className="w-full sm:w-auto" />
+            <Button variant="danger" className="w-full sm:w-auto">Clear All</Button>
           </div>
 
           <Table data={rules}

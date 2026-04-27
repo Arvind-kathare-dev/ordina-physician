@@ -8,20 +8,22 @@ import { usePatientReportTableColumns } from "./PatientReportTableColumns";
 import { TbBoxAlignBottomLeft } from "react-icons/tb";
 import { REPORT_LOCATION_SELECT_OPTIONS } from "@/data/reportFilterLocationOptions";
 import ReportFiltersRow, { ReportFilterConfig } from "@/components/common/ReportFiltersRow";
-import { REPORT_PHYSICIAN_MULTI_OPTIONS } from "@/data/reportFilterPhysicianOptions";
+import { REPORT_AGENCY_MULTI_OPTIONS } from "@/data/reportFilterAgencyOptions";
 import { REPORT_ORDER_TYPE_MULTI_OPTIONS } from "@/data/reportFilterOrderTypeOptions";
 import { REPORT_STATUS_TYPE_SELECT_OPTIONS } from "@/data/reportFilterStatusTypeOptions";
 import { PATIENT_REPORT_ROWS } from "@/data/patientReportStaticData";
 import SearchInput from "@/components/common/SearchInput";
 import DataTable from "@/components/common/DataTable";
 import ReportArchiveDialogs from "@/components/common/ReportArchiveDialogs";
+import { REPORT_PHYSICIAN_PAGE_PATIENT_MULTI_OPTIONS } from "@/data/reportFilterPatientOptions";
 
 const PATIENT_REPORT_TABLE_GRID_COLUMNS =
-  "minmax(6.75rem,0.88fr) minmax(14.5rem,1.02fr) minmax(6.5rem,0.78fr) minmax(11rem,1.08fr) minmax(10rem,0.62fr) minmax(8rem,0.52fr) minmax(10.75rem,0.58fr) minmax(10rem,1fr)";
+  "minmax(6.75rem,0.88fr) minmax(10rem,1fr) minmax(14.5rem,1.02fr) minmax(6.5rem,0.78fr) minmax(11rem,1.08fr) minmax(10rem,0.62fr) minmax(8rem,0.52fr) minmax(10.75rem,0.58fr) minmax(10rem,1fr)";
 
 export default function PatientReportPage() {
   const [search, setSearch] = useState("");
-  const [physicianSelection, setPhysicianSelection] = useState<string[]>([]);
+  const [agencySelection, setAgencySelection] = useState<string[]>([]);
+  const [patientSelection, setPatientSelection] = useState<string[]>([]);
   const [orderTypeSelection, setOrderTypeSelection] = useState<string[]>([]);
   const [statusType, setStatusType] = useState("");
   const [location, setLocation] = useState("");
@@ -34,7 +36,7 @@ export default function PatientReportPage() {
 
   const filterStatusText = useMemo(() => {
     const noDropdownFilters =
-      physicianSelection.length === 0 &&
+      agencySelection.length === 0 &&
       orderTypeSelection.length === 0 &&
       statusType === "" &&
       location === "";
@@ -42,8 +44,11 @@ export default function PatientReportPage() {
       return "No filters applied (showing all).";
     }
     const parts: string[] = [];
-    if (physicianSelection.length > 0) {
-      parts.push(`Agency: ${physicianSelection.join(", ")}`);
+    if (patientSelection.length > 0) {
+      parts.push(`Patient: ${patientSelection.join(", ")}`);
+    }
+    if (agencySelection.length > 0) {
+      parts.push(`Agency: ${agencySelection.join(", ")}`);
     }
     if (orderTypeSelection.length > 0) {
       parts.push(`Order type: ${orderTypeSelection.join(", ")}`);
@@ -58,19 +63,29 @@ export default function PatientReportPage() {
       parts.push(`Location: ${locLabel}`);
     }
     return `${parts.join(" · ")}.`;
-  }, [physicianSelection, orderTypeSelection, statusType, location]);
+  }, [patientSelection, agencySelection, orderTypeSelection, statusType, location]);
 
   const reportFilters = useMemo((): ReportFilterConfig[] => {
     return [
       {
         kind: "multiSelect",
-        id: "physician",
+        id: "patient",
+        label: "Patient",
+        values: patientSelection,
+        onValuesChange: setPatientSelection,
+        options: [...REPORT_PHYSICIAN_PAGE_PATIENT_MULTI_OPTIONS],
+        searchPlaceholder: "Search patient..",
+        emptySummaryLabel: "All patients",
+      },
+      {
+        kind: "multiSelect",
+        id: "agency",
         label: "Agency",
-        values: physicianSelection,
-        onValuesChange: setPhysicianSelection,
-        options: [...REPORT_PHYSICIAN_MULTI_OPTIONS],
+        values: agencySelection,
+        onValuesChange: setAgencySelection,
+        options: [...REPORT_AGENCY_MULTI_OPTIONS],
         searchPlaceholder: "Search agency…",
-        emptySummaryLabel: "All agencies",
+        emptySummaryLabel: "Any",
       },
       {
         kind: "multiSelect",
@@ -99,15 +114,15 @@ export default function PatientReportPage() {
         optionLayout: "radio",
       },
     ];
-  }, [physicianSelection, orderTypeSelection, statusType, location]);
+  }, [patientSelection, agencySelection, orderTypeSelection, statusType, location]);
 
   const filteredRows = useMemo(() => {
     const q = search.trim().toLowerCase();
     return PATIENT_REPORT_ROWS.filter((row) => {
       if (q && !row.patientName.toLowerCase().includes(q)) return false;
       if (
-        physicianSelection.length > 0 &&
-        !physicianSelection.includes(row.physicianName)
+        agencySelection.length > 0 &&
+        !agencySelection.includes(row.agency)
       ) {
         return false;
       }
@@ -120,13 +135,22 @@ export default function PatientReportPage() {
       if (statusType && row.status.text !== statusType) {
         return false;
       }
+      if (location && row.location !== location) {
+        return false;
+      }
+      if (
+        patientSelection.length > 0 &&
+        !patientSelection.includes(row.patientName)
+      ) {
+        return false;
+      }
       return true;
     });
-  }, [search, physicianSelection, orderTypeSelection, statusType]);
+  }, [search, patientSelection, agencySelection, orderTypeSelection, statusType, location]);
 
   useEffect(() => {
     setTablePage(1);
-  }, [search, physicianSelection, orderTypeSelection, statusType, location]);
+  }, [search, patientSelection, agencySelection, orderTypeSelection, statusType, location]);
 
   const columns = usePatientReportTableColumns();
 
@@ -145,7 +169,7 @@ export default function PatientReportPage() {
         <div className="flex shrink-0 flex-wrap items-center gap-2 sm:justify-end">
           <button
             type="button"
-            className="inline-flex h-9 cursor-pointer items-center gap-1.5 rounded-[10px] bg-[#1696C8] px-3 text-xs font-semibold text-white shadow-sm transition hover:bg-[#1485b3] sm:h-10 sm:px-4 sm:text-sm"
+            className="inline-flex h-9 cursor-pointer items-center gap-1.5 rounded-[10px] bg-[#528DB5] px-3 text-xs font-semibold text-white shadow-sm transition hover:bg-[#1485b3] sm:h-10 sm:px-4 sm:text-sm"
             aria-haspopup="dialog"
             aria-expanded={archiveModalOpen}
             onClick={() => setArchiveModalOpen(true)}
@@ -158,7 +182,7 @@ export default function PatientReportPage() {
             className="inline-flex h-9 cursor-pointer items-center gap-1.5 rounded-[10px] border-[0.5px] border-[#FF383C80] bg-white px-3 text-xs font-semibold text-[#FF383C] transition hover:bg-red-50 sm:h-10 sm:px-4 sm:text-sm"
             onClick={() => {
               setSearch("");
-              setPhysicianSelection([]);
+              setAgencySelection([]);
               setOrderTypeSelection([]);
               setStatusType("");
               setLocation("");
@@ -180,7 +204,7 @@ export default function PatientReportPage() {
           placeholder="Search Patient"
           aria-label="Search patient"
           wrapperClassName="w-full"
-          className="h-11 rounded-[10px] py-2.5 focus:border-[#1696C8] focus:ring-[0.5px] focus:ring-[#1696C8]"
+          className="h-11 rounded-[10px] py-2.5 focus:border-[#528DB5] focus:ring-[0.5px] focus:ring-[#528DB5]"
           isNoShadow={true}
           isGoButton={true}
         />
@@ -192,149 +216,34 @@ export default function PatientReportPage() {
         />
       </div>
 
-      {/* <div className="mt-6 grid min-w-0 grid-cols-1 gap-4 sm:mt-8 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3 lg:gap-6">
-        <article className="flex flex-col rounded-xl border-[0.5px] border-[#E0E0E0] bg-white p-4 shadow-[0_1px_3px_rgba(15,23,42,0.06)]">
-          <div className="flex items-start justify-between gap-3">
-            <h3 className="min-w-0 flex-1 text-sm font-semibold leading-snug text-[#3d3d3d] sm:text-[15px]">
-              Today&apos;s signed <br /> orders received
-            </h3>
-            <div className="flex shrink-0 gap-1.5">
-              <button
-                type="button"
-                className="inline-flex h-8 w-8 cursor-pointer items-center justify-center rounded-md border border-gray-200 bg-white text-gray-400 transition hover:bg-gray-50 hover:text-gray-600"
-                aria-label="Expand widget"
-              >
-                <TbBoxAlignBottomLeft className="h-4 w-4" strokeWidth={1.75} aria-hidden />
-              </button>
-              <button
-                type="button"
-                className="inline-flex h-8 w-8 cursor-pointer items-center justify-center rounded-md border border-gray-200 bg-white text-gray-400 transition hover:bg-gray-50 hover:text-gray-600"
-                aria-label="Remove widget"
-              >
-                <HiOutlineTrash className="h-4 w-4" aria-hidden />
-              </button>
-            </div>
-          </div>
-          <p className="mt-3 text-4xl font-semibold tracking-tight text-[#555] sm:text-[1.75rem]">
-            24
-          </p>
-          <p className="mt-1 text-sm font-normal text-[#9B9B9B]">
-            New orders received
-          </p>
-          <div className="mt-3 flex flex-col gap-2">
-            <span className="inline-flex w-fit rounded-md bg-[#579EBA12] px-2.5 py-1.5 text-xs font-medium text-[#738AA5]">
-              Active physicians: 157
-            </span>
-            <span className="inline-flex w-fit rounded-md bg-[#579EBA12] px-2.5 py-1.5 text-xs font-medium text-[#738AA5]">
-              Cancelled this month: 40
-            </span>
-          </div>
-        </article>
 
-        <article className="flex flex-col rounded-xl border-[0.5px] border-[#E0E0E0] bg-white p-4 shadow-[0_1px_3px_rgba(15,23,42,0.06)]">
-          <div className="flex items-start justify-between gap-3">
-            <h3 className="min-w-0 flex-1 text-sm font-semibold leading-snug text-[#3d3d3d] sm:text-[15px]">
-              Order sent out <br /> for the day
-            </h3>
-            <div className="flex shrink-0 gap-1.5">
-              <button
-                type="button"
-                className="inline-flex h-8 w-8 cursor-pointer items-center justify-center rounded-md border border-gray-200 bg-white text-gray-400 transition hover:bg-gray-50 hover:text-gray-600"
-                aria-label="Expand widget"
-              >
-                <LuMaximize2 className="h-4 w-4" strokeWidth={1.75} aria-hidden />
-              </button>
-              <button
-                type="button"
-                className="inline-flex h-8 w-8 cursor-pointer items-center justify-center rounded-md border border-gray-200 bg-white text-gray-400 transition hover:bg-gray-50 hover:text-gray-600"
-                aria-label="Remove widget"
-              >
-                <HiOutlineTrash className="h-4 w-4" aria-hidden />
-              </button>
-            </div>
-          </div>
-          <p className="mt-3 text-4xl font-semibold tracking-tight text-[#555] sm:text-[1.75rem]">
-            18
-          </p>
-          <p className="mt-1 text-sm font-normal text-[#9B9B9B]">
-            Signed / completed today
-          </p>
-            <div className="mt-3 flex flex-col gap-2">
-            <span className="inline-flex w-fit rounded-md bg-[#579EBA12] px-2.5 py-1.5 text-xs font-medium text-[#738AA5]">
-              Pending total: 343
-            </span>
-            <span className="inline-flex w-fit rounded-md bg-[#f1f7fb] px-2.5 py-1.5 text-xs font-medium text-[#6b8ba4]">
-              30+ days pending: 72
-            </span>
-          </div>
-        </article>
-
-        <article className="flex flex-col rounded-xl border-[0.5px] border-[#E0E0E0] bg-white p-4 shadow-[0_1px_3px_rgba(15,23,42,0.06)] sm:col-span-2 lg:col-span-1">
-          <div className="flex items-start justify-between gap-3">
-            <h3 className="min-w-0 flex-1 text-sm font-semibold leading-snug text-[#3d3d3d] sm:text-[15px]">
-              Total pending <br /> orders
-            </h3>
-            <div className="flex shrink-0 gap-1.5">
-              <button
-                type="button"
-                className="inline-flex h-8 w-8 cursor-pointer items-center justify-center rounded-md border border-gray-200 bg-white text-gray-400 transition hover:bg-gray-50 hover:text-gray-600"
-                aria-label="Expand widget"
-              >
-                <LuMaximize2 className="h-4 w-4" strokeWidth={1.75} aria-hidden />
-              </button>
-              <button
-                type="button"
-                className="inline-flex h-8 w-8 cursor-pointer items-center justify-center rounded-md border border-gray-200 bg-white text-gray-400 transition hover:bg-gray-50 hover:text-gray-600"
-                aria-label="Remove widget"
-              >
-                <HiOutlineTrash className="h-4 w-4" aria-hidden />
-              </button>
-            </div>
-          </div>
-          <p className="mt-3 text-4xl font-semibold tracking-tight text-[#555] sm:text-[1.75rem]">
-            343
-          </p>
-          <p className="mt-1 text-sm font-normal text-[#9B9B9B]">
-            Backlog to clear
-          </p>
-          <div className="mt-3 grid grid-cols-2 gap-2">
-            <span className="inline-flex rounded-md bg-[#579EBA12] px-2.5 py-1.5 text-xs font-medium text-[#738AA5]">
-              0–7 days: 168
-            </span>
-            <span className="inline-flex rounded-md bg-[#579EBA12] px-2.5 py-1.5 text-xs font-medium text-[#738AA5]">
-              8–15 days: 92
-            </span>
-            <span className="inline-flex rounded-md bg-[#579EBA12] px-2.5 py-1.5 text-xs font-medium text-[#738AA5]">
-              16–30 days: 64
-            </span>
-            <span className="inline-flex rounded-md bg-[#579EBA12] px-2.5 py-1.5 text-xs font-medium text-[#738AA5]">
-              30+ days: 67
-            </span>
-          </div>
-        </article>
-      </div> */}
 
       <div className="mt-6 min-w-0 sm:mt-8">
-        <DataTable
-          columns={columns}
-          isBorderlessTable={true}
-          rows={filteredRows}
-          getRowKey={(r) => r.id}
-          gridTemplateColumns={PATIENT_REPORT_TABLE_GRID_COLUMNS}
-          getRowSurfaceClassName={(r) =>
-            r.dateTags?.some((t) =>
-              t.text.toLowerCase().includes("rejected")
-            )
-              ? "bg-red-500/10"
-              : undefined
-          }
-          pagination={{
-            page: tablePage,
-            onPageChange: setTablePage,
-            summaryLabel: "Orders",
-            pageSize: 6,
-          }}
-        />
+        {(search.trim() || patientSelection.length > 0) &&
+          filteredRows.length > 0 ? (
+          <DataTable
+            columns={columns}
+            isBorderlessTable={true}
+            rows={filteredRows}
+            getRowKey={(r) => r.id}
+            gridTemplateColumns={PATIENT_REPORT_TABLE_GRID_COLUMNS}
+            getRowSurfaceClassName={(r) =>
+              r.dateTags?.some((t) =>
+                t.text.toLowerCase().includes("rejected")
+              )
+                ? "bg-red-500/10"
+                : undefined
+            }
+            pagination={{
+              page: tablePage,
+              onPageChange: setTablePage,
+              summaryLabel: "Orders",
+              pageSize: 6,
+            }}
+          />
+        ) : (
+          <PatientEmptyState />
+        )}
       </div>
 
       <ReportArchiveDialogs
@@ -353,6 +262,44 @@ export default function PatientReportPage() {
           setArchiveSuccessOpen(true);
         }}
       />
+    </div>
+  );
+}
+
+function PatientEmptyState() {
+  return (
+    <div className="flex flex-col items-center justify-center py-24 px-4 text-center">
+      <div className="relative mb-8">
+        <div className="relative h-40 w-40 flex items-center justify-center">
+          {/* Document Base */}
+          <svg width="112" height="136" viewBox="0 0 112 136" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-[#F1F3F5]">
+            <path d="M0 8C0 3.58172 3.58172 0 8 0H76L112 36V128C112 132.418 108.418 136 104 136H8C3.58172 136 0 132.418 0 128V8Z" fill="currentColor" />
+            <path d="M76 0V28C76 32.4183 79.5817 36 84 36H112" fill="#E9ECEF" />
+            <rect x="24" y="60" width="64" height="4" rx="2" fill="#DEE2E6" />
+            <rect x="24" y="76" width="64" height="4" rx="2" fill="#DEE2E6" />
+            <rect x="24" y="92" width="40" height="4" rx="2" fill="#DEE2E6" />
+          </svg>
+
+          {/* Magnifying Glass Overlay */}
+          <div className="absolute -bottom-4 -right-4 drop-shadow-[0_8px_16px_rgba(0,0,0,0.08)]">
+            <svg width="104" height="104" viewBox="0 0 104 104" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="44" cy="44" r="38" fill="white" stroke="#E9ECEF" strokeWidth="1" />
+              <circle cx="44" cy="44" r="30" fill="#F8F9FA" />
+              {/* Handle */}
+              <rect x="74" y="68" width="8" height="32" rx="4" transform="rotate(-45 74 68)" fill="#E9ECEF" />
+              <rect x="78" y="72" width="4" height="24" rx="2" transform="rotate(-45 78 72)" fill="#DEE2E6" />
+
+              {/* X Icon */}
+              <path d="M36 36L52 52M52 36L36 52" stroke="#ADB5BD" strokeWidth="5" strokeLinecap="round" />
+            </svg>
+          </div>
+        </div>
+      </div>
+      <h3 className="text-2xl font-bold text-[#4A4A4A] mb-3">No patient selected yet</h3>
+      <p className="max-w-md text-[#858585] leading-relaxed text-sm sm:text-base">
+        Start typing in the search box above &rarr; choose from dropdown <br />
+        (or press Enter) &rarr; patient report appears here.
+      </p>
     </div>
   );
 }

@@ -4,8 +4,8 @@ import { integrations } from "@/data/integrations";
 
 export default function IntegrationSection() {
   return (
-    <div className="bg-white shadow-card2 rounded-[20px] p-6">
-      <div className="border border-gray-200 rounded-xl p-4">
+    <div className="bg-white shadow-card2 rounded-[20px] p-4 sm:p-6">
+      <div className="border border-gray-200 rounded-xl p-3 sm:p-4">
         {/* Info Banner */}
         <div className="border border-gray-200 rounded-lg p-4 bg-white mb-6 text-sm text-gray-600">
           Ordina securely connects to your EHR using OAuth-based authorization.
@@ -13,7 +13,7 @@ export default function IntegrationSection() {
         </div>
 
         {/* Grid */}
-        <div className="grid grid-cols-3 gap-5 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5 mb-8">
           {integrations.map((item) => (
             <IntegrationCard key={item.id} {...item} />
           ))}

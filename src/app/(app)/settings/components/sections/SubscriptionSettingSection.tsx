@@ -9,14 +9,14 @@ export const SubscriptionSettingSection = () => {
   return (
     <SectionWrapperBox title="Subscriptions">
   <SectionWrapper
-        title="Subscriptions"
-        description="Define SLA limits that drive the Returned-in Days column (e.g., “Today”, “2 Days”, “7 Days”) and latency/alert logic. Rules are evaluated as: Service Type + Order Type → Threshold."
+        title="Subscription Plans"
+        description="Choose the plan that best fits your agency's scale. Upgrade or downgrade at any time to adjust your feature set and limits."
         icon={FileText}
       >
-        <div className="grid grid-cols-3 gap-5">
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
           {plans.map((plan: Plan) => (
-                     <PricingCard key={plan.name} plan={plan} /> 
-                   ))}
+             <PricingCard key={plan.name} plan={plan} /> 
+           ))}
         </div>
       </SectionWrapper>
     </SectionWrapperBox>

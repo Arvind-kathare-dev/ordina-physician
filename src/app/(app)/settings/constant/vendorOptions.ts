@@ -1,25 +1,26 @@
-
 export const SERVICE_TYPES = [
-  { label: "General Consultation", value: "general" },
-  { label: "Cardiology", value: "cardiology" },
-  { label: "Radiology (MRI / CT / X-Ray)", value: "radiology" },
-  { label: "Pathology / Lab Tests", value: "pathology" },
-  { label: "Emergency Services", value: "emergency" },
-  { label: "Pharmacy", value: "pharmacy" },
+  { label: "Home Health Care", value: "home_health" },
+  { label: "Hospice Care", value: "hospice" },
+  { label: "Palliative Care", value: "palliative" },
+  { label: "Durable Medical Equipment (DME)", value: "dme" },
+  { label: "Infusion Therapy", value: "infusion" },
+  { label: "Skilled Nursing", value: "skilled_nursing" },
 ];
 
 export const LOCATIONS = [
-  { label: "Delhi - Central Hospital", value: "delhi" },
-  { label: "Mumbai - Andheri Clinic", value: "mumbai" },
-  { label: "Bangalore - Health Hub", value: "bangalore" },
-  { label: "Hyderabad - Care Center", value: "hyderabad" },
+  { label: "San Jose - Regional Office", value: "san_jose" },
+  { label: "Stockton - Care Center", value: "stockton" },
+  { label: "Walnut Creek - Medical Hub", value: "walnut_creek" },
+  { label: "Sacramento - Distribution", value: "sacramento" },
+  { label: "Oakland - Service Point", value: "oakland" },
 ];
 
 export const SUPPLIERS = [
-  { label: "Apollo Hospitals", value: "apollo" },
-  { label: "Fortis Healthcare", value: "fortis" },
-  { label: "Max Healthcare", value: "max" },
-  { label: "Dr. Lal PathLabs", value: "lal_pathlabs" },
-  { label: "Metropolis Labs", value: "metropolis" },
-  { label: "Tata 1mg Diagnostics", value: "1mg" },
+  { label: "CarePlus Health Plans", value: "careplus" },
+  { label: "PureWell Medical Supplies", value: "purewell" },
+  { label: "MedSync Solutions", value: "medsync" },
+  { label: "AlphaCure Hospice Group", value: "alphacure" },
+  { label: "CurePoint Diagnostics", value: "curepoint" },
+  { label: "NovaHealth Insurance", value: "novahealth" },
+  { label: "MedHealth Logistics", value: "medhealth" },
 ];

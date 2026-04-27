@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { ArrowLeft, Plus, ArrowUpFromLine, CloudSync, ChevronDown } from "lucide-react";
+import { ArrowLeft, Plus, ArrowUpFromLine, CloudSync, ChevronDown, ListFilter } from "lucide-react";
 import Tabs from "@/components/ui/tab/Tabs";
 import { TabsActions } from "@/components/ui/tab/TabsActions";
 import Button from "@/components/ui/button/Button";
@@ -11,6 +11,8 @@ import SearchBox from "@/components/ui/SearchBox";
 import { orders, tabs } from "./orders.data";
 import { getOrderColumns } from "./components/getOrderColumns";
 import NewOrderModal from "./components/NewOrderModal";
+import OrderFilterModal from "./components/OrderFilterModal";
+import OrdersFilterDialog from "@/components/common/OrdersFilterDialog";
 
 
 // ─── Main Component ──────────────────────────────────────────────────────────
@@ -19,7 +21,7 @@ export default function OrdersTable() {
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [open, setOpen] = useState(false);
-  // const totalPages = 25;
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
 
   const filtered = orders.filter(
     (o) =>
@@ -27,9 +29,14 @@ export default function OrdersTable() {
       o.orderType.toLowerCase().includes(searchQuery.toLowerCase()),
   );
 
-  const PAGE_SIZE = 2;
+  const PAGE_SIZE = 4;
 
-  const totalPages = Math.ceil(filtered.length / PAGE_SIZE);
+  const totalPages = Math.ceil(filtered.length / PAGE_SIZE) || 1;
+
+  const paginatedOrders = filtered.slice(
+    (currentPage - 1) * PAGE_SIZE,
+    currentPage * PAGE_SIZE
+  );
 
   const columns = getOrderColumns(activeTab);
 
@@ -38,9 +45,6 @@ export default function OrdersTable() {
       <div className="w-full mx-auto">
         {/* ── Top Bar ── */}
         <div className="flex items-center gap-2 mb-6 flex-wrap">
-          {/* <button className="flex items-center gap-1.5 text-slate-600 hover:text-slate-800 text-sm font-medium transition-colors">
-            <ArrowLeft size={16} />
-          </button> */}
           <h1 className="text-2xl font-semibold text-gray-600 mr-auto">
             {tabs[activeTab]?.label} Orders
           </h1>
@@ -58,9 +62,12 @@ export default function OrdersTable() {
           <Button variant="tealGreen" size="md" leftIcon={<CloudSync size={14} />}>
             Sync
           </Button>
-          <div className="h-[40px] flex items-center justify-center rounded-lg border border-green-540 text-green-540 hover:opacity-80 font-normal">
-            <ChevronDown />
 
+          {/* Filter Button */}
+          <div
+            className="h-[40px] px-3 flex items-center justify-center rounded-lg border border-green-540 text-green-540 hover:bg-green-50 transition-colors cursor-pointer"
+          >
+            <ChevronDown size={18} />
           </div>
 
           <Button variant="primary" size="md" onClick={() => setOpen(true)} leftIcon={<Plus size={14} />}>
@@ -74,22 +81,18 @@ export default function OrdersTable() {
           onChange={setActiveTab}
           rightSection={
             <TabsActions
+              onClick={() => setIsFilterOpen(true)}
               activeTab={activeTab}
               onMyOrdersClick={() => setActiveTab(6)} // 👈 change tab index here
             />
           }
         />
-
-        {/* Sync timestamp */}
-        <p className="text-xs font-normal text-slate-400 my-2">
-          Last synced on 11-19-2025 at 09:20 AM ↺
-        </p>
+        <p className="text-[12px] font-normal text-grayCustom-500 mt-2">Last synced on 11-19-2025 at 09:20 AM</p>
 
         {/* ── Table ── */}
-        <div className="w-full overflow-y-hidden overflow-x-auto">
+        <div className="w-full overflow-y-hidden overflow-x-auto mt-4">
           <div className="min-w-[1200px] mb-4">
-            <Table data={orders} columns={columns} colNum={columns.length} />
-
+            <Table data={paginatedOrders} columns={columns} colNum={columns.length} />
           </div>
         </div>
 
@@ -101,7 +104,14 @@ export default function OrdersTable() {
           onPageChange={(page) => setCurrentPage(page)}
         />
       </div>
+
       {open && <NewOrderModal onClose={() => setOpen(false)} />}
+
+      {/* <OrderFilterModal 
+        isOpen={isFilterOpen} 
+        onClose={() => setIsFilterOpen(false)} 
+      /> */}
+      <OrdersFilterDialog open={isFilterOpen} onClose={() => setIsFilterOpen(false)} />
     </div>
   );
 }

@@ -28,23 +28,23 @@ export default function Tabs({
             <button
               key={tab.label}
               onClick={() => onChange(i)}
-              className={`flex justify-center items-center w-[200px] gap-1.5 px-4 py-2.5 text-lg font-medium whitespace-nowrap border-b-2 transition-colors ${
-                isActive
+              className={`flex justify-center items-center gap-1.5 px-4 py-2.5 text-lg font-medium whitespace-nowrap border-b-2 transition-colors 
+  ${tab.label === "Today" ? "w-[200px]" : "w-auto"} 
+  ${isActive
                   ? "border-ordinadark text-ordinadark"
                   : "border-transparent text-grayCustom-500 hover:text-grayCustom-600"
-              }`}
+                }`}
             >
               {tab.label}
 
               {tab.count !== null && tab.count !== undefined && (
                 <span
-                  className={`text-xs font-normal px-1.5 py-0.5 rounded-full ${
-                    tab.alert
-                      ? "bg-red-500 text-white"
-                      : isActive
+                  className={`text-xs font-normal px-1.5 py-0.5 rounded-full ${tab.alert
+                    ? "bg-red-500 text-white"
+                    : isActive
                       ? "bg-ordina-220 text-ordinadark"
                       : "bg-grayCustom-220 text-grayCustom-500"
-                  }`}
+                    }`}
                 >
                   {tab.count}
                 </span>

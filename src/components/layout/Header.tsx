@@ -94,7 +94,7 @@ function navPillClass(active: boolean) {
     "inline-flex h-[33px] border-[0.5px] shrink-0 items-center justify-center gap-[10px] shadow-[0px_2px_4px_rgba(0,0,0,0.25)] whitespace-nowrap rounded-[12px] bg-white px-3 text-center text-xs font-medium text-slate-600 transition hover:text-slate-900 border";
 
   return `${base} ${active
-    ? "border-[#1696C8] text-[#686464]"
+    ? "border-[#528DB5] text-[#686464]"
     : "border-transparent"
     }`;
 }

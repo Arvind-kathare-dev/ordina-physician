@@ -4,6 +4,7 @@ import { Check } from "lucide-react";
 
 interface StepIndicatorProps {
   currentStep: number;
+  onStepClick?: (step: number) => void;
 }
 
 
@@ -36,7 +37,7 @@ const steps = [
 
 
 
-export function StepIndicator({ currentStep }: StepIndicatorProps) {
+export function StepIndicator({ currentStep, onStepClick }: StepIndicatorProps) {
 
   const currentStepData =
   steps.find((step) => step.id === currentStep) || steps[0];
@@ -49,59 +50,67 @@ export function StepIndicator({ currentStep }: StepIndicatorProps) {
   };
 
   return (
-    <div className="bg-white px-6 pt-6">
+    <div className="bg-white px-4 md:px-6 pt-6">
       {/* Header */}
-      <h2 className="text-3xl font-semibold text-black">
-       {currentStepData.title}
-      </h2>
-      <p className="text-base text-gray-300 mt-1">
-       {currentStepData.description}
-      </p>
+      <div className="mb-6">
+        <h2 className="text-2xl md:text-3xl font-semibold text-black transition-all duration-300">
+         {currentStepData.title}
+        </h2>
+        <p className="text-sm md:text-base text-gray-500 mt-1">
+         {currentStepData.description}
+        </p>
+      </div>
 
       {/* Steps */}
-      <div className="flex gap-3 mt-5">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4 mt-5">
         {steps.map((step) => {
           const status = getStatus(step.id);
 
           return (
-            <div
+            <button
               key={step.id}
+              onClick={() => onStepClick?.(step.id)}
               className={`
-                flex items-center gap-3 px-4 py-3 rounded-xl border w-full 
-                transition-all duration-200
+                flex items-center gap-3 px-4 py-3 rounded-xl border text-left
+                transition-all duration-300 group
                 ${status === 'current'
-                  ? 'border-ordina-100 shadow-stepper bg-white'
-                  : 'border-200 bg-white'
+                  ? 'border-ordina-400 shadow-stepper bg-white ring-1 ring-ordina-400/10'
+                  : status === 'completed'
+                    ? 'border-green-400/30 bg-green-50/50'
+                    : 'border-gray-200 bg-white hover:border-gray-300'
                 }
               `}
             >
               {/* Icon */}
               <div
                 className={`
-                  w-12 h-12 flex items-center justify-center rounded-[11px] text-xl font-semibold
+                  w-10 h-10 md:w-12 md:h-12 flex items-center justify-center rounded-[11px] text-lg md:text-xl font-semibold shrink-0
+                  transition-all duration-300
                   ${status === 'completed'
                     ? 'bg-green-100 text-green-600'
                     : status === 'current'
-                      ? 'bg-primary text-white'
-                      : 'bg-gray-200 text-black'
+                      ? 'bg-primary text-white shadow-lg shadow-primary/30'
+                      : 'bg-gray-100 text-gray-400 group-hover:bg-gray-200 group-hover:text-gray-600'
                   }
                 `}
               >
-                {status === 'completed' ? <Check/> : step.id}
+                {status === 'completed' ? <Check className="w-5 h-5 md:w-6 md:h-6" /> : step.id}
               </div>
 
               {/* Text */}
-              <div className="flex flex-col leading-tight">
-                <span className="text-sm font-medium text-gray-400">
+              <div className="flex flex-col leading-tight overflow-hidden">
+                <span className={`text-sm font-medium truncate transition-colors duration-300 ${
+                  status === 'current' ? 'text-black' : 'text-gray-500'
+                }`}>
                   {step.name}
                 </span>
                 <span
                   className={`
-                    text-xs
+                    text-[11px] md:text-xs font-medium uppercase tracking-wider
                     ${status === 'completed'
                       ? 'text-green-600'
                       : status === 'current'
-                        ? 'text-gray-400'
+                        ? 'text-primary'
                         : 'text-gray-400'
                     }
                   `}
@@ -109,22 +118,28 @@ export function StepIndicator({ currentStep }: StepIndicatorProps) {
                   {status === 'completed'
                     ? 'Completed'
                     : status === 'current'
-                      ? 'Current Step'
+                      ? 'Active'
                       : 'Pending'}
                 </span>
               </div>
-            </div>
+            </button>
           );
         })}
       </div>
 
-      {/* Progress Bar */}
-      <div className="mt-8 h-2 w-full bg-gray-200 rounded-full overflow-hidden">
+      {/* Progress Bar Container */}
+      <div className="mt-8 relative h-1.5 w-full bg-gray-100 rounded-full overflow-hidden">
+        {/* Animated Background Progress */}
         <div
-          className="h-full bg-primary transition-all duration-300"
+          className="absolute inset-y-0 left-0 bg-primary transition-all duration-700 ease-in-out"
           style={{ width: `${(currentStep / steps.length) * 100}%` }}
+        />
+        {/* Shine effect */}
+        <div 
+          className="absolute inset-y-0 left-0 w-full h-full opacity-20 bg-gradient-to-r from-transparent via-white to-transparent -translate-x-full animate-shine"
+          style={{ transition: 'none' }}
         />
       </div>
     </div>
   );
-}
+}

@@ -34,11 +34,12 @@ const ID_TO_SLOT: Record<string, number> = {
   billable: 0,
   patient: 0,
   physician: 1,
+  agency: 1,
   f2f: 2,
   poc: 3,
   addon: 4,
   custom: 5,
-  listency: 5,
+  hospice: 5,
 };
 
 type ReportSidebarNavIconProps = {

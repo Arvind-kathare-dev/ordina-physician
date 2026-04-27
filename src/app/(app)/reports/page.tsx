@@ -1,5 +1,14 @@
-import { redirect } from "next/navigation";
+"use client";
+
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 export default function ReportsIndexPage() {
-  redirect("/reports/patient");
+  const router = useRouter();
+
+  useEffect(() => {
+    router.replace("/reports/patient");
+  }, [router]);
+
+  return null;
 }

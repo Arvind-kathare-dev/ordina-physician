@@ -40,7 +40,12 @@ export default function Home() {
       <div className="max-w-[1440px] mx-auto">
         <div className="bg-white  overflow-hidden">
           {/* Step Indicator */}
-          {!isPreviewPage && <StepIndicator currentStep={currentStep} />}
+          {!isPreviewPage && (
+            <StepIndicator 
+              currentStep={currentStep} 
+              onStepClick={handleStepChange} 
+            />
+          )}
 
           {/* Form Content */}
           <OnboardingForm

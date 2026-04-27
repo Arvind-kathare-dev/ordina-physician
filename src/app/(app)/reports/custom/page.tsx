@@ -9,7 +9,7 @@ import { IoDuplicateOutline } from "react-icons/io5";
 import { MdOutlineEdit } from "react-icons/md";
 import { REPORT_LOCATION_SELECT_OPTIONS } from "@/data/reportFilterLocationOptions";
 import ReportFiltersRow, { ReportFilterConfig } from "@/components/common/ReportFiltersRow";
-import { REPORT_PHYSICIAN_MULTI_OPTIONS } from "@/data/reportFilterPhysicianOptions";
+import { REPORT_AGENCY_MULTI_OPTIONS } from "@/data/reportFilterAgencyOptions";
 import { REPORT_ORDER_TYPE_MULTI_OPTIONS } from "@/data/reportFilterOrderTypeOptions";
 import { REPORT_STATUS_TYPE_SELECT_OPTIONS } from "@/data/reportFilterStatusTypeOptions";
 import { PATIENT_REPORT_ROWS } from "@/data/patientReportStaticData";
@@ -20,11 +20,11 @@ import ReportArchiveDialogs from "@/components/common/ReportArchiveDialogs";
 import Dialog from "@/components/common/Dialog";
 
 const CUSTOM_REPORT_TABLE_GRID_COLUMNS =
-  "minmax(6.75rem,0.88fr) minmax(14.5rem,1.02fr) minmax(6.5rem,0.78fr) minmax(11rem,1.08fr) minmax(10rem,0.62fr) minmax(8rem,0.52fr) minmax(10.75rem,0.58fr) minmax(10rem,1fr)";
+  "minmax(6.75rem,0.88fr) minmax(10rem,1fr) minmax(14.5rem,1.02fr) minmax(6.5rem,0.78fr) minmax(11rem,1.08fr) minmax(10rem,0.62fr) minmax(8rem,0.52fr) minmax(10.75rem,0.58fr) minmax(10rem,1fr)";
 
 export default function CustomReportPage() {
   const [search, setSearch] = useState("");
-  const [physicianSelection, setPhysicianSelection] = useState<string[]>([]);
+  const [agencySelection, setAgencySelection] = useState<string[]>([]);
   const [orderTypeSelection, setOrderTypeSelection] = useState<string[]>([]);
   const [statusType, setStatusType] = useState("");
   const [location, setLocation] = useState("");
@@ -39,7 +39,7 @@ export default function CustomReportPage() {
 
   const filterStatusText = useMemo(() => {
     const noDropdownFilters =
-      physicianSelection.length === 0 &&
+      agencySelection.length === 0 &&
       orderTypeSelection.length === 0 &&
       statusType === "" &&
       location === "";
@@ -47,8 +47,8 @@ export default function CustomReportPage() {
       return "No filters applied (showing all).";
     }
     const parts: string[] = [];
-    if (physicianSelection.length > 0) {
-      parts.push(`Physician: ${physicianSelection.join(", ")}`);
+    if (agencySelection.length > 0) {
+      parts.push(`Agency: ${agencySelection.join(", ")}`);
     }
     if (orderTypeSelection.length > 0) {
       parts.push(`Order type: ${orderTypeSelection.join(", ")}`);
@@ -63,19 +63,19 @@ export default function CustomReportPage() {
       parts.push(`Location: ${locLabel}`);
     }
     return `${parts.join(" · ")}.`;
-  }, [physicianSelection, orderTypeSelection, statusType, location]);
+  }, [agencySelection, orderTypeSelection, statusType, location]);
 
   const reportFilters = useMemo((): ReportFilterConfig[] => {
     return [
       {
         kind: "multiSelect",
-        id: "physician",
-        label: "Physician",
-        values: physicianSelection,
-        onValuesChange: setPhysicianSelection,
-        options: [...REPORT_PHYSICIAN_MULTI_OPTIONS],
-        searchPlaceholder: "Search physician…",
-        emptySummaryLabel: "All Physicians",
+        id: "agency",
+        label: "Agency",
+        values: agencySelection,
+        onValuesChange: setAgencySelection,
+        options: [...REPORT_AGENCY_MULTI_OPTIONS],
+        searchPlaceholder: "Search agency…",
+        emptySummaryLabel: "All Agencies",
       },
       {
         kind: "multiSelect",
@@ -104,15 +104,15 @@ export default function CustomReportPage() {
         optionLayout: "radio",
       },
     ];
-  }, [physicianSelection, orderTypeSelection, statusType, location]);
+  }, [agencySelection, orderTypeSelection, statusType, location]);
 
   const filteredRows = useMemo(() => {
     const q = search.trim().toLowerCase();
     return PATIENT_REPORT_ROWS.filter((row) => {
       if (q && !row.patientName.toLowerCase().includes(q)) return false;
       if (
-        physicianSelection.length > 0 &&
-        !physicianSelection.includes(row.physicianName)
+        agencySelection.length > 0 &&
+        !agencySelection.includes(row.agency)
       ) {
         return false;
       }
@@ -127,11 +127,11 @@ export default function CustomReportPage() {
       }
       return true;
     });
-  }, [search, physicianSelection, orderTypeSelection, statusType]);
+  }, [search, agencySelection, orderTypeSelection, statusType]);
 
   useEffect(() => {
     setTablePage(1);
-  }, [search, physicianSelection, orderTypeSelection, statusType, location]);
+  }, [search, agencySelection, orderTypeSelection, statusType, location]);
 
   const columns = usePatientReportTableColumns();
 
@@ -150,7 +150,7 @@ export default function CustomReportPage() {
         <div className="flex shrink-0 flex-wrap items-center gap-2 sm:justify-end">
           <button
             type="button"
-            className="inline-flex h-9 cursor-pointer items-center gap-1.5 rounded-[10px] bg-[#1696C8] px-3 text-xs font-semibold text-white shadow-sm transition hover:bg-[#1485b3] sm:h-10 sm:px-4 sm:text-sm"
+            className="inline-flex h-9 cursor-pointer items-center gap-1.5 rounded-[10px] bg-[#528DB5] px-3 text-xs font-semibold text-white shadow-sm transition hover:bg-[#1485b3] sm:h-10 sm:px-4 sm:text-sm"
             aria-haspopup="dialog"
             aria-expanded={archiveModalOpen}
             onClick={() => setArchiveModalOpen(true)}
@@ -160,22 +160,22 @@ export default function CustomReportPage() {
           </button>
           <button
             type="button"
-            className="inline-flex h-9 cursor-pointer items-center gap-1.5 rounded-[10px] border-[0.5px] border-[#528DB5] px-3 text-xs font-semibold text-[#528DB5] shadow-sm transition sm:h-10 sm:px-4 sm:text-sm"
+            className="inline-flex h-9 cursor-pointer items-center gap-1.5 rounded-[10px] border-[0.5px] border-primary-color px-3 text-xs font-semibold text-primary-color shadow-sm transition sm:h-10 sm:px-4 sm:text-sm"
             aria-haspopup="dialog"
             aria-expanded={duplicateDialogOpen}
             onClick={() => setDuplicateDialogOpen(true)}
           >
-            <IoDuplicateOutline className="h-4 w-4 text-[#528DB5]" aria-hidden />
+            <IoDuplicateOutline className="h-4 w-4 text-primary-color" aria-hidden />
             Duplicates
           </button>
           <button
             type="button"
-            className="inline-flex h-9 cursor-pointer text-[#528DB5] items-center gap-1.5 rounded-[10px] border-[0.5px] border-[#528DB5] px-3 text-xs font-semibold  shadow-sm transition sm:h-10 sm:px-4 sm:text-sm"
+            className="inline-flex h-9 cursor-pointer text-primary-color items-center gap-1.5 rounded-[10px] border-[0.5px] border-primary-color px-3 text-xs font-semibold  shadow-sm transition sm:h-10 sm:px-4 sm:text-sm"
             aria-haspopup="dialog"
             aria-expanded={customBuilderOpen}
             onClick={() => setCustomBuilderOpen(true)}
           >
-            <MdOutlineEdit className="h-4 w-4 text-[#528DB5]" aria-hidden />
+            <MdOutlineEdit className="h-4 w-4 text-primary-color" aria-hidden />
             Edit
           </button>
           <button
@@ -183,7 +183,7 @@ export default function CustomReportPage() {
             className="inline-flex h-9 cursor-pointer items-center gap-1.5 rounded-[10px] border border-red-400/90 bg-white px-3 text-xs font-semibold text-red-600 transition hover:bg-red-50 sm:h-10 sm:px-4 sm:text-sm"
             onClick={() => {
               setSearch("");
-              setPhysicianSelection([]);
+              setAgencySelection([]);
               setOrderTypeSelection([]);
               setStatusType("");
               setLocation("");
@@ -205,7 +205,7 @@ export default function CustomReportPage() {
           placeholder="Search by patient, physician, order id, payer..."
           aria-label="Search custom report"
           wrapperClassName="w-full"
-          className="h-11 rounded-[10px] py-2.5 focus:border-[#1696C8] focus:ring-[0.5px] focus:ring-[#1696C8]"
+          className="h-11 rounded-[10px] py-2.5 focus:border-[#528DB5] focus:ring-[0.5px] focus:ring-[#528DB5]"
           isNoShadow={true}
           isGoButton={true}
         />

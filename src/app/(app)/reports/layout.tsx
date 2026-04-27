@@ -1,8 +1,6 @@
 import { Inter } from "next/font/google";
 import type { Metadata } from "next";
 import ReportsShell from "./ReportsShell";
-import Header from "@/components/layout/Header";
-import Footer from "@/components/layout/Footer";
 
 const inter = Inter({
   subsets: ["latin"],

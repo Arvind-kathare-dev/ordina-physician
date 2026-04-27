@@ -37,29 +37,29 @@ export function useBillableOrdersTableColumns(
             type="checkbox"
             checked={allSelected}
             onChange={onToggleAll}
-            className="h-4 w-4 rounded border-slate-300 text-[#528DB5] focus:ring-[#528DB5]"
+            className="h-4 w-4 rounded border-slate-300 text-primary-color focus:ring-primary-color"
           />
         ),
-        gridWidth: "40px",
+        gridWidth: "minmax(3rem, 0.2fr)",
         cell: (row) => (
           <input
             type="checkbox"
             checked={selectedIds.includes(row.id)}
             onChange={() => onToggle(row.id)}
-            className="h-4 w-4 rounded border-slate-300 text-[#528DB5] focus:ring-[#528DB5]"
+            className="h-4 w-4 rounded border-slate-300 text-primary-color focus:ring-primary-color"
           />
         ),
       },
       {
         key: "date",
         header: "Date",
-        gridWidth: "120px",
+        gridWidth: "minmax(7rem, 0.6fr)",
         cell: (row) => <span className="text-xs text-[#606060]">{row.date}</span>,
       },
       {
         key: "type",
         header: "Type",
-        gridWidth: "120px",
+        gridWidth: "minmax(8rem, 0.7fr)",
         cell: (row) => (
           <span
             className={`inline-flex items-center rounded-md px-2 py-0.5 text-[11px] font-semibold ${row.type.bgColor} ${row.type.color}`}
@@ -71,7 +71,7 @@ export function useBillableOrdersTableColumns(
       {
         key: "patientName",
         header: "Patient Name",
-        gridWidth: "150px",
+        gridWidth: "minmax(10rem, 1fr)",
         cell: (row) => (
           <span className="text-xs font-medium text-[#606060]">{row.patientName}</span>
         ),
@@ -79,7 +79,7 @@ export function useBillableOrdersTableColumns(
       {
         key: "agencyName",
         header: "Agency Name",
-        gridWidth: "150px",
+        gridWidth: "minmax(10rem, 1fr)",
         cell: (row) => (
           <span className="text-xs font-medium text-[#606060]">{row.agencyName}</span>
         ),
@@ -87,7 +87,7 @@ export function useBillableOrdersTableColumns(
       {
         key: "insurance",
         header: "Insurance",
-        gridWidth: "150px",
+        gridWidth: "minmax(10rem, 1fr)",
         cell: (row) => (
           <span className="text-xs font-medium text-[#606060]">{row.insurance}</span>
         ),
@@ -95,7 +95,7 @@ export function useBillableOrdersTableColumns(
       {
         key: "location",
         header: "Location",
-        gridWidth: "120px",
+        gridWidth: "minmax(8rem, 0.8fr)",
         cell: (row) => (
           <span className="text-xs font-medium text-[#606060]">{row.location}</span>
         ),
@@ -103,7 +103,7 @@ export function useBillableOrdersTableColumns(
       {
         key: "days",
         header: "#Days",
-        gridWidth: "100px",
+        gridWidth: "minmax(6rem, 0.5fr)",
         cell: (row) => (
           <div className="flex items-center gap-1.5">
             <span
@@ -122,7 +122,7 @@ export function useBillableOrdersTableColumns(
       {
         key: "amount",
         header: "Amount",
-        gridWidth: "100px",
+        gridWidth: "minmax(6rem, 0.5fr)",
         cell: (row) => (
           <span className="text-xs font-medium text-[#606060]">${row.amount}</span>
         ),
@@ -130,9 +130,9 @@ export function useBillableOrdersTableColumns(
       {
         key: "actions",
         header: "Actions",
-        gridWidth: "80px",
+        gridWidth: "minmax(5rem, 0.4fr)",
         cell: () => (
-          <button className="text-xs font-semibold text-[#1696C8] hover:underline">
+          <button className="text-xs font-semibold text-[#528DB5] hover:underline">
             Open
           </button>
         ),

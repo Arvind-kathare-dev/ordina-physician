@@ -20,7 +20,7 @@ export function PECOSStep({ data, onChange }: PECOSStepProps) {
         </p>
       </div>
 
-      <div className="w-[400px]">
+      <div className="max-w-[400px] w-full">
         <Input
           label="PECOS"
           name="PECOS"

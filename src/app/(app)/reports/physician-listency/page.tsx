@@ -152,7 +152,7 @@ export default function PhysicianListencyReportPage() {
         <div className="flex shrink-0 flex-wrap items-center gap-2 sm:justify-end">
           <button
             type="button"
-            className="inline-flex h-9 cursor-pointer items-center gap-1.5 rounded-[10px] bg-[#1696C8] px-3 text-xs font-semibold text-white shadow-sm transition hover:bg-[#1485b3] sm:h-10 sm:px-4 sm:text-sm"
+            className="inline-flex h-9 cursor-pointer items-center gap-1.5 rounded-[10px] bg-[#528DB5] px-3 text-xs font-semibold text-white shadow-sm transition hover:bg-[#1485b3] sm:h-10 sm:px-4 sm:text-sm"
             aria-haspopup="dialog"
             aria-expanded={archiveModalOpen}
             onClick={() => setArchiveModalOpen(true)}
@@ -185,7 +185,7 @@ export default function PhysicianListencyReportPage() {
           placeholder="Search by ID, name, specialty, or tier"
           aria-label="Search physician latency list"
           wrapperClassName="w-full"
-          className="h-11 rounded-[10px] py-2.5 focus:border-[#1696C8] focus:ring-[0.5px] focus:ring-[#1696C8]"
+          className="h-11 rounded-[10px] py-2.5 focus:border-[#528DB5] focus:ring-[0.5px] focus:ring-[#528DB5]"
           isNoShadow={true}
           isGoButton={true}
         />

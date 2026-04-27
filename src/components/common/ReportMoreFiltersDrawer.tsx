@@ -253,7 +253,7 @@ function FigmaStyleSelect({
         aria-expanded={open}
         aria-haspopup="listbox"
         onClick={() => setOpenId(open ? null : instanceId)}
-        className={`flex w-full items-center cursor-pointer justify-between gap-2 border-[0.5px] rounded-[10px] border-[#68646499]/60 bg-white px-3 py-2.5 text-left text-sm font-medium text-[#9B9B9B] outline-none transition focus-visible:ring-1 focus-visible:ring-[#1696C8]/30`}
+        className={`flex w-full items-center cursor-pointer justify-between gap-2 border-[0.5px] rounded-[10px] border-[#68646499]/60 bg-white px-3 py-2.5 text-left text-sm font-medium text-[#9B9B9B] outline-none transition focus-visible:ring-1 focus-visible:ring-[#528DB5]/30`}
       >
         <span className="min-w-0 truncate text-[#606060]">{selected.label}</span>
         <HiChevronDown
@@ -421,7 +421,7 @@ export default function ReportMoreFiltersDrawer({
                             <select
                               multiple
                               size={8}
-                              className="w-full rounded-[10px] border-[0.5px] space-y-2 border-[#E0E0E0] bg-white p-2 text-sm text-[#606060] outline-none focus:border-[#1696C8] focus:ring-[1px] focus:ring-[#1696C8]/25 [scrollbar-width:thin]"
+                              className="w-full rounded-[10px] border-[0.5px] space-y-2 border-[#E0E0E0] bg-white p-2 text-sm text-[#606060] outline-none focus:border-[#528DB5] focus:ring-[1px] focus:ring-[#528DB5]/25 [scrollbar-width:thin]"
                               aria-label="Order status multi-select demo"
                             >
                               {ORDER_STATUS_OPTIONS.map((opt) => (
@@ -482,7 +482,7 @@ export default function ReportMoreFiltersDrawer({
                               value={tagsContains}
                               onChange={(e) => setTagsContains(e.target.value)}
                               placeholder="eg. High priority, medicare, rush..."
-                              className="h-10 w-full rounded-[10px] border-[0.5px] border-[#E0E0E0] bg-white px-3 text-sm text-[#374151] outline-none placeholder:text-[#B8B8B8] focus:border-[#1696C8] focus:ring-1 focus:ring-[#1696C8]/25"
+                              className="h-10 w-full rounded-[10px] border-[0.5px] border-[#E0E0E0] bg-white px-3 text-sm text-[#374151] outline-none placeholder:text-[#B8B8B8] focus:border-[#528DB5] focus:ring-1 focus:ring-[#528DB5]/25"
                             />
                           </FieldShell>
                           <p className="text-[11px] leading-relaxed text-[#9B9B9B]">

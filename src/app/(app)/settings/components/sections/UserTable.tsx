@@ -1,126 +1,160 @@
-import { Search, Pencil, Trash2, Settings } from "lucide-react";
+import { Search, Pencil, Trash2, Settings, Plus, ChevronDown } from "lucide-react";
+import { useState, useMemo } from "react";
 
-const users = [
-  {
-    initials: "JD",
-    name: "John Doe",
-    email: "Johndoe@agency.com",
-    role: "Admin",
-    status: "Active",
-  },
-  {
-    initials: "OB",
-    name: "Oliver Bennett",
-    email: "Oliverbennett@agency.com",
-    role: "Sub Admin",
-    status: "Active",
-  },
-  {
-    initials: "AC",
-    name: "Amelia Carter",
-    email: "Ameliacarter@agency.com",
-    role: "User",
-    status: "Invited",
-  },
-  {
-    initials: "TS",
-    name: "Taylor Sutton",
-    email: "Taylorsutton@agency.com",
-    role: "Read Only",
-    status: "Disabled",
-  },
-];
+interface UserData {
+  id: string;
+  name: string;
+  email: string;
+  role: string;
+  status: string;
+  initials: string;
+}
 
-export default function UserTable() {
+interface UserTableProps {
+  users: UserData[];
+  onEdit: (user: UserData) => void;
+  onDelete: (user: UserData) => void;
+  onSettings: (user: UserData) => void;
+  onAdd: () => void;
+}
+
+export default function UserTable({ users, onEdit, onDelete, onSettings, onAdd }: UserTableProps) {
+  const [search, setSearch] = useState("");
+  const [filter, setFilter] = useState("All");
+
+  const filteredUsers = useMemo(() => {
+    return users.filter((user) => {
+      const matchesSearch =
+        user.name.toLowerCase().includes(search.toLowerCase()) ||
+        user.email.toLowerCase().includes(search.toLowerCase());
+      const matchesFilter = filter === "All" || user.status === filter;
+      return matchesSearch && matchesFilter;
+    });
+  }, [users, search, filter]);
+
   return (
-    <div className="bg-white rounded-2xl border border-gray-200 p-4">
+    <div className="bg-white rounded-2xl  p-0">
       
-      {/* 🔍 Top Bar */}
-      <div className="flex items-center justify-between mb-4 gap-3">
-        <div className="flex items-center gap-2 border rounded-xl px-3 py-2 w-full max-w-md">
-          <Search className="w-4 h-4 text-gray-400" />
+      {/* Top Bar */}
+      <div className="flex flex-col lg:flex-row items-stretch lg:items-center justify-between mb-6 gap-4">
+        <div className="flex items-center gap-2 border border-gray-200 rounded-xl px-4 py-3 w-full max-w-xl bg-white focus-within:border-[#528DB5] transition-all">
+          <Search className="w-5 h-5 text-gray-400" />
           <input
-            placeholder="Search rules by name or email..."
-            className="outline-none w-full text-sm"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            placeholder="Search rules by name or email.."
+            className="outline-none w-full text-[14px] bg-transparent placeholder:text-gray-400"
           />
         </div>
 
-        <div className="flex gap-2 border border-grayCustom-220 rounded-2xl p-2">
-          {["All", "Active", "Invited", "Disabled"].map((tab) => (
-            <button
-              key={tab}
-              className="px-3 py-1.5 text-sm rounded-full border border-gray-200 text-gray-600 hover:bg-gray-100"
-            >
-              {tab}
-            </button>
-          ))}
+        <div className="flex items-center gap-3">
+          <div className="flex items-center border border-gray-100 rounded-[14px] p-1 bg-white">
+            {["All", "Active", "Invited", "Disabled"].map((tab) => (
+              <button
+                key={tab}
+                onClick={() => setFilter(tab)}
+                className={`px-5 py-2 text-[13px] font-medium rounded-[12px] transition-all whitespace-nowrap ${
+                  filter === tab 
+                    ? "bg-[#eaf4ff] text-[#528DB5] border border-[#d0e6ff]" 
+                    : "text-[#858585] hover:text-[#528DB5] border border-transparent"
+                }`}
+              >
+                {tab}
+              </button>
+            ))}
+          </div>
         </div>
       </div>
 
-      {/* 📊 Table */}
-      <div className="rounded-xl overflow-hidden border border-gray-200">
-        
-        {/* Header */}
-        <div className="grid grid-cols-4 bg-primary-gradient  px-4 py-3 text-white text-sm font-medium ">
-          <span>User</span>
-          <span>Role</span>
-          <span>Status</span>
-          <span className="text-right">Actions</span>
-        </div>
+      {/* Table Wrapper */}
+      <div className="rounded-xl overflow-hidden border border-gray-100 shadow-sm">
+        <div className="overflow-x-auto">
+          <table className="w-full text-left border-collapse">
+            <thead>
+              <tr className="bg-[#5b94b7] text-white">
+                <th className="px-5 py-3.5 text-sm font-bold first:rounded-tl-xl">
+                  <div className="flex items-center gap-1 cursor-pointer">
+                    User <ChevronDown size={14} className="opacity-60" />
+                  </div>
+                </th>
+                <th className="px-5 py-3.5 text-sm font-bold">
+                  <div className="flex items-center gap-1 cursor-pointer">
+                    Role <ChevronDown size={14} className="opacity-60" />
+                  </div>
+                </th>
+                <th className="px-5 py-3.5 text-sm font-bold">
+                  <div className="flex items-center gap-1 cursor-pointer">
+                    Status <ChevronDown size={14} className="opacity-60" />
+                  </div>
+                </th>
+                <th className="px-5 py-3.5 text-sm font-bold text-right last:rounded-tr-xl">Actions</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-gray-50 bg-white">
+              {filteredUsers.length === 0 ? (
+                <tr>
+                  <td colSpan={4} className="px-5 py-10 text-center text-sm text-gray-400 italic">
+                    No users found matching your criteria.
+                  </td>
+                </tr>
+              ) : (
+                filteredUsers.map((user) => (
+                  <tr key={user.id} className="hover:bg-gray-50/30 transition-colors">
+                    <td className="px-5 py-5">
+                      <div className="flex items-center gap-4">
+                        <div className="w-11 h-11 rounded-xl bg-[#f2f7fb] flex items-center justify-center text-sm font-bold text-[#5b94b7] border border-[#dce9f2] shrink-0">
+                          {user.initials}
+                        </div>
+                        <div className="min-w-0">
+                          <p className="text-[14px] font-bold text-[#333] leading-tight">
+                            {user.name}
+                          </p>
+                          <p className="text-[12px] text-[#999] mt-0.5">
+                            {user.email}
+                          </p>
+                        </div>
+                      </div>
+                    </td>
 
-        {/* Body */}
-        <div>
-          {users.map((user, i) => (
-            <div
-              key={i}
-              className="grid grid-cols-4 items-center px-4 py-3 border-t border-gray-100"
-            >
-              
-              {/* User */}
-              <div className="flex items-center gap-3">
-                <div className="w-9 h-9 rounded-lg bg-gray-100 flex items-center justify-center text-xs font-semibold text-gray-600">
-                  {user.initials}
-                </div>
-                <div>
-                  <p className="text-sm font-medium text-gray-800">
-                    {user.name}
-                  </p>
-                  <p className="text-xs text-gray-400">
-                    {user.email}
-                  </p>
-                </div>
-              </div>
+                    <td className="px-5 py-5">
+                      <span className="px-3 py-1.5 text-[12px] font-bold rounded-[8px] bg-[#eaf4ff] text-[#528DB5]">
+                        {user.role}
+                      </span>
+                    </td>
 
-              {/* Role */}
-              <div>
-                <span className="px-2 py-1 text-xs rounded-md bg-blue-100 text-blue-600">
-                  {user.role}
-                </span>
-              </div>
+                    <td className="px-5 py-4">
+                      <div className="flex items-center gap-2 text-[13px] font-bold text-[#4a4a4a]">
+                        <span
+                          className={`w-2 h-2 rounded-full ${
+                            user.status === "Active"
+                              ? "bg-[#42b883]"
+                              : user.status === "Invited"
+                              ? "bg-[#ff9f43]"
+                              : "bg-[#ea5455]"
+                          }`}
+                        />
+                        {user.status}
+                      </div>
+                    </td>
 
-              {/* Status */}
-              <div className="flex items-center gap-2 text-sm text-gray-600">
-                <span
-                  className={`w-2 h-2 rounded-full ${
-                    user.status === "Active"
-                      ? "bg-green-500"
-                      : user.status === "Invited"
-                      ? "bg-yellow-500"
-                      : "bg-red-500"
-                  }`}
-                />
-                {user.status}
-              </div>
-
-              {/* Actions */}
-              <div className="flex justify-end gap-3 text-gray-500">
-                <Pencil className="w-4 h-4 cursor-pointer hover:text-blue-500" />
-                <Trash2 className="w-4 h-4 cursor-pointer hover:text-red-500" />
-                <Settings className="w-4 h-4 cursor-pointer hover:text-gray-700" />
-              </div>
-
-            </div>
-          ))}
+                    <td className="px-5 py-4">
+                      <div className="flex justify-end gap-4 text-[#5b94b7]">
+                        <button onClick={() => onEdit(user)} className="hover:text-[#528DB5] transition-colors">
+                          <Pencil className="w-[18px] h-[18px]" />
+                        </button>
+                        <button onClick={() => onDelete(user)} className="hover:text-red-500 transition-colors">
+                          <Trash2 className="w-[18px] h-[18px]" />
+                        </button>
+                        <button onClick={() => onSettings(user)} className="hover:text-[#4a4a4a] transition-colors">
+                          <Settings className="w-[18px] h-[18px]" />
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))
+              )}
+            </tbody>
+          </table>
         </div>
       </div>
     </div>

@@ -55,10 +55,10 @@ export const RICH_ONE_CLICK = [
     description: "Build and save ad-hoc report definitions for your team.",
   },
   {
-    id: "listency" as const,
-    href: "/reports/physician-listency",
+    id: "hospice" as const,
+    href: "/reports/hospice",
     label: "Hospice Report",
     tag: "Finance",
-    description: "Latency and turnaround trends by physician and site.",
+    description: "Performance metrics for hospice agencies, focusing on order assignment and signing latency.",
   },
 ] as const;

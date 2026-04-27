@@ -162,19 +162,34 @@ export function OnboardingForm({
       {/* FOOTER BUTTONS */}
       {/* ========================= */}
 
-      <div className="flex justify-between items-center mt-8 pt-6 border-t border-gray-200">
-        <Button variant="secondary" size="base" className="px-[20px] py-[10px] rounded-xl">
+      <div className="flex flex-col sm:flex-row gap-4 justify-between items-center mt-8 pt-6 border-t border-gray-200">
+        <Button 
+          onClick={handleSaveAndContinue}
+          variant="secondary" 
+          size="base" 
+          className="w-full sm:w-auto px-[20px] py-[10px] rounded-xl order-2 sm:order-1"
+        >
           Skip for now
         </Button>
 
-        <div className="flex gap-3">
+        <div className="flex gap-3 w-full sm:w-auto order-1 sm:order-2">
           {(currentStep !== 1 || subStep > 1) && (
-            <Button onClick={handleBack} variant="secondary" size="base" className="px-[20px] py-[10px] rounded-xl">
+            <Button 
+              onClick={handleBack} 
+              variant="secondary" 
+              size="base" 
+              className="flex-1 sm:flex-none px-[20px] py-[10px] rounded-xl"
+            >
               Back
             </Button>
           )}
 
-          <Button onClick={handleSaveAndContinue} size="base" variant="primary" className="px-[20px] py-[10px] rounded-xl">
+          <Button 
+            onClick={handleSaveAndContinue} 
+            size="base" 
+            variant="primary" 
+            className="flex-1 sm:flex-none px-[20px] py-[10px] rounded-xl"
+          >
             {isFinalStep ? "Finish Setup" : "Save & Continue"}
           </Button>
         </div>

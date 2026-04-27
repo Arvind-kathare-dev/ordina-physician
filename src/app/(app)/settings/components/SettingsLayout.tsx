@@ -6,18 +6,18 @@ interface Props {
 
 export default function SettingsLayout({ sidebar, header, children }: Props) {
   return (
-    <div className="min-h-screen py-6">
-      <div className="max-w-[1400px] mx-auto ">
+    <div className="min-h-screen py-4 sm:py-6 lg:py-8">
+      <div className="max-w-[1400px] mx-auto px-4 sm:px-6">
         {header}
 
-        <div className="flex gap-6">
-          {sidebar}
+        <div className="flex flex-col lg:flex-row gap-6 lg:gap-8 mt-6">
+          <aside className="w-full lg:w-80 shrink-0">
+            {sidebar}
+          </aside>
 
-          <div className="flex-1">
-            {/* <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-8"> */}
-              {children}
-            {/* </div> */}
-          </div>
+          <main className="flex-1 min-w-0">
+            {children}
+          </main>
         </div>
       </div>
     </div>

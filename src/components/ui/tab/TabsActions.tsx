@@ -1,12 +1,13 @@
-import { Bell, ArrowUpDown, SlidersHorizontal } from "lucide-react";
+import { Bell, ArrowUpDown, SlidersHorizontal, ListFilter } from "lucide-react";
 import Button from "../button/Button";
 
 interface TabsActionsProps {
   activeTab: number;
   onMyOrdersClick: () => void;
+  onClick: () => void;
 }
 
-export function TabsActions({ activeTab, onMyOrdersClick }: TabsActionsProps) {
+export function TabsActions({ activeTab, onMyOrdersClick, onClick }: TabsActionsProps) {
   const isActive = activeTab === 6;
   return (
     <>
@@ -26,8 +27,8 @@ export function TabsActions({ activeTab, onMyOrdersClick }: TabsActionsProps) {
         <ArrowUpDown size={19} />
       </button>
 
-      <button className="p-3 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 text-slate-500">
-        <SlidersHorizontal size={19} />
+      <button onClick={onClick} className="p-3 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 text-slate-500">
+        <ListFilter size={19} />
       </button>
     </>
   );

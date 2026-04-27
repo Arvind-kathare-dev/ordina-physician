@@ -1,6 +1,6 @@
 import SearchBox from "@/components/ui/SearchBox";
 import SectionWrapper from "../SectionWrapper";
-import { User } from "lucide-react";
+import { User, Plus } from "lucide-react";
 import UserTable from "./UserTable";
 import PermissionCard from "../card/PermissionCard";
 import { SectionWrapperBox } from "../SectionWrapperBox";
@@ -8,84 +8,91 @@ import { useState } from "react";
 import PermissionsUI from "./PermissionsUI";
 import NotesCard from "../card/NotesCard";
 
-interface User {
+interface UserData {
   id: string;
   name: string;
   email: string;
-  role: 'Admin' | 'Sub Admin' | 'User' | 'Read Only';
-  status: 'Active' | 'Invited' | 'Disabled';
+  role: string;
+  status: string;
+  initials: string;
 }
 
-// Sample data matching the image
-const initialUsers: User[] = [
-  {
-    id: 'JD',
-    name: 'John Doe',
-    email: 'JohnDoe@agency.com',
-    role: 'Admin',
-    status: 'Active',
-  },
-  {
-    id: 'OB',
-    name: 'Oliver Bennett',
-    email: 'Oliverbennett@agency.com',
-    role: 'Sub Admin',
-    status: 'Active',
-  },
-  {
-    id: 'AC',
-    name: 'Amelia Carter',
-    email: 'Ameliacarter@agency.com',
-    role: 'User',
-    status: 'Invited',
-  },
-  {
-    id: 'TS',
-    name: 'Taylor Sutton',
-    email: 'TaylorSutton@agency.com',
-    role: 'Read Only',
-    status: 'Disabled',
-  },
+const initialUsers: UserData[] = [
+  { id: '1', name: 'John Doe', email: 'JohnDoe@agency.com', role: 'Admin', status: 'Active', initials: 'JD' },
+  { id: '2', name: 'Oliver Bennett', email: 'Oliverbennett@agency.com', role: 'Sub Admin', status: 'Active', initials: 'OB' },
+  { id: '3', name: 'Amelia Carter', email: 'Ameliacarter@agency.com', role: 'User', status: 'Invited', initials: 'AC' },
+  { id: '4', name: 'Taylor Sutton', email: 'TaylorSutton@agency.com', role: 'Read Only', status: 'Disabled', initials: 'TS' },
 ];
 
 export default function ManageUsersSection() {
-    const [users, setUsers] = useState<User[]>(initialUsers);
- 
-  const handleEdit = (user: User) => {
-    console.log('Edit user:', user);
-    alert(`Edit user: ${user.name}`);
-  };
- 
-  const handleDelete = (user: User) => {
-    console.log('Delete user:', user);
-    if (confirm(`Are you sure you want to delete ${user.name}?`)) {
-      setUsers(users.filter(u => u.id !== user.id));
+  const [users, setUsers] = useState<UserData[]>(initialUsers);
+
+  const handleEdit = (user: UserData) => {
+    const newName = prompt("Enter new name:", user.name);
+    if (newName) {
+      setUsers(prev => prev.map(u => u.id === user.id ? { ...u, name: newName, initials: newName.split(' ').map(n => n[0]).join('').toUpperCase() } : u));
     }
   };
- 
-  const handleSettings = (user: User) => {
-    console.log('Settings for user:', user);
+
+  const handleDelete = (user: UserData) => {
+    if (confirm(`Are you sure you want to delete ${user.name}?`)) {
+      setUsers(prev => prev.filter(u => u.id !== user.id));
+    }
+  };
+
+  const handleSettings = (user: UserData) => {
     alert(`Settings for: ${user.name}`);
+  };
+
+  const handleAdd = () => {
+    const name = prompt("Enter name:");
+    const email = prompt("Enter email:");
+    if (name && email) {
+      const newUser: UserData = {
+        id: Math.random().toString(36).substr(2, 9),
+        name,
+        email,
+        role: 'User',
+        status: 'Invited',
+        initials: name.split(' ').map(n => n[0]).join('').toUpperCase(),
+      };
+      setUsers(prev => [...prev, newUser]);
+    }
   };
 
   return (
     <SectionWrapperBox title="Manage Users">
       <SectionWrapper
         title="Manage Users"
-        description="Add agency users and set permissions"
+        description="Add agency users and set permissions (sub-admin access)"
         icon={User}
+        headerAction={
+          <button 
+            onClick={handleAdd}
+            className="flex items-center gap-2 bg-[#5b94b7] text-white px-5 py-2.5 rounded-xl text-[14px] font-bold shadow-sm hover:bg-[#4a7a96] transition-all shrink-0"
+          >
+            <Plus className="w-4 h-4" />
+            Invite User
+          </button>
+        }
       >
-       
-
-       <UserTable
-          
-          />
+        <UserTable
+          users={users}
+          onEdit={handleEdit}
+          onDelete={handleDelete}
+          onSettings={handleSettings}
+          onAdd={handleAdd}
+        />
       </SectionWrapper>
 
       {/* Permissions + Notes */}
-      <div className="flex gap-4 items-start px-6" >
-      <PermissionsUI/>
-<NotesCard/>
+      <div className="flex flex-col xl:flex-row gap-6 items-start px-4 sm:px-6 pb-6">
+        <div className="w-full xl:flex-1">
+          <PermissionsUI />
+        </div>
+        <div className="w-full xl:w-80 shrink-0">
+          <NotesCard />
+        </div>
       </div>
       
     </SectionWrapperBox>

@@ -200,7 +200,7 @@ export default function OrderDetailsInfoDialog({ row }: { row: OrderTableRow }) 
                 {row.patientName}
               </h3>
               <div className="-mx-4 mt-3 flex flex-wrap gap-2 border-b border-[#D1D1D6] px-4 pb-8 sm:-mx-6 sm:px-6">
-                <span className="inline-flex h-[33px] items-center rounded-full bg-[#579EBA24] px-3 text-xs font-semibold text-[#1696C8] sm:text-sm">
+                <span className="inline-flex h-[33px] items-center rounded-full bg-[#579EBA24] px-3 text-xs font-semibold text-[#528DB5] sm:text-sm">
                   {row.serviceType.text}
                 </span>
                 <span className="inline-flex h-[33px] items-center rounded-full bg-[#FFF6E5] px-3 text-xs font-semibold text-[#FFA90A] sm:text-sm">

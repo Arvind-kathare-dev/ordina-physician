@@ -30,25 +30,25 @@ const DOWNLOAD_FORMAT_OPTIONS: {
   {
     id: "pdf",
     label: "PDF",
-    icon: <AiOutlineFilePdf className="h-5 w-5 shrink-0 text-[#2E7AAF]" aria-hidden />,
+    icon: <AiOutlineFilePdf className="h-5 w-5 shrink-0 text-primary-color" aria-hidden />,
   },
   {
     id: "excel",
     label: "Excel",
     icon: (
-      <AiOutlineFileExcel className="h-5 w-5 shrink-0 text-[#2E7AAF]" aria-hidden />
+      <AiOutlineFileExcel className="h-5 w-5 shrink-0 text-primary-color" aria-hidden />
     ),
   },
   {
     id: "csv",
     label: "CSV",
-    icon: <PiFileCsv className="h-5 w-5 shrink-0 text-[#2E7AAF]" aria-hidden />,
+    icon: <PiFileCsv className="h-5 w-5 shrink-0 text-primary-color" aria-hidden />,
   },
   {
     id: "print",
     label: "Print",
     icon: (
-      <AiOutlinePrinter className="h-5 w-5 shrink-0 text-[#2E7AAF]" aria-hidden />
+      <AiOutlinePrinter className="h-5 w-5 shrink-0 text-primary-color" aria-hidden />
     ),
   },
 ];
@@ -62,7 +62,7 @@ function edgeToggleBtn(
     <button
       type="button"
       onClick={onClick}
-      className="inline-flex h-[24px] w-[24px] cursor-pointer items-center justify-center rounded-full border-[0.5px] border-[#1696C8] bg-white text-[#1696C8] shadow-[3px_1px_9px_rgba(87, 158, 186, 0.2)] transition"
+      className="inline-flex h-[24px] w-[24px] cursor-pointer items-center justify-center rounded-full border-[0.5px] border-[#528DB5] bg-white text-[#528DB5] shadow-[3px_1px_9px_rgba(87, 158, 186, 0.2)] transition"
       aria-label={label}
       title={label}
     >
@@ -193,7 +193,7 @@ export default function ReportsShell({
                         aria-hidden
                       >
                         {checked ? (
-                          <span className="size-2.5 rounded-full bg-[#2E7AAF]" />
+                          <span className="size-2.5 rounded-full bg-primary-color" />
                         ) : null}
                       </span>
                     </button>
@@ -211,11 +211,11 @@ export default function ReportsShell({
             <button
               type="button"
               onClick={onExpandClick}
-              className="inline-flex h-[24px] w-[24px] cursor-pointer items-center justify-center rounded-full border-[0.5px] border-[#1696C8] bg-white text-[#1696C8] shadow-[3px_1px_9px_rgba(87, 158, 186, 0.2)] transition"
+              className="inline-flex h-[24px] w-[24px] cursor-pointer items-center justify-center rounded-full border-[0.5px] border-[#528DB5] bg-white text-[#528DB5] shadow-[3px_1px_9px_rgba(87, 158, 186, 0.2)] transition"
               aria-label="Show reports sidebar"
               title="Show reports sidebar"
             >
-              <HiChevronRight className="h-[18px] w-[18px] text-[#1696C8]" aria-hidden />
+              <HiChevronRight className="h-[18px] w-[18px] text-[#528DB5]" aria-hidden />
             </button>
           </div>
         )}

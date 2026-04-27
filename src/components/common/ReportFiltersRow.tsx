@@ -90,7 +90,11 @@ function labelForValue(
 }
 
 function summaryForMulti(f: ReportFilterMultiSelectConfig): string {
-  return f.emptySummaryLabel;
+  if (f.values.length === 0) return f.emptySummaryLabel;
+  if (f.values.length === 1) {
+    return labelForValue(f.options, f.values[0]);
+  }
+  return `${f.values.length} Selected`;
 }
 
 const TIMELINE_PRESET_ROWS: readonly {
@@ -163,7 +167,7 @@ function TimelineFilterDropdown({
         onClick={() => setOpenId((id) => (id === f.id ? null : f.id))}
         className={`flex w-full flex-col cursor-pointer items-stretch gap-1 rounded-[10px] border-[0.5px] bg-white p-3 pb-2.5 text-left shadow-sm transition ${
           open
-            ? "border-[#1696C8] ring-[1px] ring-[#1696C8]/25"
+            ? "border-[#528DB5] ring-[1px] ring-[#528DB5]/25"
             : "border-[#E0E0E0] hover:border-slate-300"
         }`}
       >
@@ -490,7 +494,7 @@ export default function ReportFiltersRow({
                 onClick={() => setOpenId((id) => (id === f.id ? null : f.id))}
                 className={`flex w-full flex-col cursor-pointer items-stretch gap-1 rounded-[10px] border-[0.5px] bg-white p-3 pb-2.5 text-left shadow-sm transition ${
                   open
-                    ? "border-[#1696C8] ring-[1px] ring-[#1696C8]/25"
+                    ? "border-[#528DB5] ring-[1px] ring-[#528DB5]/25"
                     : "border-[#E0E0E0] hover:border-slate-300"
                 }`}
               >
@@ -529,7 +533,7 @@ export default function ReportFiltersRow({
                         placeholder={
                           f.searchPlaceholder ?? `Search ${f.label.toLowerCase()}…`
                         }
-                        className="h-9 w-full rounded-lg border-[0.5px] border-slate-200 bg-white pl-8 pr-2 text-xs text-[#374151] outline-none placeholder:text-slate-400 focus:border-[#1696C8] focus:ring-[1px] focus:ring-[#1696C8]/30"
+                        className="h-9 w-full rounded-lg border-[0.5px] border-slate-200 bg-white pl-8 pr-2 text-xs text-[#374151] outline-none placeholder:text-slate-400 focus:border-[#528DB5] focus:ring-[1px] focus:ring-[#528DB5]/30"
                         aria-label={`Search ${f.label}`}
                       />
                     </div>
@@ -624,7 +628,7 @@ export default function ReportFiltersRow({
                           value={panelSearch}
                           onChange={(e) => setPanelSearch(e.target.value)}
                           placeholder={`Search ${f.label.toLowerCase()}…`}
-                          className="h-9 w-full rounded-lg border-[0.5px] border-slate-200 bg-white pl-8 pr-2 text-xs text-[#374151] outline-none placeholder:text-slate-400 focus:border-[#1696C8] focus:ring-1 focus:ring-[#1696C8]/30"
+                          className="h-9 w-full rounded-lg border-[0.5px] border-slate-200 bg-white pl-8 pr-2 text-xs text-[#374151] outline-none placeholder:text-slate-400 focus:border-[#528DB5] focus:ring-1 focus:ring-[#528DB5]/30"
                         />
                       </div>
                     </div>
