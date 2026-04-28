@@ -35,7 +35,7 @@ import Image from "next/image";
 
 import DataTable, { DataTableColumn } from "@/components/common/DataTable";
 import ReportFiltersRow, { ReportFilterConfig, ReportTimelinePreset } from "@/components/common/ReportFiltersRow";
-import { REPORT_PHYSICIAN_MULTI_OPTIONS } from "@/data/reportFilterPhysicianOptions";
+import { REPORT_AGENCY_MULTI_OPTIONS } from "@/data/reportFilterAgencyOptions";
 import { REPORT_PHYSICIAN_PAGE_PATIENT_MULTI_OPTIONS } from "@/data/reportFilterPatientOptions";
 import { REPORT_ORDER_TYPE_MULTI_OPTIONS } from "@/data/reportFilterOrderTypeOptions";
 import { REPORT_INSURANCE_MULTI_OPTIONS, REPORT_LOCATION_SELECT_OPTIONS } from "@/data/reportFilterLocationOptions";
@@ -53,7 +53,7 @@ const ALL_COLUMNS = [
   { key: "patient", label: "Patient Name" },
   { key: "orderType", label: "Order Type" },
   { key: "serviceType", label: "Service Type" },
-  { key: "physician", label: "Physician Name" },
+  { key: "agency", label: "Agency Name" },
   { key: "label", label: "Label" },
   { key: "returnedInTime", label: "Returned-in-time" },
   { key: "pendingDays", label: "Pending Days" },
@@ -104,9 +104,9 @@ const MOCK_ROWS: MockRow[] = [
     _id: "r1",
     date: "11/20/2025",
     patient: "John Doe",
-    orderType: "Medication Orders",
+    orderType: "DME Order",
     serviceType: "Hospice",
-    physician: "Dr. Emily Carter",
+    agency: "CarePlus Health Plans",
     label: "LD",
     returnedInTime: "Yes",
     pendingDays: "Today",
@@ -121,9 +121,9 @@ const MOCK_ROWS: MockRow[] = [
     _id: "r2",
     date: "11/01/2025",
     patient: "Oliver Bennett",
-    orderType: "Therapy Orders",
+    orderType: "Plan of Care",
     serviceType: "Pharmacy",
-    physician: "Dr. Sophia Martinez",
+    agency: "ABC Pvt-Ltd",
     label: "UR • PS • CR",
     returnedInTime: "No",
     pendingDays: "2 Days",
@@ -138,9 +138,9 @@ const MOCK_ROWS: MockRow[] = [
     _id: "r3",
     date: "10/15/2025",
     patient: "Amelia Carter",
-    orderType: "Skilled Nursing Orders",
+    orderType: "Recertification",
     serviceType: "DME",
-    physician: "Dr. James Miller",
+    agency: "MedSync",
     label: "PS",
     returnedInTime: "Yes",
     pendingDays: "3 Days",
@@ -155,9 +155,9 @@ const MOCK_ROWS: MockRow[] = [
     _id: "r4",
     date: "09/27/2025",
     patient: "Taylor Sutton",
-    orderType: "Equipment & Supplies",
+    orderType: "Evaluation",
     serviceType: "Home Health",
-    physician: "Dr. Olivia Johnson",
+    agency: "AlphaCure",
     label: "DME",
     returnedInTime: "—",
     pendingDays: "Today",
@@ -189,7 +189,7 @@ type Tile = {
 };
 
 type GlobalFilters = {
-  physician: string;
+  agency: string;
   orderType: string;
   timelinePreset: ReportTimelinePreset;
   timelineCustomFrom: string;
@@ -448,7 +448,7 @@ export default function CustomReportBuilderStep({
   const [orderTypeSelection, setOrderTypeSelection] = useState<string[]>([]);
   const [statusType, setStatusType] = useState("");
   const [patientSelection, setPatientSelection] = useState<string[]>([]);
-  const [physicianSelection, setPhysicianSelection] = useState<string[]>([]);
+  const [agencySelection, setAgencySelection] = useState<string[]>([]);
   const [locationSelection, setLocationSelection] = useState<string[]>([]);
   const [insuranceSelection, setInsuranceSelection] = useState<string[]>([]);
 
@@ -459,7 +459,7 @@ export default function CustomReportBuilderStep({
   }, []);
 
   const [globalFilters, setGlobalFilters] = useState<GlobalFilters>({
-    physician: "ALL",
+    agency: "ALL",
     orderType: "ALL",
     timelinePreset: "today",
     timelineCustomFrom: "",
@@ -484,25 +484,42 @@ export default function CustomReportBuilderStep({
   const globallyFilteredRows = useMemo(() => {
     return MOCK_ROWS.filter((r) => {
       if (
-        globalFilters.physician !== "ALL" &&
-        r.physician !== globalFilters.physician
+        agencySelection.length > 0 &&
+        !agencySelection.includes(r.agency)
       )
         return false;
       if (
-        globalFilters.orderType !== "ALL" &&
-        r.orderType !== globalFilters.orderType
+        orderTypeSelection.length > 0 &&
+        !orderTypeSelection.includes(r.orderType)
+      )
+        return false;
+      if (
+        patientSelection.length > 0 &&
+        !patientSelection.includes(r.patient)
+      )
+        return false;
+      if (
+        locationSelection.length > 0 &&
+        !locationSelection.includes(r.location)
+      )
+        return false;
+      if (
+        insuranceSelection.length > 0 &&
+        !insuranceSelection.includes(r.insurance)
       )
         return false;
       if (globalFilters.status !== "ALL" && r.status !== globalFilters.status)
         return false;
-      if (
-        globalFilters.location !== "ALL" &&
-        r.location !== globalFilters.location
-      )
-        return false;
       return true;
     });
-  }, [globalFilters]);
+  }, [
+    agencySelection,
+    orderTypeSelection,
+    patientSelection,
+    locationSelection,
+    insuranceSelection,
+    globalFilters,
+  ]);
 
   const selectedTile = tiles.find((t) => t.id === selectedId) ?? null;
 
@@ -539,13 +556,13 @@ export default function CustomReportBuilderStep({
     return [
       {
         kind: "multiSelect",
-        id: "physician",
-        label: "Physician",
-        values: physicianSelection,
-        onValuesChange: setPhysicianSelection,
-        options: [...REPORT_PHYSICIAN_MULTI_OPTIONS],
-        searchPlaceholder: "Search physician…",
-        emptySummaryLabel: "All Physicians",
+        id: "agency",
+        label: "Agency",
+        values: agencySelection,
+        onValuesChange: setAgencySelection,
+        options: [...REPORT_AGENCY_MULTI_OPTIONS],
+        searchPlaceholder: "Search agency…",
+        emptySummaryLabel: "All Agencies",
       },
       {
         kind: "multiSelect",
@@ -624,7 +641,7 @@ export default function CustomReportBuilderStep({
     ];
   }, [
     patientSelection,
-    physicianSelection,
+    agencySelection,
     orderTypeSelection,
     statusType,
     locationSelection,
@@ -642,23 +659,36 @@ export default function CustomReportBuilderStep({
       globalFilters.timelineCustomTo
     );
     const parts: string[] = [];
-    if (globalFilters.physician !== "ALL") {
-      parts.push(`Physician: ${globalFilters.physician}`);
+    if (agencySelection.length > 0) {
+      parts.push(`Agency: ${agencySelection.join(", ")}`);
     }
-    if (globalFilters.orderType !== "ALL") {
-      parts.push(`Order type: ${globalFilters.orderType}`);
+    if (orderTypeSelection.length > 0) {
+      parts.push(`Order type: ${orderTypeSelection.join(", ")}`);
+    }
+    if (patientSelection.length > 0) {
+      parts.push(`Patient: ${patientSelection.join(", ")}`);
+    }
+    if (locationSelection.length > 0) {
+      parts.push(`Location: ${locationSelection.join(", ")}`);
+    }
+    if (insuranceSelection.length > 0) {
+      parts.push(`Insurance: ${insuranceSelection.join(", ")}`);
     }
     if (globalFilters.status !== "ALL") {
       parts.push(`Status: ${globalFilters.status}`);
-    }
-    if (globalFilters.location !== "ALL") {
-      parts.push(`Location: ${globalFilters.location}`);
     }
     if (parts.length === 0) {
       return `Timeline: ${timelineLabel}. No row filters applied (showing all).`;
     }
     return `Timeline: ${timelineLabel}. ${parts.join(" · ")}.`;
-  }, [globalFilters]);
+  }, [
+    globalFilters,
+    agencySelection,
+    orderTypeSelection,
+    patientSelection,
+    locationSelection,
+    insuranceSelection,
+  ]);
 
   function hasActions(tile: Tile): boolean {
     return (
@@ -761,7 +791,7 @@ export default function CustomReportBuilderStep({
 
   function summarizeGlobalFilters(): string {
     const parts: string[] = [];
-    if (globalFilters.physician !== "ALL") parts.push("Physician");
+    // if (globalFilters.physician !== "ALL") parts.push("Physician");
     if (globalFilters.orderType !== "ALL") parts.push("Order Type");
     if (globalFilters.status !== "ALL") parts.push("Status");
     if (globalFilters.location !== "ALL") parts.push("Location");
@@ -1101,7 +1131,7 @@ export default function CustomReportBuilderStep({
                                 ))}
                               </select>
                             </div>
-                            
+
                             <div>
                               <label className="mb-2 block text-xs font-semibold text-[#606060]">
                                 Chart type
@@ -1337,7 +1367,7 @@ export default function CustomReportBuilderStep({
                           }}
                           className="relative flex cursor-grab gap-2.5 rounded-[14px] border border-[#E0E0E0] bg-linear-to-b from-white to-[#fbfdff] p-3 shadow-[0_6px_14px_rgba(16,24,40,0.04)] active:cursor-grabbing"
                         >
-                          <div className="grid h-9.5 w-9.5 shrink-0 place-items-center rounded-xl bg-[#579EBA]/15 text-sm font-semibold text-[#4F81B2] shadow-[inset_0_0_0_1px_rgba(87,158,186,0.25)]">
+                          <div className="grid h-9.5 w-9.5 px-4 py-2  shrink-0 place-items-center rounded-xl bg-[#579EBA]/15 text-sm font-semibold text-[#4F81B2] shadow-[inset_0_0_0_1px_rgba(87,158,186,0.25)]">
                             {letter}
                           </div>
                           <div className="min-w-0 flex-1 pt-0.5">

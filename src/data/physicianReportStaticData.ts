@@ -22,7 +22,7 @@ const PHYSICIAN_REPORT_PROTOTYPES: Proto[] = [
   {
     date: "11/20/2025",
     dateTags: [{ text: "Modified", className: "bg-orange-100 text-orange-800" }],
-    orderType: "Medication Orders",
+    orderType: "DME Order",
     status: { text: "Delivered", dot: "green" },
     labels: [{ text: "LD", variant: "red" }],
     daysPending: { text: "Today", dot: "green" },
@@ -31,7 +31,7 @@ const PHYSICIAN_REPORT_PROTOTYPES: Proto[] = [
   {
     date: "11/01/2025",
     dateTags: [{ text: "Rejected", className: "bg-red-100 text-red-700" }],
-    orderType: "Therapy Orders",
+    orderType: "Plan of Care",
     status: { text: "Signed", dot: "blue" },
     labels: [
       { text: "UR", variant: "blue" },
@@ -45,7 +45,7 @@ const PHYSICIAN_REPORT_PROTOTYPES: Proto[] = [
   {
     date: "10/15/2025",
     dateTags: [{ text: "Outbound", className: "bg-sky-100 text-sky-700" }],
-    orderType: "Skilled Nursing Orders",
+    orderType: "Recertification",
     status: { text: "Unsigned", dot: "purple" },
     labels: [{ text: "PS", variant: "green" }],
     daysPending: { text: "3 Days", dot: "orange" },
@@ -53,7 +53,7 @@ const PHYSICIAN_REPORT_PROTOTYPES: Proto[] = [
   },
   {
     date: "10/15/2025",
-    orderType: "Equipment and Supplies Orders",
+    orderType: "Evaluation",
     status: { text: "Pending", dot: "orange" },
     labels: [{ text: "PS", variant: "green" }],
     daysPending: { text: "3 Days", dot: "orange" },
@@ -61,7 +61,7 @@ const PHYSICIAN_REPORT_PROTOTYPES: Proto[] = [
   },
   {
     date: "10/15/2025",
-    orderType: "Medication Orders",
+    orderType: "Lab / Diagnostic",
     status: { text: "Delivered", dot: "green" },
     labels: [{ text: "LD", variant: "red" }],
     daysPending: { text: "7 Days", dot: "red" },
@@ -70,7 +70,7 @@ const PHYSICIAN_REPORT_PROTOTYPES: Proto[] = [
   {
     date: "09/27/2025",
     dateTags: [{ text: "Signed", className: "bg-emerald-100 text-emerald-800" }],
-    orderType: "Therapy Orders",
+    orderType: "DME Order",
     status: { text: "Pending", dot: "orange" },
     labels: [
       { text: "UR", variant: "blue" },
@@ -82,7 +82,7 @@ const PHYSICIAN_REPORT_PROTOTYPES: Proto[] = [
   },
   {
     date: "09/27/2025",
-    orderType: "Equipment and Supplies Orders",
+    orderType: "Plan of Care",
     status: { text: "Failed", dot: "red" },
     labels: [{ text: "PS", variant: "green" }],
     daysPending: { text: "Today", dot: "green" },
@@ -90,7 +90,7 @@ const PHYSICIAN_REPORT_PROTOTYPES: Proto[] = [
   },
   {
     date: "09/27/2025",
-    orderType: "Skilled Nursing Orders",
+    orderType: "Recertification",
     status: { text: "Delivered", dot: "green" },
     labels: [{ text: "DME", variant: "orange" }],
     daysPending: { text: "3 Days", dot: "orange" },

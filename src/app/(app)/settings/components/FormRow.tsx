@@ -12,7 +12,7 @@ export default function FormRow({ children, col = "4" }: Props) {
   };
 
   return (
-    <div className={`grid ${gridClasses[col]} gap-4 mb-4`}>
+    <div className={`grid ${gridClasses[col]} gap-4 p-1 mb-4`}>
       {children}
     </div>
   );

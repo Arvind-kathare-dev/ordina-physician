@@ -102,12 +102,12 @@ const TIMELINE_PRESET_ROWS: readonly {
   label: string;
   description: string;
 }[] = [
-  { value: "today", label: "Today", description: "Orders for current day" },
-  { value: "yesterday", label: "Yesterday", description: "Previous day" },
-  { value: "last_7_days", label: "Last 7 days", description: "Rolling week" },
-  { value: "last_30_days", label: "Last 30 days", description: "Rolling month" },
-  { value: "this_month", label: "This month", description: "Calendar month" },
-];
+    { value: "today", label: "Today", description: "Orders for current day" },
+    { value: "yesterday", label: "Yesterday", description: "Previous day" },
+    { value: "last_7_days", label: "Last 7 days", description: "Rolling week" },
+    { value: "last_30_days", label: "Last 30 days", description: "Rolling month" },
+    { value: "this_month", label: "This month", description: "Calendar month" },
+  ];
 
 function formatTimelineRangeLabel(from: string, to: string): string {
   if (!from || !to) return "Custom range";
@@ -155,7 +155,7 @@ function TimelineFilterDropdown({
         ? formatTimelineRangeLabel(f.customFrom, f.customTo)
         : "Custom"
       : TIMELINE_PRESET_ROWS.find((r) => r.value === f.preset)?.label ??
-        "Today";
+      "Today";
 
   return (
     <div className="relative w-[150px] shrink-0 sm:w-[158px]">
@@ -165,11 +165,10 @@ function TimelineFilterDropdown({
         aria-expanded={open}
         aria-haspopup="dialog"
         onClick={() => setOpenId((id) => (id === f.id ? null : f.id))}
-        className={`flex w-full flex-col cursor-pointer items-stretch gap-1 rounded-[10px] border-[0.5px] bg-white p-3 pb-2.5 text-left shadow-sm transition ${
-          open
-            ? "border-[#528DB5] ring-[1px] ring-[#528DB5]/25"
-            : "border-[#E0E0E0] hover:border-slate-300"
-        }`}
+        className={`flex w-full flex-col cursor-pointer items-stretch gap-1 rounded-[10px] border-[0.5px] bg-white p-3 pb-2.5 text-left shadow-sm transition ${open
+          ? "border-[#528DB5] ring-[1px] ring-[#528DB5]/25"
+          : "border-[#E0E0E0] hover:border-slate-300"
+          }`}
       >
         <span className="text-[10px] uppercase tracking-wide text-[#9B9B9B] sm:text-[11px]">
           {f.label}
@@ -281,11 +280,10 @@ function TimelineFilterDropdown({
                   }}
                 >
                   <span
-                    className={`mt-0.5 flex size-[18px] shrink-0 items-center justify-center rounded border-[0.5px] transition ${
-                      checked
-                        ? "border-[#528DB5] bg-[#528DB5]"
-                        : "border-[#E0E0E0] bg-white"
-                    }`}
+                    className={`mt-0.5 flex size-[18px] shrink-0 items-center justify-center rounded border-[0.5px] transition ${checked
+                      ? "border-[#528DB5] bg-[#528DB5]"
+                      : "border-[#E0E0E0] bg-white"
+                      }`}
                     aria-hidden
                   >
                     {checked ? (
@@ -464,273 +462,269 @@ export default function ReportFiltersRow({
 
   return (
     <Fragment>
-    <div ref={rootRef} className={`space-y-3 ${className}`.trim()}>
-      {showFilterChrome ? (
-        <div className="flex flex-row flex-wrap gap-3">
-        {filters.map((f) => {
-          const open = openId === f.id;
-          if (isTimeline(f)) {
-            return (
-              <TimelineFilterDropdown
-                key={f.id}
-                f={f}
-                open={open}
-                setOpenId={setOpenId}
-              />
-            );
-          }
-
-          const summary = isMulti(f)
-            ? summaryForMulti(f)
-            : labelForValue(f.options, f.value);
-
-          return (
-            <div key={f.id} className="relative w-[150px] shrink-0 sm:w-[158px]">
-              <button
-                type="button"
-                id={`report-filter-trigger-${f.id}`}
-                aria-expanded={open}
-                aria-haspopup="listbox"
-                onClick={() => setOpenId((id) => (id === f.id ? null : f.id))}
-                className={`flex w-full flex-col cursor-pointer items-stretch gap-1 rounded-[10px] border-[0.5px] bg-white p-3 pb-2.5 text-left shadow-sm transition ${
-                  open
-                    ? "border-[#528DB5] ring-[1px] ring-[#528DB5]/25"
-                    : "border-[#E0E0E0] hover:border-slate-300"
-                }`}
-              >
-                <span className="text-[10px] uppercase tracking-wide text-[#9B9B9B] sm:text-[11px]">
-                  {f.label}
-                </span>
-                <span className="flex min-h-[1.25rem] items-center justify-between gap-1">
-                  <span
-                    className={`min-w-0 flex-1 truncate text-sm text-[#606060]`}
-                  >
-                    {summary}
-                  </span>
-                  <HiChevronDown
-                    className={`h-4 w-4 shrink-0 text-[#606060] transition-transform duration-200 ${open ? "rotate-180" : ""}`}
-                    aria-hidden
+      <div ref={rootRef} className={`space-y-3 ${className}`.trim()}>
+        {showFilterChrome ? (
+          <div className="flex flex-row flex-wrap gap-3">
+            {filters.map((f) => {
+              const open = openId === f.id;
+              if (isTimeline(f)) {
+                return (
+                  <TimelineFilterDropdown
+                    key={f.id}
+                    f={f}
+                    open={open}
+                    setOpenId={setOpenId}
                   />
-                </span>
-              </button>
+                );
+              }
 
-              {open && isMulti(f) ? (
-                <div
-                  className="absolute left-0 top-full z-50 mt-1.5 w-[min(100vw-1.5rem,330px)] min-w-[280px] max-w-[330px] rounded-xl border-[0.5px] border-slate-200/95 bg-white py-2 shadow-[0_10px_28px_rgba(15,23,42,0.12)] ring-1 ring-slate-100/90"
-                  role="listbox"
-                  aria-multiselectable="true"
-                >
-                  <div className="border-b-[0.5px] border-slate-100 px-2.5 pb-2">
-                    <div className="relative">
-                      <HiSearch
-                        className="pointer-events-none absolute left-2.5 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400"
+              const summary = isMulti(f)
+                ? summaryForMulti(f)
+                : labelForValue(f.options, f.value);
+
+              return (
+                <div key={f.id} className="relative w-[150px] shrink-0 sm:w-[158px]">
+                  <button
+                    type="button"
+                    id={`report-filter-trigger-${f.id}`}
+                    aria-expanded={open}
+                    aria-haspopup="listbox"
+                    onClick={() => setOpenId((id) => (id === f.id ? null : f.id))}
+                    className={`flex w-full flex-col cursor-pointer items-stretch gap-1 rounded-[10px] border-[0.5px] bg-white p-3 pb-2.5 text-left shadow-sm transition ${open
+                      ? "border-[#528DB5] ring-[1px] ring-[#528DB5]/25"
+                      : "border-[#E0E0E0] hover:border-slate-300"
+                      }`}
+                  >
+                    <span className="text-[10px] uppercase font-medium tracking-wide text-[#9B9B9B] sm:text-[11px]">
+                      {f.label}
+                    </span>
+                    <span className="flex min-h-[1.25rem] items-center justify-between gap-1">
+                      <span
+                        className={`min-w-0 flex-1 truncate font-medium text-sm text-[#606060]`}
+                      >
+                        {summary}
+                      </span>
+                      <HiChevronDown
+                        className={`h-4 w-4 shrink-0 text-[#606060] transition-transform duration-200 ${open ? "rotate-180" : ""}`}
                         aria-hidden
                       />
-                      <input
-                        type="search"
-                        value={panelSearch}
-                        onChange={(e) => setPanelSearch(e.target.value)}
-                        placeholder={
-                          f.searchPlaceholder ?? `Search ${f.label.toLowerCase()}…`
-                        }
-                        className="h-9 w-full rounded-lg border-[0.5px] border-slate-200 bg-white pl-8 pr-2 text-xs text-[#374151] outline-none placeholder:text-slate-400 focus:border-[#528DB5] focus:ring-[1px] focus:ring-[#528DB5]/30"
-                        aria-label={`Search ${f.label}`}
-                      />
-                    </div>
-                  </div>
-                  <div className="flex items-center justify-between px-3 py-1.5 text-[10px] text-[#6b7280]">
-                    <span>
-                      <span className="font-medium text-[#606060]">
-                        {f.values.length}
-                      </span>{" "}
-                      Selected
                     </span>
-                    <button
-                      type="button"
-                      className="font-medium text-[#528DB5] hover:underline"
-                      onClick={() => f.onValuesChange([])}
-                    >
-                      Clear
-                    </button>
-                  </div>
-                  <div className="max-h-[260px] overflow-y-auto px-1.5 pb-1 [scrollbar-width:thin] [scrollbar-color:#c5ccd6_transparent]">
-                    {filteredMultiOptions.length === 0 ? (
-                      <p className="px-2 py-4 text-center text-xs text-[#9ca3af]">
-                        No matches.
-                      </p>
-                    ) : null}
-                    {filteredMultiOptions.map((opt) => {
-                      const checked = f.values.includes(opt.value);
-                      return (
-                        <button
-                          key={opt.value}
-                          type="button"
-                          role="option"
-                          aria-selected={checked}
-                          className={`flex w-full items-center gap-2.5 rounded-lg px-2 py-2.5 text-left transition`}
-                          onClick={() => {
-                            const next = checked
-                              ? f.values.filter((v) => v !== opt.value)
-                              : [...f.values, opt.value];
-                            f.onValuesChange(next);
-                          }}
-                        >
-                          <span
-                            className={`mt-0.5 flex size-[18px] shrink-0 items-center justify-center rounded border-[0.5px] transition ${
-                              checked
-                                ? "border-[#528DB5] bg-[#528DB5]"
-                                : "border-[#E0E0E0] bg-white"
-                            }`}
-                            aria-hidden
-                          >
-                            {checked ? (
-                              <HiCheck className="size-3.5 text-white" />
-                            ) : null}
-                          </span>
-                          <span className="min-w-0 flex-1">
-                            <span className="block text-sm leading-snug text-[#606060]">
-                              {opt.label}
-                            </span>
-                            {opt.description ? (
-                              <span className="mt-0.5 block text-[12px] leading-snug text-[#9B9B9B]">
-                                {opt.description}
-                              </span>
-                            ) : null}
-                          </span>
-                          {opt.tag ? (
-                            <span className="shrink-0 self-center rounded-full border-[0.5px] border-[#E0E0E0] bg-white px-2.5 py-1 text-[10px] font-medium text-[#858585]">
-                              {opt.tag}
-                            </span>
-                          ) : (
-                            <span className="w-8 shrink-0" aria-hidden />
-                          )}
-                        </button>
-                      );
-                    })}
-                  </div>
-                </div>
-              ) : null}
+                  </button>
 
-              {open && !isMulti(f) && !isTimeline(f) ? (
-                <div
-                  className="absolute left-0 right-0 top-full z-40 mt-1.5 max-h-[280px] w-[200px] overflow-hidden rounded-xl border-[0.5px] border-slate-200/95 bg-white py-1 shadow-[0_10px_28px_rgba(15,23,42,0.12)] ring-1 ring-slate-100/90"
-                  role="listbox"
-                >
-                  {f.optionLayout !== "radio" && f.options.length > 6 ? (
-                    <div className="border-b-[0.5px] border-slate-100 px-2.5 pb-2 pt-2">
-                      <div className="relative">
-                        <HiSearch
-                          className="pointer-events-none absolute left-2.5 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400"
-                          aria-hidden
-                        />
-                        <input
-                          type="search"
-                          value={panelSearch}
-                          onChange={(e) => setPanelSearch(e.target.value)}
-                          placeholder={`Search ${f.label.toLowerCase()}…`}
-                          className="h-9 w-full rounded-lg border-[0.5px] border-slate-200 bg-white pl-8 pr-2 text-xs text-[#374151] outline-none placeholder:text-slate-400 focus:border-[#528DB5] focus:ring-1 focus:ring-[#528DB5]/30"
-                        />
+                  {open && isMulti(f) ? (
+                    <div
+                      className="absolute left-0 top-full z-50 mt-1.5 w-[min(100vw-1.5rem,330px)] min-w-[280px] max-w-[330px] rounded-xl border-[0.5px] border-slate-200/95 bg-white py-2 shadow-[0_10px_28px_rgba(15,23,42,0.12)] ring-1 ring-slate-100/90"
+                      role="listbox"
+                      aria-multiselectable="true"
+                    >
+                      <div className="border-b-[0.5px] border-slate-100 px-2.5 pb-2">
+                        <div className="relative">
+                          <HiSearch
+                            className="pointer-events-none absolute left-2.5 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400"
+                            aria-hidden
+                          />
+                          <input
+                            type="search"
+                            value={panelSearch}
+                            onChange={(e) => setPanelSearch(e.target.value)}
+                            placeholder={
+                              f.searchPlaceholder ?? `Search ${f.label.toLowerCase()}…`
+                            }
+                            className="h-9 w-full rounded-lg border-[0.5px] border-slate-200 bg-white pl-8 pr-2 text-xs text-[#374151] outline-none placeholder:text-slate-400 focus:border-[#528DB5] focus:ring-[1px] focus:ring-[#528DB5]/30"
+                            aria-label={`Search ${f.label}`}
+                          />
+                        </div>
+                      </div>
+                      <div className="flex items-center justify-between px-3 py-1.5 text-[10px] text-[#6b7280]">
+                        <span>
+                          <span className="font-medium text-[#606060]">
+                            {f.values.length}
+                          </span>{" "}
+                          Selected
+                        </span>
+                        <button
+                          type="button"
+                          className="font-medium text-[#528DB5] hover:underline"
+                          onClick={() => f.onValuesChange([])}
+                        >
+                          Clear
+                        </button>
+                      </div>
+                      <div className="max-h-[260px] overflow-y-auto px-1.5 pb-1 [scrollbar-width:thin] [scrollbar-color:#c5ccd6_transparent]">
+                        {filteredMultiOptions.length === 0 ? (
+                          <p className="px-2 py-4 text-center text-xs text-[#9ca3af]">
+                            No matches.
+                          </p>
+                        ) : null}
+                        {filteredMultiOptions.map((opt) => {
+                          const checked = f.values.includes(opt.value);
+                          return (
+                            <button
+                              key={opt.value}
+                              type="button"
+                              role="option"
+                              aria-selected={checked}
+                              className={`flex w-full items-center gap-2.5 rounded-lg px-2 py-2.5 text-left transition`}
+                              onClick={() => {
+                                const next = checked
+                                  ? f.values.filter((v) => v !== opt.value)
+                                  : [...f.values, opt.value];
+                                f.onValuesChange(next);
+                              }}
+                            >
+                              <span
+                                className={`mt-0.5 flex size-[18px] shrink-0 items-center justify-center rounded border-[0.5px] transition ${checked
+                                  ? "border-[#528DB5] bg-[#528DB5]"
+                                  : "border-[#E0E0E0] bg-white"
+                                  }`}
+                                aria-hidden
+                              >
+                                {checked ? (
+                                  <HiCheck className="size-3.5 text-white" />
+                                ) : null}
+                              </span>
+                              <span className="min-w-0 flex-1">
+                                <span className="block text-sm leading-snug text-[#606060]">
+                                  {opt.label}
+                                </span>
+                                {opt.description ? (
+                                  <span className="mt-0.5 block text-[12px] leading-snug text-[#9B9B9B]">
+                                    {opt.description}
+                                  </span>
+                                ) : null}
+                              </span>
+                              {opt.tag ? (
+                                <span className="shrink-0 self-center rounded-full border-[0.5px] border-[#E0E0E0] bg-white px-2.5 py-1 text-[10px] font-medium text-[#858585]">
+                                  {opt.tag}
+                                </span>
+                              ) : (
+                                <span className="w-8 shrink-0" aria-hidden />
+                              )}
+                            </button>
+                          );
+                        })}
                       </div>
                     </div>
                   ) : null}
-                  <div
-                    className={`max-h-[220px] overflow-y-auto [scrollbar-width:thin] ${
-                      f.optionLayout === "radio"
-                        ? "px-1.5 py-1"
-                        : "px-1 py-1"
-                    }`}
-                  >
-                    {filteredSelectOptions.length === 0 ? (
-                      <p className="px-2 py-4 text-center text-xs text-[#9ca3af]">
-                        No matches.
-                      </p>
-                    ) : null}
-                    {filteredSelectOptions.map((opt) => {
-                      const selected = f.value === opt.value;
-                      if (f.optionLayout === "radio") {
-                        return (
-                          <button
-                            key={opt.value === "" ? "__empty" : opt.value}
-                            type="button"
-                            role="option"
-                            aria-selected={selected}
-                            className={`flex w-full items-center cursor-pointer gap-3 rounded-lg px-2.5 py-1.5 text-left transition`}
-                            onClick={() => {
-                              f.onChange(opt.value);
-                              setOpenId(null);
-                            }}
-                          >
-                            <span
-                              className="relative flex size-[18px] shrink-0 items-center justify-center rounded-full border-[0.5px] border-[#C4C4C4] bg-white"
+
+                  {open && !isMulti(f) && !isTimeline(f) ? (
+                    <div
+                      className="absolute left-0 right-0 top-full z-40 mt-1.5 max-h-[280px] w-[200px] overflow-hidden rounded-xl border-[0.5px] border-slate-200/95 bg-white py-1 shadow-[0_10px_28px_rgba(15,23,42,0.12)] ring-1 ring-slate-100/90"
+                      role="listbox"
+                    >
+                      {f.optionLayout !== "radio" && f.options.length > 6 ? (
+                        <div className="border-b-[0.5px] border-slate-100 px-2.5 pb-2 pt-2">
+                          <div className="relative">
+                            <HiSearch
+                              className="pointer-events-none absolute left-2.5 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400"
                               aria-hidden
-                            >
-                              {selected ? (
-                                <span className="size-2 rounded-full bg-[#528DB5]" />
-                              ) : null}
-                            </span>
-                            <span
-                              className={`text-sm leading-snug ${
-                                selected
-                                  ? "font-medium text-[#606060]"
-                                  : "font-normal text-[#858585]"
-                              }`}
+                            />
+                            <input
+                              type="search"
+                              value={panelSearch}
+                              onChange={(e) => setPanelSearch(e.target.value)}
+                              placeholder={`Search ${f.label.toLowerCase()}…`}
+                              className="h-9 w-full rounded-lg border-[0.5px] border-slate-200 bg-white pl-8 pr-2 text-xs text-[#374151] outline-none placeholder:text-slate-400 focus:border-[#528DB5] focus:ring-1 focus:ring-[#528DB5]/30"
+                            />
+                          </div>
+                        </div>
+                      ) : null}
+                      <div
+                        className={`max-h-[220px] overflow-y-auto [scrollbar-width:thin] ${f.optionLayout === "radio"
+                          ? "px-1.5 py-1"
+                          : "px-1 py-1"
+                          }`}
+                      >
+                        {filteredSelectOptions.length === 0 ? (
+                          <p className="px-2 py-4 text-center text-xs text-[#9ca3af]">
+                            No matches.
+                          </p>
+                        ) : null}
+                        {filteredSelectOptions.map((opt) => {
+                          const selected = f.value === opt.value;
+                          if (f.optionLayout === "radio") {
+                            return (
+                              <button
+                                key={opt.value === "" ? "__empty" : opt.value}
+                                type="button"
+                                role="option"
+                                aria-selected={selected}
+                                className={`flex w-full items-center cursor-pointer gap-3 rounded-lg px-2.5 py-1.5 text-left transition`}
+                                onClick={() => {
+                                  f.onChange(opt.value);
+                                  setOpenId(null);
+                                }}
+                              >
+                                <span
+                                  className="relative flex size-[18px] shrink-0 items-center justify-center rounded-full border-[0.5px] border-[#C4C4C4] bg-white"
+                                  aria-hidden
+                                >
+                                  {selected ? (
+                                    <span className="size-2 rounded-full bg-[#528DB5]" />
+                                  ) : null}
+                                </span>
+                                <span
+                                  className={`text-sm leading-snug ${selected
+                                    ? "font-medium text-[#606060]"
+                                    : "font-normal text-[#858585]"
+                                    }`}
+                                >
+                                  {opt.label}
+                                </span>
+                              </button>
+                            );
+                          }
+                          return (
+                            <button
+                              key={opt.value}
+                              type="button"
+                              role="option"
+                              aria-selected={selected}
+                              className={`flex w-full items-center rounded-lg px-2.5 py-1 text-left text-sm transition`}
+                              onClick={() => {
+                                f.onChange(opt.value);
+                                setOpenId(null);
+                              }}
                             >
                               {opt.label}
-                            </span>
-                          </button>
-                        );
-                      }
-                      return (
-                        <button
-                          key={opt.value}
-                          type="button"
-                          role="option"
-                          aria-selected={selected}
-                          className={`flex w-full items-center rounded-lg px-2.5 py-1 text-left text-sm transition`}
-                          onClick={() => {
-                            f.onChange(opt.value);
-                            setOpenId(null);
-                          }}
-                        >
-                          {opt.label}
-                        </button>
-                      );
-                    })}
-                  </div>
+                            </button>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  ) : null}
                 </div>
-              ) : null}
-            </div>
-          );
-        })}
+              );
+            })}
 
-        {isMoreOptions ? <button
-          type="button"
-          onClick={() => {
-            setOpenId(null);
-            setMoreDrawerOpen(true);
-          }}
-          className="flex w-[150px] shrink-0 cursor-pointer flex-col rounded-[10px] border border-[#E0E0E0] bg-white p-3 pb-2.5 text-left shadow-sm transition sm:w-[158px]"
-          aria-haspopup="dialog"
-          aria-expanded={moreDrawerOpen}
-        >
-            <CgMenuLeft className="mb-1 h-5 w-5 text-[#9B9B9B]" aria-hidden />
-          <span className="text-[10px] font-semibold uppercase tracking-wide text-[#9B9B9B] sm:text-[11px]">
-            More Filters
-          </span>
-        </button> : null}
-        </div>
-      ) : null}
+            {isMoreOptions ? <button
+              type="button"
+              onClick={() => {
+                setOpenId(null);
+                setMoreDrawerOpen(true);
+              }}
+              className="flex w-[150px] shrink-0 cursor-pointer flex-col rounded-[10px] border border-[#E0E0E0] bg-white p-3 pb-2.5 text-left shadow-sm transition sm:w-[158px]"
+              aria-haspopup="dialog"
+              aria-expanded={moreDrawerOpen}
+            >
+              <CgMenuLeft className="mb-1 h-5 w-5 text-[#9B9B9B]" aria-hidden />
+              <span className="text-[10px] font-semibold uppercase tracking-wide text-[#9B9B9B] sm:text-[11px]">
+                More Filters
+              </span>
+            </button> : null}
+          </div>
+        ) : null}
 
-      {hasStatus ? (
-        <p className="text-xs leading-relaxed text-[#B8B8B8] sm:text-sm">
-          {filterStatusText}
-        </p>
-      ) : null}
-    </div>
-    <ReportMoreFiltersDrawer
-      open={moreDrawerOpen}
-      onClose={() => setMoreDrawerOpen(false)}
-    />
+        {hasStatus ? (
+          <p className="text-xs leading-relaxed text-[#B8B8B8] sm:text-sm">
+            {filterStatusText}
+          </p>
+        ) : null}
+      </div>
+      <ReportMoreFiltersDrawer
+        open={moreDrawerOpen}
+        onClose={() => setMoreDrawerOpen(false)}
+      />
     </Fragment>
   );
 }

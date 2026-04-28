@@ -22,7 +22,7 @@ export const SectionWrapperBox = ({
                     {title && <span className="text-[#528DB5]">{title}</span>}
                 </h1>
             </div>
-            <div className='p-3 sm:p-0 sm:pb-6 flex flex-col gap-6'>
+            <div className='p-3 sm:p-0 sm:pb-6 flex flex-col'>
                 {children}
             </div>
         </div>

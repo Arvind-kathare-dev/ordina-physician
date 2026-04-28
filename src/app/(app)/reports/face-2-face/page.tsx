@@ -15,10 +15,12 @@ import { useFacetoFaceReportTableColumns } from "./FacetoFaceReportTableColumns"
 import SearchInput from "@/components/common/SearchInput";
 import DataTable from "@/components/common/DataTable";
 import ReportArchiveDialogs from "@/components/common/ReportArchiveDialogs";
+import { REPORT_AGENCY_MULTI_OPTIONS } from "@/data/reportFilterAgencyOptions";
+import { REPORT_STATUS_TYPE_SELECT_OPTIONS } from "@/data/reportFilterStatusTypeOptions";
 
 
 const FACE_2_FACE_REPORT_TABLE_GRID_COLUMNS =
-  "minmax(6.75rem,0.88fr) minmax(14rem,1.02fr) minmax(10rem,0.78fr) minmax(10rem,1.08fr) minmax(8rem,0.62fr) minmax(8rem,0.52fr) minmax(8.75rem,0.58fr) minmax(11rem,1fr) minmax(10rem,0.62fr)";
+  "minmax(6.75rem,0.8fr) minmax(14rem,1.2fr) minmax(12rem,1fr) minmax(10rem,1.2fr) minmax(9rem,1fr) minmax(7rem,0.8fr) minmax(8.5rem,1fr) minmax(11rem,0.8fr) minmax(10rem,1fr)";
 
 
 const STAT_CARDS: ReportStatSummaryCard[] = [
@@ -33,45 +35,36 @@ const STAT_CARDS: ReportStatSummaryCard[] = [
   { id: "readyToBill", label: "Ready to Bill", value: 8 },
 ];
 
-const FACE_2_FACE_FILTER_OPTIONS = [
-  "All Patients",
-  "Ava Martinez",
-  "Jordan Kim",
-  "Morgan Lee",
-  "Riley Chen",
-  "Taylor Sutton",
-] as const;
-
 export default function Face2FaceReportPage() {
-  const [physicianSelection, setPhysicianSelection] = useState<string[]>([]);
-  const [patientSearch, setPatientSearch] = useState("Dr. Emily Carter");
-  const [patient, setPatient] = useState<(typeof FACE_2_FACE_FILTER_OPTIONS)[number]>(
-    "All Patients"
-  );
+  const [agencySelection, setAgencySelection] = useState<string[]>([]);
+  const [search, setSearch] = useState("");
   const [orderTypeSelection, setOrderTypeSelection] = useState<string[]>([]);
   const [statusType, setStatusType] = useState("");
   const [archiveModalOpen, setArchiveModalOpen] = useState(false);
   const [patientSelection, setPatientSelection] = useState<string[]>([]);
   const [archiveSuccessOpen, setArchiveSuccessOpen] = useState(false);
   const [tablePage, setTablePage] = useState(1);
+  const [hasSearched, setHasSearched] = useState(false);
 
   const archiveTitleId = useId();
   const archiveDescId = useId();
 
   const filterStatusText = useMemo(() => {
     const noDropdownFilters =
-      physicianSelection.length === 0 &&
-      patient === "All Patients" &&
+      agencySelection.length === 0 &&
+      patientSelection.length === 0 &&
       orderTypeSelection.length === 0 &&
       statusType === "";
     if (noDropdownFilters) {
       return "No filters applied (showing all).";
     }
     const parts: string[] = [];
-    if (physicianSelection.length > 0) {
-      parts.push(`Physician: ${physicianSelection.join(", ")}`);
+    if (agencySelection.length > 0) {
+      parts.push(`Agency: ${agencySelection.join(", ")}`);
     }
-    if (patient !== "All Patients") parts.push(`Patient: ${patient}`);
+    if (patientSelection.length > 0) {
+      parts.push(`Patient: ${patientSelection.join(", ")}`);
+    }
     if (orderTypeSelection.length > 0) {
       parts.push(`Order type: ${orderTypeSelection.join(", ")}`);
     }
@@ -79,19 +72,19 @@ export default function Face2FaceReportPage() {
       parts.push(`Status: ${statusType}`);
     }
     return `${parts.join(" · ")}.`;
-  }, [patient, orderTypeSelection, statusType, physicianSelection]);
+  }, [patientSelection, orderTypeSelection, statusType, agencySelection]);
 
   const reportFilters = useMemo((): ReportFilterConfig[] => {
     return [
       {
         kind: "multiSelect",
-        id: "physician",
-        label: "Physician",
-        values: physicianSelection,
-        onValuesChange: setPhysicianSelection,
-        options: [...REPORT_PHYSICIAN_MULTI_OPTIONS],
-        searchPlaceholder: "Search physician…",
-        emptySummaryLabel: "All Physicians",
+        id: "agency",
+        label: "Agency",
+        values: agencySelection,
+        onValuesChange: setAgencySelection,
+        options: [...REPORT_AGENCY_MULTI_OPTIONS],
+        searchPlaceholder: "Search agency…",
+        emptySummaryLabel: "Any",
       },
       {
         kind: "multiSelect",
@@ -118,19 +111,26 @@ export default function Face2FaceReportPage() {
         label: "Status Type",
         value: statusType,
         onChange: setStatusType,
-        options: [
-          { value: "", label: "Select" },
-          { value: "pending", label: "Pending" },
-          { value: "completed", label: "Completed" },
-          { value: "cancelled", label: "Cancelled" },
-        ],
+        options: [...REPORT_STATUS_TYPE_SELECT_OPTIONS],
+        optionLayout: "radio",
       },
     ];
-  }, [physicianSelection, patientSelection, orderTypeSelection, statusType]);
+  }, [agencySelection, patientSelection, orderTypeSelection, statusType]);
 
   const filteredRows = useMemo(() => {
+    const q = search.trim().toLowerCase();
     return FACE_2_FACE_REPORT_ROWS.filter((row) => {
-      if (patient !== "All Patients" && row.patientName !== patient) {
+      if (q && !row.patientName.toLowerCase().includes(q)) return false;
+      if (
+        agencySelection.length > 0 &&
+        !agencySelection.includes(row.agency)
+      ) {
+        return false;
+      }
+      if (
+        patientSelection.length > 0 &&
+        !patientSelection.includes(row.patientName)
+      ) {
         return false;
       }
       if (
@@ -144,23 +144,23 @@ export default function Face2FaceReportPage() {
       }
       return true;
     });
-  }, [patient, orderTypeSelection, statusType]);
+  }, [search, agencySelection, patientSelection, orderTypeSelection, statusType]);
 
   useEffect(() => {
     setTablePage(1);
-  }, [physicianSelection, patient, orderTypeSelection, statusType]);
+  }, [agencySelection, patientSelection, search, orderTypeSelection, statusType]);
 
   const columns = useFacetoFaceReportTableColumns();
 
   return (
-    <div className="rounded-xl bg-white p-4 shadow-[0_4px_-6px_rgba(0,0,0,0.06)] sm:p-5 md:rounded-2xl md:p-6">
+    <div className="rounded-xl bg-white p-4 shadow-sm ring-1 ring-slate-200/50 sm:p-5 md:rounded-2xl md:p-6">
       <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between sm:gap-4">
         <div className="min-w-0 space-y-1">
-          <h2 className="text-lg font-semibold text-neutral-900 sm:text-xl">
-          Face-to-Face (F2F) Report
+          <h2 className="text-[22px] font-medium text-[#606060] sm:text-xl">
+            Face-to-Face (F2F) Report
           </h2>
           <p className="max-w-2xl text-xs leading-relaxed text-[#858585] sm:text-sm">
-          Enterprise-grade compliance report for F2F encounters: who is missing docs, what’s aging, what is SLA-risk, and what is ready to bill. (Sample data + UI only)
+            Enterprise-grade compliance report for F2F encounters: who is missing docs, what’s aging, what is SLA-risk, and what is ready to bill. (Sample data + UI only)
           </p>
         </div>
         <div className="flex shrink-0 flex-wrap items-center gap-2 sm:justify-end">
@@ -178,12 +178,13 @@ export default function Face2FaceReportPage() {
             type="button"
             className="inline-flex h-9 cursor-pointer items-center gap-1.5 rounded-[10px] border-[0.5px] border-[#FF383C80] bg-white px-3 text-xs font-semibold text-[#FF383C] transition hover:bg-red-50 sm:h-10 sm:px-4 sm:text-sm"
             onClick={() => {
-              setPatientSearch("Dr. Emily Carter");
-              setPhysicianSelection([]);
-              setPatient("All Patients");
+              setSearch("");
+              setAgencySelection([]);
+              setPatientSelection([]);
               setOrderTypeSelection([]);
               setStatusType("");
               setTablePage(1);
+              setHasSearched(false);
             }}
           >
             <HiOutlineTrash className="h-4 w-4 text-[#FF383C]" aria-hidden />
@@ -196,10 +197,15 @@ export default function Face2FaceReportPage() {
         <SearchInput
           id="reports-patient-search"
           name="patientSearch"
-          value={patientSearch}
-          onChange={(e) => setPatientSearch(e.target.value)}
-          placeholder="SeSearch by patient, physician, order id, payer..."
-          aria-label="Search by patient, physician, order id, payer..."
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              setHasSearched(true);
+            }
+          }}
+          placeholder="Search by patient, agency, order id, payer..."
+          aria-label="Search by patient, agency, order id, payer..."
           wrapperClassName="w-full"
           className="h-11 rounded-[10px] py-2.5 focus:border-[#528DB5] focus:ring-[0.5px] focus:ring-[#528DB5]"
           isNoShadow={true}
@@ -217,23 +223,33 @@ export default function Face2FaceReportPage() {
       </div>
 
       <div className="mt-6  min-w-0 sm:mt-8">
-        <DataTable
-        title="F2F Worklist"
-          columns={columns}
-          isBorderlessTable={true}
-          rows={filteredRows}
-          getRowKey={(r) => r.id}
-          gridTemplateColumns={FACE_2_FACE_REPORT_TABLE_GRID_COLUMNS}
-          getRowSurfaceClassName={(r) =>
-            r.rowHighlight ? "bg-rose-50/90" : undefined
-          }
-          pagination={{
-            page: tablePage,
-            onPageChange: setTablePage,
-            summaryLabel: "Showing item(s)",
-            pageSize: 6,
-          }}
-        />
+        {(hasSearched ||
+          search.trim() ||
+          agencySelection.length > 0 ||
+          patientSelection.length > 0 ||
+          orderTypeSelection.length > 0 ||
+          statusType !== "") &&
+          filteredRows.length > 0 ? (
+          <DataTable
+            title="F2F Worklist"
+            columns={columns}
+            isBorderlessTable={true}
+            rows={filteredRows}
+            getRowKey={(r) => r.id}
+            gridTemplateColumns={FACE_2_FACE_REPORT_TABLE_GRID_COLUMNS}
+            getRowSurfaceClassName={(r) =>
+              r.rowHighlight ? "bg-rose-50/90" : undefined
+            }
+            pagination={{
+              page: tablePage,
+              onPageChange: setTablePage,
+              summaryLabel: "F2F",
+              pageSize: 6,
+            }}
+          />
+        ) : (
+          <F2FEmptyState />
+        )}
       </div>
 
       <ReportArchiveDialogs
@@ -252,6 +268,43 @@ export default function Face2FaceReportPage() {
           setArchiveSuccessOpen(true);
         }}
       />
+    </div>
+  );
+}
+function F2FEmptyState() {
+  return (
+    <div className="flex flex-col items-center justify-center py-24 px-4 text-center">
+      <div className="relative mb-8">
+        <div className="relative h-40 w-40 flex items-center justify-center">
+          {/* Document Base */}
+          <svg width="112" height="136" viewBox="0 0 112 136" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-[#F1F3F5]">
+            <path d="M0 8C0 3.58172 3.58172 0 8 0H76L112 36V128C112 132.418 108.418 136 104 136H8C3.58172 136 0 132.418 0 128V8Z" fill="currentColor" />
+            <path d="M76 0V28C76 32.4183 79.5817 36 84 36H112" fill="#E9ECEF" />
+            <rect x="24" y="60" width="64" height="4" rx="2" fill="#DEE2E6" />
+            <rect x="24" y="76" width="64" height="4" rx="2" fill="#DEE2E6" />
+            <rect x="24" y="92" width="40" height="4" rx="2" fill="#DEE2E6" />
+          </svg>
+
+          {/* Magnifying Glass Overlay */}
+          <div className="absolute -bottom-4 -right-4 drop-shadow-[0_8px_16px_rgba(0,0,0,0.08)]">
+            <svg width="104" height="104" viewBox="0 0 104 104" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="44" cy="44" r="38" fill="white" stroke="#E9ECEF" strokeWidth="1" />
+              <circle cx="44" cy="44" r="30" fill="#F8F9FA" />
+              {/* Handle */}
+              <rect x="74" y="68" width="8" height="32" rx="4" transform="rotate(-45 74 68)" fill="#E9ECEF" />
+              <rect x="78" y="72" width="4" height="24" rx="2" transform="rotate(-45 78 72)" fill="#DEE2E6" />
+
+              {/* X Icon */}
+              <path d="M36 36L52 52M52 36L36 52" stroke="#ADB5BD" strokeWidth="5" strokeLinecap="round" />
+            </svg>
+          </div>
+        </div>
+      </div>
+      <h3 className="text-2xl font-bold text-[#4A4A4A] mb-3">No report selected yet</h3>
+      <p className="max-w-md text-[#858585] leading-relaxed text-sm sm:text-base">
+        Start typing in the search box above &rarr; choose from dropdown <br />
+        (or press Enter) &rarr; F2F report appears here.
+      </p>
     </div>
   );
 }

@@ -123,7 +123,7 @@ export default function AddOnReportPage() {
         optionLayout: "radio",
       },
     ];
-  }, [physicianSelection, patientSelection,patient, orderTypeSelection, statusType]);
+  }, [physicianSelection, patientSelection, patient, orderTypeSelection, statusType]);
 
   const filteredRows = useMemo(() => {
     return FACE_2_FACE_REPORT_ROWS.filter((row) => {
@@ -141,11 +141,11 @@ export default function AddOnReportPage() {
       }
       return true;
     });
-  }, [patient,patientSelection, orderTypeSelection, statusType]);
+  }, [patient, patientSelection, orderTypeSelection, statusType]);
 
   useEffect(() => {
     setTablePage(1);
-  }, [physicianSelection,patientSelection, patient, orderTypeSelection, statusType]);  
+  }, [physicianSelection, patientSelection, patient, orderTypeSelection, statusType]);
 
   const columns = useFacetoFaceReportTableColumns();
 
@@ -154,10 +154,10 @@ export default function AddOnReportPage() {
       <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between sm:gap-4">
         <div className="min-w-0 space-y-1">
           <h2 className="text-lg font-semibold text-neutral-900 sm:text-xl">
-          Add-on Reports
+            DME Reports
           </h2>
           <p className="max-w-2xl text-xs leading-relaxed text-[#858585] sm:text-sm">
-          Monthly revenue, pending payments trend, and outstanding client dues in one view.
+            Monthly revenue, pending payments trend, and outstanding client dues in one view.
           </p>
         </div>
         <div className="flex shrink-0 flex-wrap items-center gap-2 sm:justify-end">
@@ -215,7 +215,7 @@ export default function AddOnReportPage() {
 
       <div className="mt-6  min-w-0 sm:mt-8">
         <DataTable
-        title="Add-on Reports"
+          title="DME Reports"
           columns={columns}
           isBorderlessTable={true}
           rows={filteredRows}
@@ -227,7 +227,7 @@ export default function AddOnReportPage() {
           pagination={{
             page: tablePage,
             onPageChange: setTablePage,
-            summaryLabel: "Showing item(s)",
+            summaryLabel: "Add On",
             pageSize: 6,
           }}
         />
@@ -242,7 +242,7 @@ export default function AddOnReportPage() {
           setArchiveSuccessOpen(false);
           setArchiveModalOpen(false);
         }}
-        reportNoun="Add-on Reports"
+        reportNoun="DME Reports"
         labelledBy={archiveTitleId}
         describedBy={archiveDescId}
         onConfirmArchive={() => {

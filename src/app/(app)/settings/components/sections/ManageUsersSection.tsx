@@ -19,9 +19,9 @@ interface UserData {
 
 const initialUsers: UserData[] = [
   { id: '1', name: 'John Doe', email: 'JohnDoe@agency.com', role: 'Admin', status: 'Active', initials: 'JD' },
-  { id: '2', name: 'Oliver Bennett', email: 'Oliverbennett@agency.com', role: 'Sub Admin', status: 'Active', initials: 'OB' },
-  { id: '3', name: 'Amelia Carter', email: 'Ameliacarter@agency.com', role: 'User', status: 'Invited', initials: 'AC' },
-  { id: '4', name: 'Taylor Sutton', email: 'TaylorSutton@agency.com', role: 'Read Only', status: 'Disabled', initials: 'TS' },
+  { id: '2', name: 'Sarah Chen', email: 'SarahChen@agency.com', role: 'Sub Admin', status: 'Active', initials: 'SC' },
+  { id: '3', name: 'Mike Johnson', email: 'MikeJohnson@agency.com', role: 'User', status: 'Invited', initials: 'MJ' },
+  { id: '4', name: 'Emily Rivera', email: 'EmilyRivera@agency.com', role: 'Read Only', status: 'Disabled', initials: 'ER' },
 ];
 
 export default function ManageUsersSection() {
@@ -67,7 +67,7 @@ export default function ManageUsersSection() {
         description="Add agency users and set permissions (sub-admin access)"
         icon={User}
         headerAction={
-          <button 
+          <button
             onClick={handleAdd}
             className="flex items-center gap-2 bg-[#5b94b7] text-white px-5 py-2.5 rounded-xl text-[14px] font-bold shadow-sm hover:bg-[#4a7a96] transition-all shrink-0"
           >
@@ -88,13 +88,13 @@ export default function ManageUsersSection() {
       {/* Permissions + Notes */}
       <div className="flex flex-col xl:flex-row gap-6 items-start px-4 sm:px-6 pb-6">
         <div className="w-full xl:flex-1">
-          <PermissionsUI />
+          <PermissionsUI users={users} />
         </div>
         <div className="w-full xl:w-80 shrink-0">
           <NotesCard />
         </div>
       </div>
-      
+
     </SectionWrapperBox>
   );
 }

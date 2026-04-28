@@ -71,7 +71,7 @@ export function useAgencyReportTableColumns(): DataTableColumn<AgencyReportRow>[
                                 {row.dateTags.map((t) => (
                                     <span
                                         key={t.text}
-                                        className={`w-fit rounded-tr-[9px] rounded-bl-[9px] bg-primary-color/[0.09] px-1.5 py-px pb-[4px] pl-[8px] pr-[8px] pt-[4px] text-left text-[9px] leading-tight sm:text-[10px] ${t.className}`}
+                                        className={`w-fit rounded-tr-[9px] absolute left-0 bottom-0 rounded-bl-[9px]  px-1.5 py-px pb-[4px] pl-[8px] pr-[8px] pt-[4px] text-left text-[9px] leading-tight sm:text-[10px] ${t.className}`}
                                     >
                                         {t.text}
                                     </span>
@@ -81,25 +81,13 @@ export function useAgencyReportTableColumns(): DataTableColumn<AgencyReportRow>[
                     </div>
                 ),
             },
-            {
-                key: "patientName",
-                header: "Patient Name",
-                className: "min-w-0",
-                cell: (row) => (
-                    <span 
-                        className="block truncate text-left text-[#686464]"
-                        title={row.patientName}
-                    >
-                        {row.patientName}
-                    </span>
-                ),
-            },
+
             {
                 key: "orderType",
                 header: "Order Type",
                 className: "min-w-0",
                 cell: (row) => (
-                    <span 
+                    <span
                         className="block truncate text-[#686464]"
                         title={row.orderType}
                     >
@@ -107,19 +95,7 @@ export function useAgencyReportTableColumns(): DataTableColumn<AgencyReportRow>[
                     </span>
                 ),
             },
-            {
-                key: "agency",
-                header: "Agency",
-                className: "min-w-0",
-                cell: (row) => (
-                    <span 
-                        className="block truncate text-[#686464]"
-                        title={row.agency}
-                    >
-                        {row.agency}
-                    </span>
-                ),
-            },
+
             {
                 key: "status",
                 header: "Status",
@@ -134,6 +110,21 @@ export function useAgencyReportTableColumns(): DataTableColumn<AgencyReportRow>[
                     </span>
                 ),
             },
+
+            {
+                key: "agency",
+                header: "Agency Name",
+                className: "min-w-0",
+                cell: (row) => (
+                    <span
+                        className="block truncate text-[#686464]"
+                        title={row.agency}
+                    >
+                        {row.agency}
+                    </span>
+                ),
+            },
+
             {
                 key: "labels",
                 header: "Label",
@@ -170,7 +161,7 @@ export function useAgencyReportTableColumns(): DataTableColumn<AgencyReportRow>[
                         <span className="whitespace-nowrap text-[#000000]">
                             {row.episode.code}
                         </span>
-                        <span 
+                        <span
                             className="block w-full truncate text-[10px] text-[#9B9B9B] sm:text-xs"
                             title={row.episode.range}
                         >

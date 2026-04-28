@@ -15,15 +15,16 @@ export type Face2FaceReportRow = {
   bellUrgent?: boolean;
   rowHighlight?: boolean;
   location: string;
+  agency: string;
 };
 
-type Proto = Omit<Face2FaceReportRow, "id" | "patientName" | "insurance" | "rowHighlight">;
+type Proto = Omit<Face2FaceReportRow, "id" | "patientName" | "insurance" | "rowHighlight" | "agency">;
 
 const FACE_2_FACE_REPORT_PROTOTYPES: Proto[] = [
   {
     date: "11/20/2025",
-    dateTags: [{ text: "Modified", className: "bg-orange-100 text-orange-800" }],
-    orderType: "Medication Orders",
+    dateTags: [{ text: "Modified", className: "bg-[#FEF7E6] text-[#F9A825]" }],
+    orderType: "DME Order",
     status: { text: "Delivered", dot: "green" },
     labels: [{ text: "LD", variant: "red" }],
     daysPending: { text: "Today", dot: "green" },
@@ -32,8 +33,8 @@ const FACE_2_FACE_REPORT_PROTOTYPES: Proto[] = [
   },
   {
     date: "11/01/2025",
-    dateTags: [{ text: "Rejected", className: "bg-red-100 text-red-700" }],
-    orderType: "Therapy Orders",
+    dateTags: [{ text: "Rejected", className: "bg-[#FCE8E9] text-[#EA4335]" }],
+    orderType: "Plan of Care",
     status: { text: "Signed", dot: "blue" },
     labels: [
       { text: "UR", variant: "blue" },
@@ -47,8 +48,8 @@ const FACE_2_FACE_REPORT_PROTOTYPES: Proto[] = [
   },
   {
     date: "10/15/2025",
-    dateTags: [{ text: "Outbound", className: "bg-sky-100 text-sky-700" }],
-    orderType: "Skilled Nursing Orders",
+    dateTags: [{ text: "Outbound", className: "bg-[#EAF1FB] text-[#1A73E8]" }],
+    orderType: "Recertification",
     status: { text: "Unsigned", dot: "purple" },
     labels: [{ text: "PS", variant: "green" }],
     daysPending: { text: "3 Days", dot: "orange" },
@@ -57,7 +58,7 @@ const FACE_2_FACE_REPORT_PROTOTYPES: Proto[] = [
   },
   {
     date: "10/15/2025",
-    orderType: "Equipment and Supplies Orders",
+    orderType: "Evaluation",
     status: { text: "Pending", dot: "orange" },
     labels: [{ text: "PS", variant: "green" }],
     daysPending: { text: "3 Days", dot: "orange" },
@@ -66,7 +67,7 @@ const FACE_2_FACE_REPORT_PROTOTYPES: Proto[] = [
   },
   {
     date: "10/15/2025",
-    orderType: "Medication Orders",
+    orderType: "DME Order",
     status: { text: "Delivered", dot: "green" },
     labels: [{ text: "LD", variant: "red" }],
     daysPending: { text: "7 Days", dot: "red" },
@@ -75,8 +76,8 @@ const FACE_2_FACE_REPORT_PROTOTYPES: Proto[] = [
   },
   {
     date: "09/27/2025",
-    dateTags: [{ text: "Signed", className: "bg-emerald-100 text-emerald-800" }],
-    orderType: "Therapy Orders",
+    dateTags: [{ text: "Signed", className: "bg-[#E6F4EA] text-[#1E8E3E]" }],
+    orderType: "Plan of Care",
     status: { text: "Pending", dot: "orange" },
     labels: [
       { text: "UR", variant: "blue" },
@@ -89,7 +90,7 @@ const FACE_2_FACE_REPORT_PROTOTYPES: Proto[] = [
   },
   {
     date: "09/27/2025",
-    orderType: "Equipment and Supplies Orders",
+    orderType: "Evaluation",
     status: { text: "Failed", dot: "red" },
     labels: [{ text: "PS", variant: "green" }],
     daysPending: { text: "Today", dot: "green" },
@@ -129,14 +130,18 @@ const DEMO_INSURANCE = [
   "Tricare",
 ];
 
+import { REPORT_AGENCY_MULTI_OPTIONS } from "./reportFilterAgencyOptions";
+
 export function buildFace2FaceReportRows(total = 150): Face2FaceReportRow[] {
   return Array.from({ length: total }, (_, i) => {
     const proto = FACE_2_FACE_REPORT_PROTOTYPES[i % FACE_2_FACE_REPORT_PROTOTYPES.length]!;
+    const agencyOption = REPORT_AGENCY_MULTI_OPTIONS[i % REPORT_AGENCY_MULTI_OPTIONS.length]!;
     return {
       ...proto,
       id: String(i + 1),
       patientName: DEMO_PATIENTS[i % DEMO_PATIENTS.length]!,
       insurance: DEMO_INSURANCE[i % DEMO_INSURANCE.length]!,
+      agency: agencyOption.value,
       rowHighlight: i === 1,
     };
   });

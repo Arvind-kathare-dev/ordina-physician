@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Info } from "lucide-react";
+import { StatsDetailModal } from "./stats-detail-modal";
 
 interface BreakdownItem {
   label: string;
@@ -29,6 +30,7 @@ export const StatCard = ({
   aging,
 }: StatCardProps) => {
   const [open, setOpen] = useState(false);
+  const [showDetails, setShowDetails] = useState(false);
 
   const getBg = (color: string) => {
     if (color === "blue") return "bg-purple-150";
@@ -46,6 +48,7 @@ export const StatCard = ({
     (breakdown && breakdown.length > 0) || (aging && aging.length > 0);
 
   return (
+    <>
     <div
       onClick={() => {
         if (!isExpandable) return;
@@ -58,7 +61,14 @@ export const StatCard = ({
         <div className="flex flex-col justify-between h-[140px]">
           <div className="flex justify-between">
             <span className="text-lg font-medium text-gray-450">{title}</span>
-            <Info size={16} className="text-gray-400" />
+            <Info 
+              size={16} 
+              className="text-gray-400 hover:text-blue-500 transition-colors" 
+              onClick={(e) => {
+                e.stopPropagation();
+                setShowDetails(true);
+              }}
+            />
           </div>
 
           <h2 className="text-[32px] font-semibold text-gray-400">{value}</h2>
@@ -154,5 +164,11 @@ export const StatCard = ({
         </div>
       )}
     </div>
+    <StatsDetailModal 
+      isOpen={showDetails} 
+      onClose={() => setShowDetails(false)} 
+      title={title}
+    />
+    </>
   );
 };

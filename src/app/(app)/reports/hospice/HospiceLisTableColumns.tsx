@@ -38,7 +38,7 @@ export function useHospiceTableColumns(): DataTableColumn<HospiceReportRow>[] {
     () => [
       {
         key: "agencyId",
-        header: "Hospice ID",
+        header: "Agency ID",
         className: "min-w-0",
         cell: (row) => (
           <span className="whitespace-nowrap font-medium text-[#1f2937]">

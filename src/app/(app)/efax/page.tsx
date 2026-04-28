@@ -12,12 +12,14 @@ import Table from "@/components/common/table/Table";
 import { getFaxColumns } from "./components/getFaxColumns";
 import StatCard from "./components/StatCard";
 import { faxData, statsData, tabs } from "./efax.data";
+import NewFaxDialog from "@/components/NewFaxDialog";
 
 export default function EFaxPage() {
   const [activeTab, setActiveTab] = useState(0);
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [tab, setTab] = useState("orders");
+  const [newFaxOpen, setNewFaxOpen] = useState(false);
 
   const filteredFaxes = faxData.filter(
     (f) =>
@@ -45,7 +47,7 @@ export default function EFaxPage() {
           <div className="w-2/3 justify-end flex items-center gap-3">
             <SearchBox value={searchQuery} onChange={setSearchQuery} />
 
-            <Button variant="primary" size="md" leftIcon={<Plus size={14} />}>
+            <Button variant="primary" onClick={() => setNewFaxOpen(true)} size="md" leftIcon={<Plus size={14} />}>
               New Fax
             </Button>
           </div>
@@ -87,6 +89,8 @@ export default function EFaxPage() {
           onPageChange={(page) => setCurrentPage(page)}
         />
       </main>
+
+      <NewFaxDialog open={newFaxOpen} onClose={() => setNewFaxOpen(false)} />
     </div>
   );
 }

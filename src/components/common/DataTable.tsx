@@ -32,6 +32,7 @@ type DataTableProps<T> = {
   rows: T[];
   getRowKey: (row: T) => string;
   gridTemplateColumns?: string;
+  colNumber?: number;
   headerClassName?: string;
   rowCellClassName?: string;
   rowCardSurfaceClassName?: string;
@@ -136,7 +137,7 @@ export default function DataTable<T>({
   const cols =
     gridTemplateColumns?.trim() || columnsGridTemplate(columns);
   const thBase =
-    "text-[10px] font-semibold uppercase tracking-wide sm:text-xs md:text-sm";
+    "text-[10px] font-semibold  tracking-wide sm:text-xs md:text-sm ";
   const gridPad = "px-3 sm:px-3.5";
   const gapX = "gap-x-0";
 
@@ -198,16 +199,14 @@ export default function DataTable<T>({
                   <th
                     colSpan={colCount}
                     scope="colgroup"
-                    className={`overflow-hidden p-0 ${headerClassName} ${
-                      b ? "rounded-t-[10px] rounded-b-none !shadow-none border-0" : "rounded-[10px]"
-                    }`}
+                    className={`overflow-hidden p-0 ${headerClassName} ${b ? "rounded-t-[10px] rounded-b-none !shadow-none border-0 border-b-[3px] border-[#BFBFBF]" : "rounded-[10px]"
+                      }`}
                   >
                     <div
-                      className={`grid h-[32px] w-full items-center justify-items-stretch sm:h-[40px] ${gapX} ${gridPad} ${
-                        b
-                          ? "rounded-none border-0 border-b border-white/25 shadow-none"
-                          : "rounded-[10px] border border-[#BFBFBF] shadow-[0px_3px_0px_rgba(0,0,0,0.10)]"
-                      }`}
+                      className={`grid h-[32px] w-full items-center  justify-items-stretch sm:h-[40px] ${gapX} ${gridPad} ${b
+                        ? "rounded-none border-0 border-b border-white/25 shadow-none"
+                        : "rounded-[10px] border border-[#BFBFBF] shadow-[0px_3px_0px_rgba(0,0,0,0.10)]"
+                        }`}
                       style={{ gridTemplateColumns: cols }}
                     >
                       {columns.map((col) => {
@@ -227,7 +226,8 @@ export default function DataTable<T>({
                             <span className="inline-flex min-w-0 items-center gap-0.5 whitespace-nowrap sm:gap-1">
                               <span>{col.header}</span>
                               {showHeaderChevron &&
-                              !col.suppressHeaderChevron ? (
+                                !col.suppressHeaderChevron &&
+                                col.header !== "Status" ? (
                                 <HiChevronDown
                                   className="h-3 w-3 shrink-0 opacity-90 sm:h-3.5 sm:w-3.5"
                                   aria-hidden
@@ -263,13 +263,11 @@ export default function DataTable<T>({
                         }
                       >
                         <div
-                          className={`relative box-border flex h-[57px] w-full items-center sm:h-[67px] ${gridPad} pb-1 ${
-                            b
-                              ? `rounded-none  border-0 shadow-none ${mergedSurface} transition-colors ${borderlessHover}`
-                              : `rounded-xl border border-[#BFBFBF] shadow-[0px_3px_0px_rgba(0,0,0,0.10)] transition-shadow hover:shadow-md mb-3 sm:mb-4 ${mergedSurface} ${
-                                  rowIndex === 0 ? "mt-3 sm:mt-4" : ""
-                                }`
-                          }`}
+                          className={`relative box-border flex h-[57px] w-full items-center sm:h-[67px] ${gridPad} pb-1 ${b
+                            ? `rounded-none  border-0 shadow-none ${mergedSurface} transition-colors ${borderlessHover}`
+                            : `rounded-xl border border-[#BFBFBF] shadow-[0px_3px_0px_rgba(0,0,0,0.10)] transition-shadow hover:shadow-md mb-3 sm:mb-4 ${mergedSurface} ${rowIndex === 0 ? "mt-3 sm:mt-4" : ""
+                            }`
+                            }`}
                         >
                           <div
                             className={`grid w-full items-center justify-items-stretch ${gapX} ${rowCellClassName}`}
@@ -278,9 +276,8 @@ export default function DataTable<T>({
                             {columns.map((col) => (
                               <div
                                 key={col.key}
-                                className={`min-w-0 ${
-                                  col.allowWrap ? "" : "whitespace-nowrap"
-                                } ${col.className ?? ""}`}
+                                className={`min-w-0 ${col.allowWrap ? "" : "whitespace-nowrap"
+                                  } ${col.className ?? ""}`}
                               >
                                 {col.cell(row)}
                               </div>

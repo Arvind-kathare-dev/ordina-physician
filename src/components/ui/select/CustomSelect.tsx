@@ -69,7 +69,7 @@ export default function CustomSelect({
                     onClick={() => setOpen((p) => !p)}
                     className={clsx(
                         "w-full  input-padding flex items-center justify-between",
-                        "border rounded-lg bg-white text-sm",
+                        "border border-ordinaBorder-300 rounded-lg bg-white text-sm",
                         "transition-all duration-150",
                         "focus:outline-none focus:ring-1 focus:ring-ordina-400",
                         disabled && "bg-gray-100 cursor-not-allowed",

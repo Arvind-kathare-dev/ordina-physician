@@ -76,7 +76,7 @@ export function usePatientReportTableColumns(): DataTableColumn<PatientReportRow
                 {row.dateTags.map((t) => (
                   <span
                     key={t.text}
-                    className={`w-fit rounded-tr-[9px] rounded-bl-[9px] pt-[4px] pr-[8px] pb-[4px] pl-[8px] bg-primary-color/[0.09] px-1.5 py-px text-left text-[9px] leading-tight sm:text-[10px] ${t.className}`}
+                    className={`w-fit rounded-tr-[9px] rounded-bl-[9px] pt-[4px] pr-[8px] pb-[4px] pl-[8px] px-1.5 py-px text-left text-[9px] leading-tight sm:text-[10px] ${t.className}`}
                   >
                     {t.text}
                   </span>
@@ -86,16 +86,7 @@ export function usePatientReportTableColumns(): DataTableColumn<PatientReportRow
           </div>
         ),
       },
-      {
-        key: "patient",
-        header: "Patient",
-        className: "min-w-0",
-        cell: (row) => (
-          <span className="whitespace-nowrap font-medium text-[#686464]">
-            {row.patientName}
-          </span>
-        ),
-      },
+
       {
         key: "orderType",
         header: "Order Type",
@@ -120,7 +111,7 @@ export function usePatientReportTableColumns(): DataTableColumn<PatientReportRow
       },
       {
         key: "agency",
-        header: "Agency",
+        header: "Agency Name",
         className: "min-w-0",
         cell: (row) => (
           <span className="whitespace-nowrap text-[#686464]">

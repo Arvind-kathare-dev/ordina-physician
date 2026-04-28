@@ -22,8 +22,8 @@ module.exports = {
           background: "#528DB50D",
           color: "#528DB5",
           border: "#528DB540",
-          title: "#333333",
-          subtitle: "#666666",
+          title: "#686464",
+          subtitle: "#858585",
           description: "#262626",
           primaryGradient: "linear-gradient(225.61deg, #579EBA 18.17%, #4F81B2 89.91%)",
           gradientButton: "linear-gradient(225.61deg, #579EBA 18.17%, #4F81B2 89.91%)",
@@ -60,6 +60,7 @@ module.exports = {
         },
         grayCustom: {
           100: "#F6F9FB",
+          150: "rgba(87, 158, 186, 0.16)",
           200: "#FBE3EC",
           220: "#E6E6E6",
           300: "#606060",
@@ -69,6 +70,7 @@ module.exports = {
           320: "#E8F3FB",
           340: "rgba(232, 240, 243, 1)",
           330: "rgba(248, 248, 248, 1)",
+
         },
 
         gray: {

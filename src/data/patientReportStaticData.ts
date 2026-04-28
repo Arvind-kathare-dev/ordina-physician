@@ -31,8 +31,8 @@ type PatientReportPrototype = Omit<PatientReportRow, "id" | "patientName">;
 const PATIENT_REPORT_PROTOTYPES: PatientReportPrototype[] = [
   {
     date: "11/20/2025",
-    dateTags: [{ text: "Modified", className: "bg-orange-100 text-orange-800" }],
-    orderType: "Medication Orders",
+    dateTags: [{ text: "Modified", className: "bg-[#FEF7E6] text-[#F9A825]" }],
+    orderType: "DME Order",
     status: { text: "Delivered", dot: "green" },
     physicianName: "Dr. Emily Carter",
     labels: [{ text: "LD", variant: "red" }],
@@ -43,8 +43,8 @@ const PATIENT_REPORT_PROTOTYPES: PatientReportPrototype[] = [
   },
   {
     date: "11/01/2025",
-    dateTags: [{ text: "Rejected", className: "bg-red-100 text-red-700" }],
-    orderType: "Therapy Orders",
+    dateTags: [{ text: "Rejected", className: "bg-[#FCE8E9] text-[#EA4335]" }],
+    orderType: "Plan of Care",
     status: { text: "Signed", dot: "blue" },
     physicianName: "Dr. Emily Carter",
     labels: [
@@ -60,8 +60,8 @@ const PATIENT_REPORT_PROTOTYPES: PatientReportPrototype[] = [
   },
   {
     date: "10/15/2025",
-    dateTags: [{ text: "Outbound", className: "bg-sky-100 text-sky-700" }],
-    orderType: "Skilled Nursing Orders",
+    dateTags: [{ text: "Outbound", className: "bg-[#EAF1FB] text-[#1A73E8]" }],
+    orderType: "Recertification",
     status: { text: "Unsigned", dot: "purple" },
     physicianName: "Dr. James Miller",
     labels: [{ text: "PS", variant: "green" }],
@@ -72,7 +72,7 @@ const PATIENT_REPORT_PROTOTYPES: PatientReportPrototype[] = [
   },
   {
     date: "10/15/2025",
-    orderType: "Equipment and Supplies Orders",
+    orderType: "Evaluation",
     status: { text: "Pending", dot: "orange" },
     physicianName: "Dr. James Miller",
     labels: [{ text: "PS", variant: "green" }],

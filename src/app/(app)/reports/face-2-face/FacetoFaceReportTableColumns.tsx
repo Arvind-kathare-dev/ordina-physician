@@ -68,17 +68,19 @@ const LabelBadge = ({
       {
         key: "orderType",
         header: "Order Type",
+        allowWrap: true,
         className: "min-w-0",
         cell: (row) => (
-          <span className="whitespace-nowrap text-[#686464]">{row.orderType}</span>
+          <span className="text-[#686464]">{row.orderType}</span>
         ),
       },
       {
         key: "patientName",
         header: "Patient Name",
+        allowWrap: true,
         className: "min-w-0",
         cell: (row) => (
-          <span className="block whitespace-nowrap text-left text-[#686464]">
+          <span className="block text-left text-[#686464]">
             {row.patientName}
           </span>
         ),

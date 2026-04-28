@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useId, useMemo, useState } from "react";
-import {  HiOutlinePlus, HiOutlineTrash } from "react-icons/hi";
+import { HiOutlinePlus, HiOutlineTrash } from "react-icons/hi";
 
 import CustomReportBuilderStep from "../components/CustomReportBuilderStep";
 import { usePatientReportTableColumns } from "../patient/PatientReportTableColumns";
@@ -20,7 +20,7 @@ import ReportArchiveDialogs from "@/components/common/ReportArchiveDialogs";
 import Dialog from "@/components/common/Dialog";
 
 const CUSTOM_REPORT_TABLE_GRID_COLUMNS =
-  "minmax(6.75rem,0.88fr) minmax(10rem,1fr) minmax(14.5rem,1.02fr) minmax(6.5rem,0.78fr) minmax(11rem,1.08fr) minmax(10rem,0.62fr) minmax(8rem,0.52fr) minmax(10.75rem,0.58fr) minmax(10rem,1fr)";
+  "minmax(6.75rem,0.88fr) minmax(14rem,1fr)  minmax(6.5rem,0.78fr) minmax(13rem,1fr) minmax(10rem,0.62fr) minmax(8rem,0.52fr) minmax(10.75rem,0.58fr) minmax(10rem,1fr)";
 
 export default function CustomReportPage() {
   const [search, setSearch] = useState("");
@@ -75,7 +75,7 @@ export default function CustomReportPage() {
         onValuesChange: setAgencySelection,
         options: [...REPORT_AGENCY_MULTI_OPTIONS],
         searchPlaceholder: "Search agency…",
-        emptySummaryLabel: "All Agencies",
+        emptySummaryLabel: "Any",
       },
       {
         kind: "multiSelect",
@@ -139,7 +139,7 @@ export default function CustomReportPage() {
     <div className="rounded-xl bg-white p-4 shadow-[0_1px_3px_rgba(0,0,0,0.06)] sm:p-5 md:rounded-2xl md:p-6">
       <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between sm:gap-4">
         <div className="min-w-0 space-y-1">
-          <h2 className="text-lg font-semibold text-neutral-900 sm:text-xl">
+          <h2 className="text-[22px] font-medium text-[#606060] sm:text-xl">
             Custom Report
           </h2>
           <p className="max-w-2xl text-xs leading-relaxed text-[#858585] sm:text-sm">
@@ -202,7 +202,7 @@ export default function CustomReportPage() {
           name="customReportSearch"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          placeholder="Search by patient, physician, order id, payer..."
+          placeholder="Search by patient, agency, order id, payer..."
           aria-label="Search custom report"
           wrapperClassName="w-full"
           className="h-11 rounded-[10px] py-2.5 focus:border-[#528DB5] focus:ring-[0.5px] focus:ring-[#528DB5]"
@@ -230,7 +230,7 @@ export default function CustomReportPage() {
           pagination={{
             page: tablePage,
             onPageChange: setTablePage,
-            summaryLabel: "Orders",
+            summaryLabel: "Custom",
             pageSize: 6,
           }}
         />

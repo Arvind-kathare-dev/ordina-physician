@@ -7,6 +7,7 @@ import FormRow from "../FormRow";
 import SearchBox from "@/components/ui/SearchBox";
 import Table from "../Table";
 import CustomSelect from "@/components/ui/select/CustomSelect";
+import CustomMultiSelect from "@/components/ui/select/CustomMultiSelect";
 import { useState } from "react";
 import { SectionWrapperBox } from "../SectionWrapperBox";
 import Button from "@/components/ui/button/Button";
@@ -39,16 +40,16 @@ const columns: any[] = [
 export default function VendorSettingsSection() {
   const [serviceType, setServiceType] = useState("");
   const [location, setLocation] = useState("");
-  const [supplier, setSupplier] = useState("");
+  const [supplier, setSupplier] = useState<string[]>([]);
   const [rules, setRules] = useState<Rule[]>([]);
 
   const handleAddRule = () => {
-    if (!serviceType || !location || !supplier) return;
+    if (!serviceType || !location || supplier.length === 0) return;
 
     const newRule: Rule = {
       serviceType,
       location,
-      supplier,
+      supplier: supplier.join(", "),
     };
 
     setRules((prev) => [...prev, newRule]);
@@ -56,7 +57,7 @@ export default function VendorSettingsSection() {
     // reset form
     setServiceType("");
     setLocation("");
-    setSupplier("");
+    setSupplier([]);
   };
 
   const handleDelete = (row: Rule) => {
@@ -88,11 +89,14 @@ export default function VendorSettingsSection() {
               options={LOCATIONS}
             />
 
-            <CustomSelect
+            <CustomMultiSelect
               label="Supplier"
+              placeholder="Select Supplier"
               value={supplier}
               onChange={setSupplier}
               options={SUPPLIERS}
+              maxSelections={3}
+              maxSelectionMessage="[ You can select upto 3 Suppliers ]"
             />
 
           </FormRow>
@@ -101,7 +105,7 @@ export default function VendorSettingsSection() {
             <Button variant="danger" onClick={() => {
               setServiceType("");
               setLocation("");
-              setSupplier("");
+              setSupplier([]);
             }}>
               Clear
             </Button>

@@ -29,7 +29,7 @@ export default function Tabs({
               key={tab.label}
               onClick={() => onChange(i)}
               className={`flex justify-center items-center gap-1.5 px-4 py-2.5 text-lg font-medium whitespace-nowrap border-b-2 transition-colors 
-  ${tab.label === "Today" ? "w-[200px]" : "w-auto"} 
+  ${tab.label === "Today" ? "w-[200px]" : "w-auto  px-6"} 
   ${isActive
                   ? "border-ordinadark text-ordinadark"
                   : "border-transparent text-grayCustom-500 hover:text-grayCustom-600"

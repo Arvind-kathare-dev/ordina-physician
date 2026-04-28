@@ -2,7 +2,6 @@
 
 import { useEffect, useId, useMemo, useState } from "react";
 import { HiOutlinePlus, HiOutlineTrash } from "react-icons/hi";
-import { LuMaximize2 } from "react-icons/lu";
 
 import { usePatientReportTableColumns } from "./PatientReportTableColumns";
 import { TbBoxAlignBottomLeft } from "react-icons/tb";
@@ -18,7 +17,8 @@ import ReportArchiveDialogs from "@/components/common/ReportArchiveDialogs";
 import { REPORT_PHYSICIAN_PAGE_PATIENT_MULTI_OPTIONS } from "@/data/reportFilterPatientOptions";
 
 const PATIENT_REPORT_TABLE_GRID_COLUMNS =
-  "minmax(6.75rem,0.88fr) minmax(10rem,1fr) minmax(14.5rem,1.02fr) minmax(6.5rem,0.78fr) minmax(11rem,1.08fr) minmax(10rem,0.62fr) minmax(8rem,0.52fr) minmax(10.75rem,0.58fr) minmax(10rem,1fr)";
+  "minmax(6.75rem,0.88fr) minmax(11.5rem,1.02fr) minmax(6.5rem,0.78fr) minmax(11rem,1.08fr) minmax(10rem,0.62fr) minmax(8rem,0.52fr) minmax(10.75rem,0.58fr) minmax(10rem,1fr)";
+
 
 export default function PatientReportPage() {
   const [search, setSearch] = useState("");
@@ -30,6 +30,7 @@ export default function PatientReportPage() {
   const [archiveModalOpen, setArchiveModalOpen] = useState(false);
   const [archiveSuccessOpen, setArchiveSuccessOpen] = useState(false);
   const [tablePage, setTablePage] = useState(1);
+  const [hasSearched, setHasSearched] = useState(false);
 
   const archiveTitleId = useId();
   const archiveDescId = useId();
@@ -104,6 +105,7 @@ export default function PatientReportPage() {
         onChange: setStatusType,
         options: [...REPORT_STATUS_TYPE_SELECT_OPTIONS],
         optionLayout: "radio",
+        emptySummaryLabel: "Select",
       },
       {
         id: "location",
@@ -155,10 +157,10 @@ export default function PatientReportPage() {
   const columns = usePatientReportTableColumns();
 
   return (
-    <div className="rounded-xl bg-white p-4 shadow-[0_4px_-6px_rgba(0,0,0,0.06)] sm:p-5 md:rounded-2xl md:p-6">
+    <div className="rounded-xl bg-white p-4 shadow-sm ring-1 ring-slate-200/50 sm:p-5 md:rounded-2xl md:p-6">
       <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between sm:gap-4">
         <div className="min-w-0 space-y-1">
-          <h2 className="text-lg font-semibold text-[#606060] sm:text-xl">
+          <h2 className="text-[22px] font-medium text-[#606060] sm:text-xl">
             Patient Report
           </h2>
           <p className="max-w-2xl text-xs leading-relaxed text-[#858585] sm:text-sm">
@@ -183,10 +185,12 @@ export default function PatientReportPage() {
             onClick={() => {
               setSearch("");
               setAgencySelection([]);
+              setPatientSelection([]);
               setOrderTypeSelection([]);
               setStatusType("");
               setLocation("");
               setTablePage(1);
+              setHasSearched(false);
             }}
           >
             <HiOutlineTrash className="h-4 w-4 text-[#FF383C]" aria-hidden />
@@ -201,6 +205,11 @@ export default function PatientReportPage() {
           name="patientSearch"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              setHasSearched(true);
+            }
+          }}
           placeholder="Search Patient"
           aria-label="Search patient"
           wrapperClassName="w-full"
@@ -219,7 +228,13 @@ export default function PatientReportPage() {
 
 
       <div className="mt-6 min-w-0 sm:mt-8">
-        {(search.trim() || patientSelection.length > 0) &&
+        {(hasSearched ||
+          search.trim() ||
+          patientSelection.length > 0 ||
+          agencySelection.length > 0 ||
+          orderTypeSelection.length > 0 ||
+          statusType !== "" ||
+          location !== "") &&
           filteredRows.length > 0 ? (
           <DataTable
             columns={columns}
@@ -231,13 +246,13 @@ export default function PatientReportPage() {
               r.dateTags?.some((t) =>
                 t.text.toLowerCase().includes("rejected")
               )
-                ? "bg-red-500/10"
+                ? "bg-[#FFE8E9]"
                 : undefined
             }
             pagination={{
               page: tablePage,
               onPageChange: setTablePage,
-              summaryLabel: "Orders",
+              summaryLabel: "Patient",
               pageSize: 6,
             }}
           />

@@ -17,7 +17,7 @@ import { REPORT_AGENCY_MULTI_OPTIONS } from "@/data/reportFilterAgencyOptions";
 import { REPORT_PHYSICIAN_PAGE_PATIENT_MULTI_OPTIONS } from "@/data/reportFilterPatientOptions";
 
 const AGENCY_REPORT_TABLE_GRID_COLUMNS =
-    "minmax(7.5rem,0.7fr) minmax(11rem,1fr) minmax(14rem,1.3fr) minmax(14rem,1.3fr) minmax(8.5rem,0.8fr) minmax(9.5rem,0.9fr) minmax(6.5rem,0.6fr) minmax(11rem,1fr) minmax(12rem,1.1fr)";
+    "minmax(7.5rem,0.7fr) minmax(12rem,1fr) minmax(8rem,1.3fr) minmax(12rem,1.3fr) minmax(8.5rem,0.8fr) minmax(9.5rem,0.9fr) minmax(14rem,0.6fr) minmax(11rem,1fr)";
 
 export default function AgencyReportPage() {
     const [search, setSearch] = useState("");
@@ -29,6 +29,7 @@ export default function AgencyReportPage() {
     const [archiveModalOpen, setArchiveModalOpen] = useState(false);
     const [archiveSuccessOpen, setArchiveSuccessOpen] = useState(false);
     const [tablePage, setTablePage] = useState(1);
+    const [hasSearched, setHasSearched] = useState(false);
 
     const archiveTitleId = useId();
     const archiveDescId = useId();
@@ -40,13 +41,10 @@ export default function AgencyReportPage() {
             orderTypeSelection.length === 0 &&
             statusType === "" &&
             location === "";
-        if (noDropdownFilters && !search) {
+        if (noDropdownFilters) {
             return "No filters applied (showing all).";
         }
         const parts: string[] = [];
-        if (search) {
-            parts.push(`Search: ${search}`);
-        }
         if (agencySelection.length > 0) {
             parts.push(`Agency: ${agencySelection.join(", ")}`);
         }
@@ -66,7 +64,7 @@ export default function AgencyReportPage() {
             parts.push(`Location: ${locLabel}`);
         }
         return `${parts.join(" · ")}.`;
-    }, [search, agencySelection, patientSelection, orderTypeSelection, statusType, location]);
+    }, [agencySelection, patientSelection, orderTypeSelection, statusType, location]);
 
     const reportFilters = useMemo((): ReportFilterConfig[] => {
         return [
@@ -122,7 +120,8 @@ export default function AgencyReportPage() {
     const filteredRows = useMemo(() => {
         const q = search.trim().toLowerCase();
         return AGENCY_REPORT_ROWS.filter((row) => {
-            if (q && !row.patientName.toLowerCase().includes(q)) return false;
+            const rowPatient = row.patientName?.toLowerCase() || "";
+            if (q && !rowPatient.includes(q)) return false;
             if (
                 agencySelection.length > 0 &&
                 !agencySelection.includes(row.agency)
@@ -131,6 +130,7 @@ export default function AgencyReportPage() {
             }
             if (
                 patientSelection.length > 0 &&
+                row.patientName &&
                 !patientSelection.includes(row.patientName)
             ) {
                 return false;
@@ -158,7 +158,7 @@ export default function AgencyReportPage() {
         <div className="rounded-xl bg-white p-4 shadow-[0_4px_-6px_rgba(0,0,0,0.06)] sm:p-5 md:rounded-2xl md:p-6">
             <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between sm:gap-4">
                 <div className="min-w-0 space-y-1">
-                    <h2 className="text-lg font-semibold text-[#606060] sm:text-xl">
+                    <h2 className="text-[22px] font-medium text-[#606060] sm:text-xl">
                         Agency Report
                     </h2>
                     <p className="max-w-2xl text-xs leading-relaxed text-[#858585] sm:text-sm">
@@ -185,6 +185,7 @@ export default function AgencyReportPage() {
                             setStatusType("");
                             setLocation("");
                             setTablePage(1);
+                            setHasSearched(false);
                         }}
                     >
                         <HiOutlineTrash className="h-4 w-4 text-[#FF383C]" aria-hidden />
@@ -199,8 +200,13 @@ export default function AgencyReportPage() {
                     name="agencySearch"
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
-                    placeholder="Search by Patient Name"
-                    aria-label="Search report"
+                    onKeyDown={(e) => {
+                        if (e.key === "Enter") {
+                            setHasSearched(true);
+                        }
+                    }}
+                    placeholder="Search Agency"
+                    aria-label="Search agency"
                     wrapperClassName="w-full"
                     className="h-11 rounded-[10px] py-2.5 focus:border-[#528DB5] focus:ring-[0.5px] focus:ring-[#528DB5]"
                     isNoShadow={true}
@@ -215,18 +221,32 @@ export default function AgencyReportPage() {
             </div>
 
             <div className="mt-6 min-w-0 sm:mt-8">
-                {(search.trim() || agencySelection.length > 0) &&
+                {(hasSearched ||
+                    search.trim() ||
+                    agencySelection.length > 0 ||
+                    patientSelection.length > 0 ||
+                    orderTypeSelection.length > 0 ||
+                    statusType !== "" ||
+                    location !== "") &&
                     filteredRows.length > 0 ? (
                     <DataTable
                         columns={columns}
+                        colNumber={columns.length}
                         isBorderlessTable={true}
                         rows={filteredRows}
                         getRowKey={(r) => r.id}
                         gridTemplateColumns={AGENCY_REPORT_TABLE_GRID_COLUMNS}
+                        getRowSurfaceClassName={(r) =>
+                            r.dateTags?.some((t) =>
+                                t.text.toLowerCase().includes("rejected")
+                            )
+                                ? "bg-[#FBF1F2]"
+                                : undefined
+                        }
                         pagination={{
                             page: tablePage,
                             onPageChange: setTablePage,
-                            summaryLabel: "Orders",
+                            summaryLabel: "Agency",
                             pageSize: 6,
                         }}
                     />

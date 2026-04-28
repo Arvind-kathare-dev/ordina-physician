@@ -21,7 +21,7 @@ export const ONE_CLICK_REPORT_LINKS = [
     href: "/reports/plan-of-care",
     label: "Plan of Care (485)",
   },
-  { id: "addon" as const, href: "/reports/add-on", label: "DME Report" },
+  { id: "addon" as const, href: "/reports/dme", label: "DME Report" },
   { id: "custom" as const, href: "/reports/custom", label: "Custom Report" },
   {
     id: "hospice" as const,

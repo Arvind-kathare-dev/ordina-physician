@@ -54,10 +54,9 @@ export const getOrderColumns = (activeTab: number): Column<Order>[] => {
     header: "Service Type",
     render: (row) => (
       <span
-        className={`text-sm px-2 py-1 rounded ${
-          SERVICE_TYPE_STYLES[row.serviceType] ??
+        className={`text-sm px-2 py-1 rounded ${SERVICE_TYPE_STYLES[row.serviceType] ??
           SERVICE_TYPE_STYLES.Default
-        }`}
+          }`}
       >
         {row.serviceType ?? "-"}
       </span>
@@ -95,13 +94,13 @@ export const getOrderColumns = (activeTab: number): Column<Order>[] => {
     ),
   };
 
-const actionsColumn: Column<Order> = {
-  key: "actions",
-  header: "Actions",
-   render: (row) => (
-        <OrderActionsCell row={row} activeTab={activeTab} />
-      ),
-};
+  const actionsColumn: Column<Order> = {
+    key: "actions",
+    header: "Actions",
+    render: (row) => (
+      <OrderActionsCell row={row} activeTab={activeTab} />
+    ),
+  };
 
   /* ---------- Conditional Columns ---------- */
 
@@ -111,19 +110,19 @@ const actionsColumn: Column<Order> = {
     render: (row) => (
       <div className="text-sm text-gray-400">
         {row.date ?? "-"}
-         {/* Tags */}
-      {row.tags && row.tags.length > 0 && (
-        <div className="flex gap-1 absolute bottom-0 left-0">
-          {row.tags.map((tag) => (
-            <span
-              key={tag}
-              className={` ${tag == "Modified" ? "bg-yellow-200 text-yellow-400" : "bg-ordina-200 text-ordina-400"} text-[8px] font-normal px-2   rounded-tr-lg rounded-bl-lg`}
-            >
-              {tag}
-            </span>
-          ))}
-        </div>
-      )}
+        {/* Tags */}
+        {row.tags && row.tags.length > 0 && (
+          <div className="flex gap-1 absolute bottom-0 left-0">
+            {row.tags.map((tag) => (
+              <span
+                key={tag}
+                className={` ${tag == "Modified" ? "bg-yellow-200 text-yellow-400" : "bg-ordina-200 text-ordina-400"} text-[8px] font-normal px-2   rounded-tr-lg rounded-bl-lg`}
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
+        )}
       </div>
     ),
   };
@@ -131,22 +130,22 @@ const actionsColumn: Column<Order> = {
   const dayColumn: Column<Order> = {
     key: "day",
     header: "#Days",
-     render: (row) => {
-    const days = parseDays(row.day);
+    render: (row) => {
+      const days = parseDays(row.day);
 
-    return (
-      <p className="flex items-center gap-2 text-sm font-normal text-gray-400">
-  <span className={`text-lg font-semibold ${getDayColor(days)}`}>
-        ● 
-      </span>
-        {row.day ?? "-"}
-      </p>
-    
-    );
-  },
+      return (
+        <p className="flex items-center gap-2 text-sm font-normal text-gray-400">
+          <span className={`text-lg font-semibold ${getDayColor(days)}`}>
+            ●
+          </span>
+          {row.day ?? "-"}
+        </p>
+
+      );
+    },
   };
 
-   const labelColumn: Column<Order> = {
+  const labelColumn: Column<Order> = {
     key: "labels",
     header: "Label",
     render: (row) => (
@@ -181,60 +180,60 @@ const actionsColumn: Column<Order> = {
 
     case 1: // Unopened
       return [
-         dateColumn,
+        dateColumn,
         patientColumn,
         orderTypeColumn,
         serviceTypeColumn,
         agencyColumn,
-         labelColumn,
-          dayColumn,
+        labelColumn,
+        dayColumn,
         timeColumn,
         actionsColumn,
       ];
 
-        case 2: // Unsigned
+    case 2: // Unsigned
       return [
-         dateColumn,
+        dateColumn,
         patientColumn,
         orderTypeColumn,
         serviceTypeColumn,
         agencyColumn,
-         labelColumn,
-          dayColumn,
+        labelColumn,
+        dayColumn,
         timeColumn,
         actionsColumn,
       ];
-        case 3: // Undelivered
+    case 3: // Undelivered
       return [
-         dateColumn,
+        dateColumn,
         patientColumn,
         orderTypeColumn,
         serviceTypeColumn,
         agencyColumn,
-         labelColumn,
-          dayColumn,
+        labelColumn,
+        dayColumn,
         timeColumn,
         actionsColumn,
       ];
-        case 4: // Rejected
+    case 4: // Rejected
       return [
-         dateColumn,
+        dateColumn,
         patientColumn,
         orderTypeColumn,
         serviceTypeColumn,
         agencyColumn,
-         labelColumn,
+        labelColumn,
         timeColumn,
         actionsColumn,
       ];
 
-        case 6: // Rejected
+    case 6: // Rejected
       return [
-         dateColumn,
+        dateColumn,
         orderTypeColumn,
         serviceTypeColumn,
         agencyColumn,
-         labelColumn,
+        labelColumn,
         timeColumn,
         actionsColumn,
       ];
@@ -246,7 +245,7 @@ const actionsColumn: Column<Order> = {
         orderTypeColumn,
         serviceTypeColumn,
         agencyColumn,
-         labelColumn,
+        labelColumn,
         timeColumn,
         actionsColumn,
       ];

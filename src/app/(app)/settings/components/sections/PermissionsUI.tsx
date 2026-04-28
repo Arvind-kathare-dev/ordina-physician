@@ -1,52 +1,79 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import PermissionCard from "../card/PermissionCard";
 import { ChevronDown } from "lucide-react";
+
+interface UserData {
+  id: string;
+  name: string;
+  email: string;
+  role: string;
+  status: string;
+  initials: string;
+}
+
+interface PermissionsUIProps {
+  users: UserData[];
+}
 
 const sections = [
   {
     id: "orders",
     title: "Orders",
     description: "Create, view, forward, resend, and manage order states",
-    actions: ["View", "Create", "Edit", "Send"],
+    actions: ["View", "Edit", "Send"],
   },
   {
     id: "reports",
     title: "Reports",
-    description: "Access patient/physician/enterprise reports and exports",
+    description: "Run reports and export or schedule delivery.",
     actions: ["View", "Export", "Schedule"],
   },
   {
     id: "settings",
     title: "Settings",
-    description: "Edit onboarding + agency configuration",
+    description: "View or change agency profile and preferences.",
     actions: ["View", "Edit"],
   },
   {
     id: "integrations",
     title: "Integrations",
-    description: "Manage channels, EHR connections, and routing",
+    description: "Connect and manage EHR and channel integrations.",
     actions: ["View", "Edit"],
   },
   {
     id: "user_management",
     title: "User Management",
-    description: "Invite users, edit permissions, disable accounts",
+    description: "Invite users and control roles and access.",
     actions: ["View", "Invite", "Edit", "Disable"],
   },
 ];
 
 const presets: Record<string, Record<string, string[]>> = {
-  Admin: {
-    orders: ["View", "Create", "Edit", "Send"],
+  "Admin": {
+    orders: ["View", "Edit", "Send"],
     reports: ["View", "Export", "Schedule"],
     settings: ["View", "Edit"],
     integrations: ["View", "Edit"],
     user_management: ["View", "Invite", "Edit", "Disable"],
   },
-  User: {
-    orders: ["View", "Create"],
+  "Sub Admin": {
+    orders: ["View", "Edit"],
+    reports: ["View", "Export"],
+    settings: ["View"],
+    integrations: ["View"],
+    user_management: ["View", "Invite"],
+  },
+  "User": {
+    orders: ["View"],
+    reports: ["View"],
+    settings: ["View"],
+    integrations: ["View"],
+    user_management: ["View"],
+  },
+  "Read Only": {
+    orders: ["View"],
     reports: ["View"],
     settings: ["View"],
     integrations: ["View"],
@@ -54,10 +81,26 @@ const presets: Record<string, Record<string, string[]>> = {
   },
 };
 
-export default function PermissionsUI() {
-  const [selectedUser, setSelectedUser] = useState("John Doe • Admin");
-  const [currentPreset, setCurrentPreset] = useState("Admin");
-  const [permissions, setPermissions] = useState<Record<string, string[]>>(presets.Admin);
+export default function PermissionsUI({ users }: PermissionsUIProps) {
+  const [selectedUserId, setSelectedUserId] = useState(users[0]?.id || "");
+  const [isOpen, setIsOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+  
+  const selectedUser = users.find(u => u.id === selectedUserId) || users[0];
+  const [permissions, setPermissions] = useState<Record<string, string[]>>(
+    selectedUser ? (presets[selectedUser.role] || presets.Admin) : presets.Admin
+  );
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   const handleToggle = (sectionId: string, action: string) => {
     setPermissions((prev) => {
@@ -69,59 +112,82 @@ export default function PermissionsUI() {
     });
   };
 
-  const handleReset = () => {
-    setPermissions(presets[currentPreset] || presets.Admin);
+  const selectUser = (userId: string) => {
+    setSelectedUserId(userId);
+    setIsOpen(false);
+    const user = users.find(u => u.id === userId);
+    if (user) {
+      setPermissions(presets[user.role] || presets.Admin);
+    }
   };
 
   const handleSave = () => {
-    console.log("Saving permissions for", selectedUser, permissions);
+    console.log("Saving permissions for", selectedUser?.name, permissions);
     alert("Permissions updated successfully!");
   };
+
+  if (!selectedUser) return null;
 
   return (
     <div className="w-full bg-white border border-gray-100 rounded-[18px] shadow-sm">
       
       {/* Header */}
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between border-b py-4 px-6 border-gray-50 gap-2">
-        <h2 className="text-[15px] font-bold text-[#4a4a4a]">
+      <div className="border-b py-5 px-6 border-gray-100">
+        <h2 className="text-[17px] font-bold text-[#4a4a4a] mb-1">
           Permissions
         </h2>
-        <p className="text-[12px] text-[#999]">
+        <p className="text-[13px] text-[#999]">
           Select a user to edit permissions
         </p>
       </div>
 
-      <div className="flex flex-col gap-6 p-6">
-        {/* Controls */}
-        <div className="flex items-center gap-6 flex-wrap">
-          
-          {/* Editing Dropdown */}
-          <div className="flex items-center gap-3">
-            <span className="text-[13px] text-[#999]">Editing:</span>
-            <button className="flex items-center gap-6 px-4 py-2 rounded-full border border-gray-100 text-[13px] text-[#4a4a4a] font-bold bg-white shadow-sm hover:border-[#5b94b7] transition-all">
-              {selectedUser}
-              <ChevronDown size={14} className="text-[#999]" />
-            </button>
+      <div className="flex flex-col gap-5 p-6">
+        
+        {/* Editing Container */}
+        <div className="relative border border-gray-100 rounded-[12px] p-4 bg-white shadow-[0_2px_8px_rgba(0,0,0,0.02)]">
+          <div className="flex justify-between items-center mb-2">
+            <span className="text-[10px] font-bold text-[#c0c0c0] tracking-wider uppercase">EDITING</span>
+            <span className="text-[10px] font-bold text-[#c0c0c0] tracking-wider uppercase">PRESET</span>
           </div>
+          
+          <div className="flex items-center gap-4">
+            {/* Custom Dropdown */}
+            <div className="relative flex-1" ref={dropdownRef}>
+              <button 
+                onClick={() => setIsOpen(!isOpen)}
+                className="w-full flex items-center justify-between bg-white border border-[#5b94b7] rounded-lg px-4 py-2.5 text-[14px] font-medium text-[#4a4a4a] focus:outline-none focus:ring-2 focus:ring-[#5b94b7]/20 transition-all"
+              >
+                <span>{selectedUser.name} — {selectedUser.role}</span>
+                <ChevronDown size={18} className={`transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`} />
+              </button>
 
-          {/* Preset Badge */}
-          <div className="flex items-center gap-3">
-            <span className="text-[13px] text-[#999]">Preset:</span>
-            <button 
-              onClick={() => {
-                const next = currentPreset === "Admin" ? "User" : "Admin";
-                setCurrentPreset(next);
-                setPermissions(presets[next]);
-              }}
-              className="px-5 py-2 rounded-full border border-gray-100 text-[13px] text-[#4a4a4a] font-bold bg-white shadow-sm hover:border-[#5b94b7] transition-all"
-            >
-              {currentPreset}
-            </button>
+              {isOpen && (
+                <div className="absolute z-10 w-full mt-1 bg-white border border-gray-100 rounded-lg shadow-xl overflow-hidden animate-in fade-in slide-in-from-top-2 duration-200">
+                  {users.map(user => (
+                    <button
+                      key={user.id}
+                      onClick={() => selectUser(user.id)}
+                      className={`w-full text-left px-4 py-3 text-[14px] transition-colors ${
+                        selectedUserId === user.id 
+                          ? 'bg-[#5b94b7] text-white' 
+                          : 'text-[#4a4a4a] hover:bg-[#f0f7fb] hover:text-[#5b94b7]'
+                      }`}
+                    >
+                      {user.name} — {user.role}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            <div className="px-4 py-1.5 bg-[#f5f0ff] text-[#9474cc] rounded-full text-[12px] font-bold border border-[#e8dfff]">
+              {selectedUser.role}
+            </div>
           </div>
         </div>
 
         {/* Sections */}
-        <div className="flex flex-col gap-3">
+        <div className="flex flex-col gap-4">
           {sections.map((section) => (
             <PermissionCard
               key={section.id}
@@ -135,16 +201,16 @@ export default function PermissionsUI() {
         </div>
 
         {/* Action Buttons */}
-        <div className="flex justify-end gap-3 pt-4">
+        <div className="flex justify-end gap-3 pt-2">
           <button
-            onClick={handleReset}
-            className="px-6 py-2.5 text-[14px] font-bold text-[#4a4a4a] bg-white border border-gray-200 rounded-xl hover:bg-gray-50 transition-all shadow-sm"
+            onClick={() => setPermissions(presets[selectedUser.role])}
+            className="px-6 py-2.5 text-[14px] font-bold text-[#4a4a4a] bg-white border border-gray-200 rounded-xl hover:bg-gray-50 transition-all"
           >
-            Reset
+            Reset to Default
           </button>
           <button
             onClick={handleSave}
-            className="px-8 py-2.5 text-[14px] font-bold text-white bg-[#5b94b7] rounded-xl hover:bg-[#4a7a96] transition-all shadow-md"
+            className="px-8 py-2.5 text-[14px] font-bold text-white bg-[#5b94b7] rounded-xl hover:bg-[#4a7a96] transition-all shadow-sm"
           >
             Save Changes
           </button>
@@ -153,3 +219,4 @@ export default function PermissionsUI() {
     </div>
   );
 }
+

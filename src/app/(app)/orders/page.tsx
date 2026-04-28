@@ -10,8 +10,6 @@ import MinimalPagination from "@/components/common/pagination/Pagination";
 import SearchBox from "@/components/ui/SearchBox";
 import { orders, tabs } from "./orders.data";
 import { getOrderColumns } from "./components/getOrderColumns";
-import NewOrderModal from "./components/NewOrderModal";
-import OrderFilterModal from "./components/OrderFilterModal";
 import OrdersFilterDialog from "@/components/common/OrdersFilterDialog";
 
 
@@ -20,7 +18,6 @@ export default function OrdersTable() {
   const [activeTab, setActiveTab] = useState(0);
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const [open, setOpen] = useState(false);
   const [isFilterOpen, setIsFilterOpen] = useState(false);
 
   const filtered = orders.filter(
@@ -70,7 +67,7 @@ export default function OrdersTable() {
             <ChevronDown size={18} />
           </div>
 
-          <Button variant="primary" size="md" onClick={() => setOpen(true)} leftIcon={<Plus size={14} />}>
+          <Button variant="primary" size="md" leftIcon={<Plus size={14} />}>
             New Order
           </Button>
         </div>
@@ -105,7 +102,6 @@ export default function OrdersTable() {
         />
       </div>
 
-      {open && <NewOrderModal onClose={() => setOpen(false)} />}
 
       {/* <OrderFilterModal 
         isOpen={isFilterOpen} 

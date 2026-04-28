@@ -1,27 +1,33 @@
 /** Values match `orderType` strings on patient / F2F–style report rows. */
 export const REPORT_ORDER_TYPE_MULTI_OPTIONS = [
   {
-    value: "Medication Orders",
-    label: "Medication Orders",
-    description: "Pharmacy, MAR, and med admin",
+    value: "DME Order",
+    label: "DME Order",
+    description: "Equipment / Supplies",
     tag: "Common",
   },
   {
-    value: "Therapy Orders",
-    label: "Therapy Orders",
-    description: "PT / OT / ST plans",
+    value: "Plan of Care",
+    label: "Plan of Care",
+    description: "Home health POC",
+    tag: "HH",
+  },
+  {
+    value: "Recertification",
+    label: "Recertification",
+    description: "OASIS / renewal",
+    tag: "HH",
+  },
+  {
+    value: "Evaluation",
+    label: "Evaluation",
+    description: "PT/OT/ST eval",
     tag: "Therapy",
   },
   {
-    value: "Skilled Nursing Orders",
-    label: "Skilled Nursing Orders",
-    description: "SN visits & skilled notes",
+    value: "Lab / Diagnostic",
+    label: "Lab / Diagnostic",
+    description: "Reports & tests",
     tag: "Clinical",
-  },
-  {
-    value: "Equipment and Supplies Orders",
-    label: "Equipment and Supplies Orders",
-    description: "DME / supplies fulfillment",
-    tag: "DME",
   },
 ] as const;

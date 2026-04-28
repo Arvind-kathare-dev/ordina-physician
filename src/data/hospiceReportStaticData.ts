@@ -14,6 +14,7 @@ export type HospiceReportRow = {
   avgSigningDisplay: string;
   location: string;
   statusLabel: HospiceStatusLabel;
+  orderType: string;
   rowHighlight?: boolean;
 };
 
@@ -47,14 +48,22 @@ export function buildHospiceReportRows(count = 24): HospiceReportRow[] {
     const base = 2001 + i;
     const orders = 20 + ((i * 9) % 60);
     const avgDays = 0.5 + (i % 8) * 0.6;
+    const ORDER_TYPES = [
+      "DME Order",
+      "Plan of Care",
+      "Recertification",
+      "Evaluation",
+      "Lab / Diagnostic",
+    ];
     return {
       id: String(i + 1),
-      agencyId: `HOS-${base}`,
+      agencyId: `AGE-${base}`,
       agencyName: name,
       ordersAssigned: orders,
       avgSigningDisplay: formatAvgDays(Math.round(avgDays * 10) / 10),
       location,
       statusLabel: STATUSES[i % STATUSES.length]!,
+      orderType: ORDER_TYPES[i % ORDER_TYPES.length]!,
       rowHighlight: i === 1,
     };
   });

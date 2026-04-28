@@ -246,7 +246,7 @@ export default function BillableOrdersPage() {
       {/* Header Section */}
       <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
         <div className="space-y-1">
-          <h2 className="text-xl font-bold text-neutral-900 sm:text-2xl">Billable Orders</h2>
+          <h2 className="text-[22px] font-medium text-[#606060] ">Billable Orders</h2>
           <p className="max-w-2xl text-sm text-[#858585]">
             Select a month (or year) to view billable orders (Lab, 485, MD Verification) and send them to billers.
           </p>
@@ -274,38 +274,34 @@ export default function BillableOrdersPage() {
       </div>
 
       {/* Month Selector */}
-      <div className="mb-8 flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+      <div className="mb-8  border border-gray-200 p-4 rounded-2xl flex  flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
         <div className="relative flex items-center gap-2 overflow-hidden text-primary-description">
           {/* Carousel Simulation */}
-          <button className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-slate-200 bg-white text-primary-description hover:text-slate-600">
-            <HiChevronLeft className="h-5 w-5" />
-          </button>
-          <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-hide">
+
+          <div className="flex items-center gap-2 max-w-[700px] overflow-x-auto p-1 scrollbar-hide">
             {MONTHS.map((month) => (
               <button
                 key={month}
                 onClick={() => setSelectedMonth(month)}
                 className={`shrink-0 rounded-full px-4 py-1.5 text-sm font-medium transition-colors ${selectedMonth === month
-                    ? "bg-primary-background text-primary-color ring-1 ring-primary-color"
-                    : "bg-[#F3F4F6] text-[#6B7280] hover:bg-slate-200"
+                  ? "bg-primary-background text-primary-color ring-1 ring-primary-color"
+                  : "bg-[#F3F4F6] text-[#6B7280] hover:bg-slate-200"
                   }`}
               >
                 {month}
               </button>
             ))}
           </div>
-          <button className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-slate-200 bg-white text-primary-description hover:text-slate-600">
-            <HiChevronRight className="h-5 w-5" />
-          </button>
+
         </div>
         <div className="flex rounded-xl bg-[#F3F4F6] p-1 self-start">
-          {["Month", "Year"].map((mode) => (
+          {["View", "Month", "Year"].map((mode) => (
             <button
               key={mode}
               onClick={() => setViewMode(mode as any)}
               className={`rounded-lg px-4 py-1.5 text-sm font-semibold transition-all ${viewMode === mode
-                  ? "bg-white text-primary-color shadow-sm"
-                  : "text-[#6B7280] hover:text-[#4B5563]"
+                ? "bg-white text-primary-color shadow-sm"
+                : "text-[#6B7280] hover:text-[#4B5563]"
                 }`}
             >
               {mode}
@@ -319,12 +315,12 @@ export default function BillableOrdersPage() {
         {SUMMARY_CARDS.map((card) => (
           <div key={card.id} className="rounded-2xl border border-slate-100 bg-white p-5 shadow-sm">
             <div className="mb-3 flex items-center gap-1.5">
-              <span className="text-xs font-bold text-primary-description">{card.label}</span>
-              <span className="rounded bg-slate-100 px-1.5 py-0.5 text-[10px] font-bold text-primary-subtitle">{card.subLabel}</span>
+              <span className="text-xs font-medium text-primary-subtitle">{card.label}</span>
+              <span className="rounded-2xl border border-gray-100 px-1.5 py-0.5 text-[10px] font-normal text-primary-subtitle">{card.subLabel}</span>
             </div>
             <div className="mb-1 text-3xl font-bold text-primary-title">{card.value}</div>
-            <div className="mb-4 text-sm font-medium text-primary-description">{card.count}</div>
-            <div className={`inline-flex items-center rounded-full px-3 py-1 text-xs font-bold ${card.bgColor} ${card.color}`}>
+            <div className="mb-4 text-sm font-normal text-primary-subtitle">{card.count}</div>
+            <div className={`inline-flex items-center rounded-[60px] px-[17px] py-[10px] text-xs font-normal text-ordina-400 bg-grayCustom-150 `}>
               Avg:{card.avg}
             </div>
           </div>
@@ -332,8 +328,8 @@ export default function BillableOrdersPage() {
       </div>
 
       {/* Table Section */}
-      <div className="rounded-2xl border border-slate-100 bg-white shadow-sm overflow-hidden">
-        <div className="flex flex-col gap-4 border-b border-slate-100 p-4 sm:flex-row sm:items-center sm:justify-between sm:p-6">
+      <div className="rounded-2xl border border-slate-100 bg-white px-6 shadow-sm overflow-hidden">
+        <div className="flex flex-col gap-4 border-b border-slate- py-4  sm:flex-row sm:items-center sm:justify-between sm:py-6">
           <div className="flex items-center gap-3">
             <h3 className="text-lg font-bold text-primary-title">Orders • {selectedMonth.includes("Mar") ? "Mar 2026" : selectedMonth}</h3>
             <span className="rounded-full bg-slate-100 px-3 py-1 text-sm font-medium text-primary-subtitle">
@@ -389,7 +385,7 @@ export default function BillableOrdersPage() {
               onPageChange: setTablePage,
               pageSize: 6,
               totalCount: filteredRows.length,
-              summaryLabel: "Orders",
+              summaryLabel: "Billable Orders",
             }}
           />
         </div>
@@ -418,19 +414,19 @@ export default function BillableOrdersPage() {
               <span className="text-xl font-bold">Σ</span>
             </div>
             <div>
-              <div className="text-sm font-bold text-primary-title sm:text-base">Total Billable • {selectedMonth.includes("Mar") ? "Mar 2026" : selectedMonth} (Month)</div>
-              <div className="text-xs font-medium text-primary-description sm:text-sm">Based on current filters • Selected: {selectedRows.length} orders</div>
+              <div className="text-sm font-medium text-primary-title ">Total Billable • {selectedMonth.includes("Mar") ? "Mar 2026" : selectedMonth} (Month)</div>
+              <div className="text-xs font-medium text-primary-subtitle">Based on current filters • Selected: {selectedRows.length} orders</div>
             </div>
           </div>
           <div className="flex flex-wrap items-center gap-4 sm:gap-8">
-            <span className="text-2xl font-bold text-primary-title sm:text-3xl">${selectedAmount.toLocaleString()}</span>
+            <span className="text-2xl font-medium text-primary-title">${selectedAmount.toLocaleString()}</span>
             <div className="flex items-center gap-3">
               <button className="h-11 rounded-xl border border-slate-200 px-6 text-sm font-bold text-slate-600 hover:bg-slate-50 transition-colors">
                 Export CSV
               </button>
               <button
                 onClick={() => setSendModalOpen(true)}
-                className="h-11 rounded-xl bg-primary-color px-6 text-sm font-bold text-white shadow-lg shadow-[#528DB5]/20 hover:bg-[#45799c] transition-all"
+                className="h-11 rounded-xl bg-primary-color px-6 text-sm font-medium text-white shadow-lg shadow-[#528DB5]/20 hover:bg-[#45799c] transition-all"
               >
                 Send Selected to Billers
               </button>
@@ -443,60 +439,90 @@ export default function BillableOrdersPage() {
       <Dialog
         open={sendModalOpen}
         onClose={() => setSendModalOpen(false)}
-        panelClassName="max-w-xl p-8"
+        panelClassName="max-w-lg p-0 overflow-hidden rounded-2xl"
         ariaLabel="Send to Billers"
       >
-        <div className="flex items-center justify-between mb-8">
-          <h3 className="text-2xl font-bold text-primary-title">
+        {/* Header */}
+        <div className="flex items-center justify-between px-6 pt-6 pb-4">
+          <h3 className="text-lg font-medium text-primary-title">
             Send to Billers
           </h3>
-          <button onClick={() => setSendModalOpen(false)} className="text-primary-description hover:text-slate-600 transition-colors">
-            <HiX className="h-6 w-6" />
+          <button
+            onClick={() => setSendModalOpen(false)}
+            className="flex h-8 w-8 items-center justify-center rounded-full text-[#9B9B9B] transition-colors hover:bg-slate-100 hover:text-slate-600"
+            aria-label="Close"
+          >
+            <HiX className="h-5 w-5" />
           </button>
         </div>
 
-        <p className="mb-6 text-primary-subtitle font-medium">
+        {/* Description */}
+        <p className="px-6 pb-4 text-sm text-primary-subtitle">
           You're about to send {selectedRows.length} billable orders to billers for Feb 2026. Review selection below.
         </p>
 
-        <div className="mb-6 rounded-[16px] border border-slate-100 bg-[#F9FAFB] p-4 flex items-center justify-between">
+        {/* Select All Row */}
+        <div className="mx-6 mb-3 flex items-center justify-between rounded-xl border border-slate-200 bg-white px-4 py-3">
           <div className="flex items-center gap-3">
-            <input type="checkbox" checked={true} readOnly className="h-5 w-5 rounded border-slate-300 text-primary-color focus:ring-primary-color" />
-            <span className="font-bold text-slate-700">Select all in selection</span>
+            <input
+              type="checkbox"
+              id="select-all-billers"
+              checked={true}
+              readOnly
+              className="h-4 w-4 rounded border-slate-300 accent-primary-color"
+            />
+            <label htmlFor="select-all-billers" className="text-sm font-medium text-primary-title cursor-pointer">
+              Select all in selection
+            </label>
           </div>
-          <span className="text-sm font-medium text-primary-subtitle">Selected Amount: <span className="font-bold text-primary-title">${selectedAmount}</span></span>
+          <span className="text-sm text-primary-subtitle">
+            Selected Amount: <span className="font-medium text-primary-title">${selectedAmount}</span>
+          </span>
         </div>
 
-        <div className="mb-8 max-h-[300px] overflow-y-auto pr-2 space-y-3 custom-scrollbar">
-          {MOCK_ROWS.filter(r => selectedRows.includes(r.id)).map(row => (
-            <div key={row.id} className="rounded-xl border border-slate-100 bg-white p-4 flex items-center justify-between hover:border-slate-200 transition-colors">
-              <div className="flex items-center gap-4">
-                <input type="checkbox" checked={true} readOnly className="h-5 w-5 rounded border-slate-300 text-primary-color focus:ring-primary-color" />
+        {/* Scrollable Items List */}
+        <div className="mx-6 mb-4 max-h-[280px] overflow-y-auto rounded-xl border border-slate-200 bg-white">
+          {MOCK_ROWS.filter(r => selectedRows.includes(r.id)).map((row, idx, arr) => (
+            <div
+              key={row.id}
+              className={`flex items-center justify-between px-4 py-3 ${idx < arr.length - 1 ? "border-b border-slate-100" : ""}`}
+            >
+              <div className="flex items-center gap-3">
+                <input
+                  type="checkbox"
+                  checked={true}
+                  readOnly
+                  className="h-4 w-4 rounded border-slate-300 accent-primary-color"
+                />
                 <div>
-                  <div className="font-bold text-primary-title">{row.type.text} • {row.patientName}</div>
-                  <div className="text-xs font-medium text-primary-description">Dr. Noah Patel • {row.date} • {row.location}</div>
+                  <div className="text-sm font-medium text-primary-title">
+                    {row.type.text} • {row.patientName}
+                  </div>
+                  <div className="text-xs text-primary-subtitle">
+                    Dr. Noah Patel • {row.date} • {row.location}
+                  </div>
                 </div>
               </div>
-              <span className="font-bold text-slate-700">${row.amount}</span>
+              <span className="text-sm font-medium text-primary-title">${row.amount}</span>
             </div>
           ))}
         </div>
 
-        <div className="flex items-center justify-between pt-6 border-t border-slate-100">
-          <span className="text-lg font-bold text-primary-title">Total to send: ${selectedAmount}</span>
+        {/* Footer */}
+        <div className="flex items-center justify-between border-t border-slate-100 px-6 py-4">
+          <span className="text-sm font-medium text-primary-title">Total to send: ${selectedAmount}</span>
           <div className="flex items-center gap-3">
             <button
               onClick={() => setSendModalOpen(false)}
-              className="h-11 rounded-xl px-6 text-sm font-bold text-primary-subtitle hover:bg-slate-50 transition-colors"
+              className="h-10 rounded-xl px-5 text-sm font-medium text-primary-subtitle transition-colors hover:bg-slate-50"
             >
               Cancel
             </button>
             <button
               onClick={() => {
                 setSendModalOpen(false);
-                // Handle send logic
               }}
-              className="h-11 rounded-xl bg-primary-color px-8 text-sm font-bold text-white shadow-lg shadow-[#528DB5]/20 hover:bg-[#45799c] transition-all"
+              className="h-10 rounded-xl bg-primary-color px-6 text-sm font-medium text-white transition-all hover:bg-[#45799c]"
             >
               Confirm Send
             </button>

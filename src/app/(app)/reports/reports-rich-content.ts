@@ -8,8 +8,8 @@ export const RICH_RECENT = [
       "Break patient by aging buckets and surface the backlog risk (30+ days) immediately.",
   },
   {
-    id: "physician" as const,
-    href: "/reports/physician",
+    id: "agency" as const,
+    href: "/reports/agency",
     label: "Agency Report",
     tag: "Agencies",
     description:
@@ -42,7 +42,7 @@ export const RICH_ONE_CLICK = [
   },
   {
     id: "addon" as const,
-    href: "/reports/add-on",
+    href: "/reports/dme",
     label: "DME Report",
     tag: "Finance",
     description: "Supplemental report packs and optional analytics modules.",

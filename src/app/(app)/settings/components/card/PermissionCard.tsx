@@ -36,10 +36,10 @@ export default function PermissionCard({
             <button
               key={action}
               onClick={() => onToggle(action)}
-              className={`px-4 py-1.5 text-[12px] font-medium rounded-full border transition-all shadow-sm ${
+              className={`px-5 py-2 text-[12px] font-bold rounded-full transition-all border ${
                 isSelected 
-                  ? "bg-[#eaf4ff] text-[#528DB5] border-[#d0e6ff]" 
-                  : "bg-white text-[#858585] border-gray-100 hover:bg-gray-50"
+                  ? "bg-[#eff6ff] text-[#5b94b7] border-[#dbeafe]" 
+                  : "bg-white text-[#a0a0a0] border-gray-100 hover:border-gray-200"
               }`}
             >
               {action}

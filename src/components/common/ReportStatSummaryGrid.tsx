@@ -32,7 +32,7 @@ export default function ReportStatSummaryGrid({
           {card.buckets && card.buckets.length > 0 ? (
             <div className="flex min-w-0 gap-3">
               <div className="min-w-0 max-w-27.5 w-fit shrink-0 wrap-break-word">
-                <p className="text-[11px] font-semibold uppercase tracking-wide text-[#9B9B9B] sm:text-[13px]">
+                <p className="text-[11px]  font-semibold max-w-[120px] uppercase tracking-wide text-[#9B9B9B] sm:text-[13px]">
                   {card.label}
                 </p>
                 <p className="mt-1 text-2xl font-semibold tabular-nums text-[#686464] sm:text-[26px]">
