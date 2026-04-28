@@ -138,7 +138,7 @@ export default function CustomMultiSelect({
                                             checked={value.includes(opt.value)}
                                             onChange={() => toggle(opt.value)}
                                             disabled={maxSelections && value.length >= maxSelections && !value.includes(opt.value) ? true : false}
-                                            className="w-4 h-4 rounded border-gray-300 text-[#4ab1d9] focus:ring-[#4ab1d9] cursor-pointer disabled:cursor-not-allowed"
+                                            className="w-4 h-4 rounded border-gray-300 text-[#528DB5] focus:ring-[#528DB5] cursor-pointer disabled:cursor-not-allowed"
                                         />
                                         {opt.label}
                                     </label>

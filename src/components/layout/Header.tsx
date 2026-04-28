@@ -24,11 +24,12 @@ import Image from "next/image";
 import logo from "../../assets/images/logo.png";
 import dashboard from "../../assets/images/dashboard.png";
 import profile from "../../assets/images/profile.png";
+import NavButton from "../ui/button/NavButton";
 
-type NavItem = { id: string; label: string; href: string };
+type NavItem = { id: string; label: string; href: string, icon?: string };
 
 const NAV_ITEMS: NavItem[] = [
-  { id: "dashboard", label: "ProHealth Dashboard", href: "/dashboard" },
+  { id: "dashboard", label: "ProHealth Dashboard", href: "/dashboard", icon: "nav-icon" },
   { id: "orders", label: "Orders", href: "/orders" },
   { id: "efax", label: "eFax", href: "/efax" },
   { id: "reports", label: "Reports", href: "/reports" },
@@ -105,6 +106,9 @@ export default function Header() {
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [profileOpen, setProfileOpen] = useState(false);
 
+  const isActive = (href: string) => pathname.startsWith(href);
+
+
   const settingsRef = useRef<HTMLDivElement>(null);
   const profileRef = useRef<HTMLDivElement>(null);
 
@@ -132,7 +136,7 @@ export default function Header() {
 
   return (
     <header className="sticky top-0 z-40  bg-white">
-      <div className="mx-auto flex max-w-[1600px] max-h-20 items-center justify-between gap-1.5 px-3 py-2 sm:gap-8 sm:px-4 sm:py-2.5 md:px-5 lg:px-6">
+      <div className="mx-auto flex max-w-[1600px] h-20 items-center justify-between gap-1.5 px-3 py-2 sm:gap-8 sm:px-4 sm:py-2.5 md:px-5 lg:px-6">
         <div className="flex shrink-0 items-center gap-1.5 sm:gap-2 md:gap-2.5">
           <button
             type="button"
@@ -149,7 +153,7 @@ export default function Header() {
             <span className="sr-only">Toggle menu</span>
           </button>
 
-          <Link href="/" className="flex items-center gap-2">
+          <Link href="/dashboard" className="flex items-center gap-2">
             <Image src="/images/logo/ordina-logo.svg" alt="logo" width={36} height={36} />
             <div className="leading-tight">
               <p className="text-lg font-extrabold text-gray-900">Ordina</p>
@@ -166,40 +170,14 @@ export default function Header() {
         >
           <div className="header-nav-scroll  scroll-smooth  flex justify-end items-start">
             <div className=" flex w-max flex-nowrap items-center gap-[10px] px-0.5 py-0.5">
-              {NAV_ITEMS.map((item) => {
-                const active = navItemIsActive(pathname, item.href);
-                const pillClass = navPillClass(active);
-                const inner = (
-                  <>
-                    {item.id === "dashboard" && (
-                      <Image src={"/images/nav-icon.svg"} alt="icon" width={16} height={16} />
-                    )}
-                    {item.label}
-                  </>
-                );
-                if (item.href === "#") {
-                  return (
-                    <Link
-                      key={item.id}
-                      href="#"
-                      className={pillClass}
-                      onClick={() => closeMenus()}
-                    >
-                      {inner}
-                    </Link>
-                  );
-                }
-                return (
-                  <Link
-                    key={item.id}
-                    href={item.href}
-                    className={pillClass}
-                    onClick={() => closeMenus()}
-                  >
-                    {inner}
-                  </Link>
-                );
-              })}
+             
+              {NAV_ITEMS.map((item) => (
+                <NavButton
+                  key={item.href}
+                  {...item}
+                  active={isActive(item.href)}
+                />
+              ))}
             </div>
           </div>
         </nav>

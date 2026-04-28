@@ -37,7 +37,7 @@ export function useBillableOrdersTableColumns(
             type="checkbox"
             checked={allSelected}
             onChange={onToggleAll}
-            className="h-4 w-4 rounded border-slate-300 text-primary-color focus:ring-primary-color"
+            className="h-4 w-4 rounded border-slate-300 text-[#528DB5] focus:ring-[#528DB5]"
           />
         ),
         gridWidth: "minmax(3rem, 0.2fr)",
@@ -46,7 +46,7 @@ export function useBillableOrdersTableColumns(
             type="checkbox"
             checked={selectedIds.includes(row.id)}
             onChange={() => onToggle(row.id)}
-            className="h-4 w-4 rounded border-slate-300 text-primary-color focus:ring-primary-color"
+            className="h-4 w-4 rounded border-slate-300 text-[#528DB5] focus:ring-[#528DB5]"
           />
         ),
       },
@@ -107,13 +107,12 @@ export function useBillableOrdersTableColumns(
         cell: (row) => (
           <div className="flex items-center gap-1.5">
             <span
-              className={`h-2 w-2 rounded-full ${
-                row.days.dot === "green"
+              className={`h-2 w-2 rounded-full ${row.days.dot === "green"
                   ? "bg-green-500"
                   : row.days.dot === "orange"
-                  ? "bg-orange-500"
-                  : "bg-red-500"
-              }`}
+                    ? "bg-orange-500"
+                    : "bg-red-500"
+                }`}
             />
             <span className="text-xs font-medium text-[#606060]">{row.days.text}</span>
           </div>

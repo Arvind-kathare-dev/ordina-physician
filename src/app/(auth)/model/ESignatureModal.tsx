@@ -121,7 +121,7 @@ const XIcon = () => (
 // ─── Sign Bookmark Badge ─────────────────────────────────────────────────────
 
 const SignBadge = ({ size = "lg" }: { size?: "lg" | "sm" }) => {
-   const width = size === "lg" ? 48 : 38;
+  const width = size === "lg" ? 48 : 38;
   const height = size === "lg" ? 140 : 110;
 
   const centerX = width / 2;
@@ -157,7 +157,7 @@ const SignBadge = ({ size = "lg" }: { size?: "lg" | "sm" }) => {
       >
         <div className="w-full h-full flex items-center justify-center">
           <Image
-            src="/images/logo/eSign-logo.svg" 
+            src="/images/logo/eSign-logo.svg"
             alt="logo"
             width={logoSize}
             height={logoSize}
@@ -176,9 +176,8 @@ const SignBadge = ({ size = "lg" }: { size?: "lg" | "sm" }) => {
         fontStyle="italic"
         letterSpacing="1.2"
         textAnchor="middle"
-        transform={`rotate(-90, ${centerX}, ${
-          size === "lg" ? height - 35 : height - 28
-        })`}
+        transform={`rotate(-90, ${centerX}, ${size === "lg" ? height - 35 : height - 28
+          })`}
       >
         Sign
       </text>
@@ -248,7 +247,7 @@ const TabBar = ({ active, onChange }: TabBarProps) => (
           className={`flex flex-col items-center gap-1.5 pb-3 border-b-2 transition-all duration-200 -mb-px
             ${isActive ? "border-ordina-400 text-ordina-400" : "border-transparent text-gray-400 hover:text-ordina-400"}`}
         >
-          <Icon  />
+          <Icon />
           <span className="text-sm font-medium">{label}</span>
         </button>
       );
@@ -269,7 +268,7 @@ const FONT_STYLES = [
   { label: "Italic Serif", className: "font-['Georgia'] italic text-3xl" },
   { label: "Script", className: "font-['Brush_Script_MT','cursive'] text-3xl" },
   { label: "Bold", className: "font-bold text-2xl tracking-tight" },
-    {
+  {
     label: "Classic Italic",
     className: "font-['Georgia'] italic text-3xl tracking-wide",
   },
@@ -293,7 +292,7 @@ const FONT_STYLES = [
     label: "Strong Signature",
     className: "font-semibold italic text-2xl tracking-tight",
   },
-  
+
 
 ];
 
@@ -318,27 +317,27 @@ const TypeTab = ({
 
           {/* Input area */}
           <div className="flex-1 flex  border-b border-ordina-300">
-             <div className="flex items-center justify-center px-2 bg-white">
-            <SignBadge size="lg" />
-          </div>
-          <div className="w-full justify-end flex items-end">
-             <input
-              value={value}
-              onChange={(e) => onChange(e.target.value)}
-              placeholder="Type your signature Here"
-              className={`w-full bg-transparent p-2 outline-none text-slate-800 placeholder:text-slate-300 
+            <div className="flex items-center justify-center px-2 bg-white">
+              <SignBadge size="lg" />
+            </div>
+            <div className="w-full justify-end flex items-end">
+              <input
+                value={value}
+                onChange={(e) => onChange(e.target.value)}
+                placeholder="Type your signature Here"
+                className={`w-full bg-transparent p-2 outline-none text-slate-800 placeholder:text-slate-300 
                 ${FONT_STYLES[fontIdx].className}`}
-              style={{
-                fontFamily:
-                  fontIdx === 0
-                    ? "Georgia, serif"
-                    : fontIdx === 1
-                      ? "'Brush Script MT', cursive"
-                      : "inherit",
-              }}
-            />
-          </div>
-           
+                style={{
+                  fontFamily:
+                    fontIdx === 0
+                      ? "Georgia, serif"
+                      : fontIdx === 1
+                        ? "'Brush Script MT', cursive"
+                        : "inherit",
+                }}
+              />
+            </div>
+
           </div>
         </div>
 
@@ -402,7 +401,7 @@ const TypeTab = ({
           type="checkbox"
           checked={saveSignature}
           onChange={(e) => onSaveSignatureChange(e.target.checked)}
-          className="w-4 h-4 rounded border-slate-300 accent-[#4A90B8] cursor-pointer"
+          className="w-4 h-4 rounded border-slate-300 accent-[#528DB5] cursor-pointer"
         />
         <span className="text-sm text-slate-600">Save Signature</span>
       </label>
@@ -781,7 +780,7 @@ export default function ESignatureModal({ isOpen, onClose, onSave }: Props) {
              
             </button> */}
             <Button variant="primary" onClick={handleApplyNext}>
- {step === 1 ? "Apply & Next" : "Save"}
+              {step === 1 ? "Apply & Next" : "Save"}
             </Button>
           </div>
         </div>

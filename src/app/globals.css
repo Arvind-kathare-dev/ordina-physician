@@ -97,6 +97,11 @@ a {
 }
 }
 
+/* Global checkbox styling */
+input[type="checkbox"] {
+  accent-color: #528DB5;
+}
+
 /* For WebKit browsers (Chrome, Edge, Safari) */
 ::-webkit-scrollbar {
   width: 8px;

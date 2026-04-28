@@ -136,17 +136,17 @@ export default function NewFaxDialog({ open, onClose }: NewFaxDialogProps) {
             Fill recipient details, add a cover sheet, attach files and send or schedule.
           </p>
         </div>
-        
+
         {/* Main Content Area - Scrollable */}
         <div className="flex-1 overflow-y-auto bg-white">
           <div className="flex flex-col lg:flex-row gap-6 p-6">
-            
+
             {/* Form Section */}
             <div className="flex-1 space-y-6">
               {/* Recipient Details Section */}
               <section className="bg-white p-6 rounded-2xl border border-gray-100 shadow-md space-y-5">
                 <h3 className="text-sm font-semibold text-gray-400 uppercase tracking-wider">Recipient Details</h3>
-                
+
                 <div className="grid gap-5 md:grid-cols-2">
                   <div className="space-y-2">
                     <span className={LABEL_CLASS}>To Fax No.</span>
@@ -224,7 +224,7 @@ export default function NewFaxDialog({ open, onClose }: NewFaxDialogProps) {
               {/* Message & Content Section */}
               <section className="bg-white p-6 rounded-2xl border border-gray-100 shadow-md space-y-6">
                 <h3 className="text-sm font-semibold text-gray-400 uppercase tracking-wider">Fax Content</h3>
-                
+
                 <div className="space-y-2">
                   <label htmlFor="new-fax-subject" className={LABEL_CLASS}>
                     Subject <span className="text-red-500">*</span>
@@ -247,14 +247,14 @@ export default function NewFaxDialog({ open, onClose }: NewFaxDialogProps) {
                         type="checkbox"
                         checked={coverSheet}
                         onChange={(e) => setCoverSheet(e.target.checked)}
-                        className="size-5 rounded-md border-gray-300 text-[#5798B8] focus:ring-[#5798B8] transition-all cursor-pointer"
+                        className="size-5 rounded-md border-gray-300 text-[#528DB5] focus:ring-[#528DB5] transition-all cursor-pointer"
                       />
                     </div>
                     <span className="text-sm font-semibold text-gray-700 group-hover:text-gray-900 transition-colors">
                       Include cover sheet
                     </span>
                   </label>
-                  
+
                   {coverSheet && (
                     <div className="animate-in fade-in slide-in-from-top-2 duration-200">
                       <textarea
@@ -279,11 +279,10 @@ export default function NewFaxDialog({ open, onClose }: NewFaxDialogProps) {
                           key={tag}
                           type="button"
                           onClick={() => toggleTag(tag)}
-                          className={`px-4 py-1.5 rounded-full text-xs font-semibold transition-all ${
-                            isSelected 
-                              ? "bg-[#95DDFF4F] text-[#5599B8] shadow-sm" 
+                          className={`px-4 py-1.5 rounded-full text-xs font-semibold transition-all ${isSelected
+                              ? "bg-[#95DDFF4F] text-[#5599B8] shadow-sm"
                               : "bg-[#FAFBFC] text-gray-400 border border-gray-100 hover:bg-[#95DDFF4F] hover:text-[#5599B8]"
-                          }`}
+                            }`}
                         >
                           {tag}
                         </button>
@@ -296,7 +295,7 @@ export default function NewFaxDialog({ open, onClose }: NewFaxDialogProps) {
               {/* Attachments & Scheduling Section */}
               <section className="bg-white p-6 rounded-2xl border border-gray-100 shadow-md space-y-6">
                 <h3 className="text-sm font-semibold text-gray-400 uppercase tracking-wider">Attachments & Schedule</h3>
-                
+
                 <div className="relative group">
                   <input
                     ref={fileInputRef}
@@ -321,14 +320,14 @@ export default function NewFaxDialog({ open, onClose }: NewFaxDialogProps) {
                     </p>
                     <p className="text-xs text-[#579EBA] mt-1">or click to <span className="font-medium text-[#579EBA]">Browse file</span></p>
                   </button>
-                  
+
                   {files.length > 0 && (
                     <div className="mt-4 grid grid-cols-2 sm:grid-cols-3 gap-3">
                       {files.map((file, i) => (
                         <div key={i} className="flex items-center gap-2 p-2 bg-gray-50 rounded-lg border border-gray-100 text-xs text-gray-600">
                           <div className="truncate flex-1">{file.name}</div>
-                          <button 
-                            type="button" 
+                          <button
+                            type="button"
                             onClick={() => setFiles(prev => prev.filter((_, idx) => idx !== i))}
                             className="text-red-400 hover:text-red-600"
                           >
@@ -376,7 +375,7 @@ export default function NewFaxDialog({ open, onClose }: NewFaxDialogProps) {
                   <h3 className="text-lg font-bold mb-4 flex items-center gap-2 text-black">
                     Preview
                   </h3>
-                  
+
                   <dl className="text-sm mt-4">
                     <div className="flex justify-between items-center py-4 border-t border-gray-200">
                       <dt className="text-gray-600">To</dt>
@@ -418,7 +417,7 @@ export default function NewFaxDialog({ open, onClose }: NewFaxDialogProps) {
             <CiBookmark className="size-5 text-[#686464]" aria-hidden />
             Save as Draft
           </button>
-          
+
           <div className="flex items-center justify-end gap-3">
             <button
               type="button"

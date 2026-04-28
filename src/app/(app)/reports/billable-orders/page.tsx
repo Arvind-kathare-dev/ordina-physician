@@ -469,7 +469,7 @@ export default function BillableOrdersPage() {
               id="select-all-billers"
               checked={true}
               readOnly
-              className="h-4 w-4 rounded border-slate-300 accent-primary-color"
+              className="h-4 w-4 rounded border-slate-300 accent-[#528DB5]"
             />
             <label htmlFor="select-all-billers" className="text-sm font-medium text-primary-title cursor-pointer">
               Select all in selection
@@ -492,7 +492,7 @@ export default function BillableOrdersPage() {
                   type="checkbox"
                   checked={true}
                   readOnly
-                  className="h-4 w-4 rounded border-slate-300 accent-primary-color"
+                  className="h-4 w-4 rounded border-slate-300 accent-[#528DB5]"
                 />
                 <div>
                   <div className="text-sm font-medium text-primary-title">

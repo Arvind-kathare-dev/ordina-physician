@@ -55,11 +55,11 @@ const Navbar = () => {
 
             {/* SETTINGS */}
             <Link href="/settings">
-            <div className="hidden sm:flex w-9 h-9 items-center justify-center rounded-full bg-gray-100 hover:bg-gray-200 cursor-pointer transition">
-              ⚙️
-            </div>
+              <div className="hidden sm:flex w-9 h-9 items-center justify-center rounded-full bg-gray-100 hover:bg-gray-200 cursor-pointer transition">
+                ⚙️
+              </div>
             </Link>
-            
+
 
             {/* USER */}
             <div className="flex items-center gap-2 cursor-pointer">
@@ -68,7 +68,7 @@ const Navbar = () => {
               </div>
 
               <span className="hidden sm:block text-sm font-medium text-gray-700">
-                William Christiana 
+                William Christiana
               </span>
 
               <svg

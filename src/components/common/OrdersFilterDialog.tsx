@@ -35,7 +35,7 @@ const FILTER_DIALOG_PANEL_CLASS =
   "w-full max-w-[min(100%,calc(100vw-1.5rem))] md:max-w-md lg:max-w-lg xl:max-w-xl 2xl:max-w-2xl min-[1920px]:max-w-3xl";
 
 const CHECKBOX_CLASS =
-  "h-4 w-4 shrink-0 rounded-xl border-slate-300 accent-blue-600 focus:ring-2 focus:ring-blue-500/25";
+  "h-4 w-4 shrink-0 rounded-xl border-slate-300 accent-[#528DB5] focus:ring-2 focus:ring-[#528DB5]/25";
 
 function getSectionIdsForAggregate(section: MainFilterSection): string[] {
   const all = collectAllOptionIdsForSection(section);
@@ -332,10 +332,10 @@ export default function OrdersFilterDialog({
               {hasKids
                 ? renderOrderTypeNodes(item.children!)
                 : hasPlaceholder ? (
-                    <p className="py-2 pl-1 text-[12px] leading-snug text-slate-500 md:text-xs">
-                      {item.emptyExpandMessage}
-                    </p>
-                  ) : null}
+                  <p className="py-2 pl-1 text-[12px] leading-snug text-slate-500 md:text-xs">
+                    {item.emptyExpandMessage}
+                  </p>
+                ) : null}
             </div>
           ) : null}
         </div>
@@ -524,13 +524,12 @@ function MainFilterBlock({
                   aria-label={`Select all ${section.label}`}
                 />
                 <span
-                  className={`flex h-4 w-4 shrink-0 items-center justify-center rounded-xl border transition-colors ${
-                    sectionFullySelected
+                  className={`flex h-4 w-4 shrink-0 items-center justify-center rounded-xl border transition-colors ${sectionFullySelected
                       ? "border-blue-600 bg-blue-600"
                       : sectionPartiallySelected && !sectionFullySelected
                         ? "border-blue-500 bg-blue-50"
                         : "border-slate-300 bg-white"
-                  }`}
+                    }`}
                   aria-hidden
                 >
                   {sectionFullySelected ? (
