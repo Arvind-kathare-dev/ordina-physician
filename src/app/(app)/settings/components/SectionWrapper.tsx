@@ -25,7 +25,7 @@ export default function SectionWrapper({
   const [isOpen, setIsOpen] = useState(true);
 
   return (
-    <div className="p-4 sm:p-5 rounded-[20px] border border-gray-200 mx-0 sm:mx-6 mb-6 bg-white overflow-hidden transition-all duration-300">
+    <div className="p-4 sm:p-5 rounded-[20px] border border-gray-200 mx-0 sm:mx-6 mb-6 bg-white overflow-visible transition-all duration-300">
       <div className={`flex flex-col sm:flex-row items-center justify-between gap-4 ${isOpen ? 'mb-6' : 'mb-0'}`}>
         <div className="flex items-center gap-3">
           <div className="w-12 h-12 bg-gray-100 rounded-xl flex items-center justify-center shrink-0">
@@ -62,7 +62,7 @@ export default function SectionWrapper({
         className={`grid transition-all duration-300 ease-in-out ${isOpen ? "grid-rows-[1fr] opacity-100 mt-0" : "grid-rows-[0fr] opacity-0"
           }`}
       >
-        <div className="min-w-0 overflow-hidden">
+        <div className="min-w-0 overflow-visible">
           {children}
         </div>
       </div>

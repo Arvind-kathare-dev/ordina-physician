@@ -170,7 +170,7 @@ export default function Header() {
         >
           <div className="header-nav-scroll  scroll-smooth  flex justify-end items-start">
             <div className=" flex w-max flex-nowrap items-center gap-[10px] px-0.5 py-0.5">
-             
+
               {NAV_ITEMS.map((item) => (
                 <NavButton
                   key={item.href}
@@ -242,7 +242,7 @@ export default function Header() {
             )}
           </div>
 
-          <div className="relative" ref={profileRef}>
+          <div className="relative ml-3" ref={profileRef}>
             <button
               type="button"
               className="flex max-w-[200px] items-center gap-1.5"
