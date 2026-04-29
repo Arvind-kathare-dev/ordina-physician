@@ -12,6 +12,7 @@ export interface Order {
   orderReceived: string;
   tags?: string[];
   labels?: { text: string; color: string }[];
+  bellUrgent?: boolean;
 }
 
 export interface OrderState {

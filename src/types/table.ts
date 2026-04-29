@@ -26,6 +26,7 @@ export interface Column<T> {
   key: string;
   header: string;
   accessor?: keyof T;
+  gridWidth?: string;
   render: (row: T) => React.ReactNode;
 }
 

@@ -45,6 +45,7 @@ export const orders: Order[] = [
     orderReceived: "Today | 09:00 AM",
     tags: ["Outbound"],
     day: "7 Days",
+    bellUrgent: true,
   },
   {
     id: 4,

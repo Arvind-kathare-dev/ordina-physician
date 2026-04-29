@@ -28,6 +28,7 @@ export const getFaxColumns = (activeTab:number): Column<Fax>[] => {
   const faxColumn: Column<Fax> = {
     key: "fax",
     header: "Fax No.",
+    gridWidth: "100px",
     render: (row) => (
       <span className="text-sm text-grayCustom-600">
         {row.faxNo ?? "-"}
@@ -38,6 +39,7 @@ export const getFaxColumns = (activeTab:number): Column<Fax>[] => {
   const fromColumn: Column<Fax> = {
     key: "from",
     header: "From",
+    gridWidth: "minmax(100px, 1fr)",
     render: (row) => (
       <span className="text-sm text-grayCustom-600">
         {row.from ?? "-"}
@@ -48,6 +50,7 @@ export const getFaxColumns = (activeTab:number): Column<Fax>[] => {
   const toColumn: Column<Fax> = {
     key: "to",
     header: "To",
+    gridWidth: "minmax(100px, 1fr)",
     render: (row) => (
       <span className="text-sm text-grayCustom-600">
         {row.to ?? "-"}
@@ -58,6 +61,7 @@ export const getFaxColumns = (activeTab:number): Column<Fax>[] => {
   const subjectColumn: Column<Fax> = {
     key: "subject",
     header: "Subject",
+    gridWidth: "minmax(100px, 1fr)",
     render: (row) => (
       <span className="text-sm text-grayCustom-600">
         {row.subject ?? "-"}
@@ -68,6 +72,7 @@ export const getFaxColumns = (activeTab:number): Column<Fax>[] => {
   const statusColumn: Column<Fax> = {
     key: "status",
     header: "Status",
+    gridWidth: "90px",
     render: (row) => (
       <span className="flex items-center gap-2 text-sm">
         <span
@@ -87,6 +92,7 @@ export const getFaxColumns = (activeTab:number): Column<Fax>[] => {
   const labelColumn: Column<Fax> = {
     key: "label",
     header: "Label",
+    gridWidth: "80px",
     render: (row) => (
       <span
         className={`
@@ -102,6 +108,7 @@ export const getFaxColumns = (activeTab:number): Column<Fax>[] => {
   const timeColumn: Column<Fax> = {
     key: "time",
     header: "Time",
+    gridWidth: "110px",
     render: (row) => (
       <span className="text-sm text-grayCustom-600">
         {row.time ?? "-"}
@@ -112,6 +119,7 @@ export const getFaxColumns = (activeTab:number): Column<Fax>[] => {
   const actionsColumn: Column<Fax> = {
     key: "actions",
     header: "Actions",
+    gridWidth: "150px",
     render: (row) => <FaxActionsCell row={row} />,
   };
 

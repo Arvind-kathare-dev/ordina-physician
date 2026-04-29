@@ -8,12 +8,57 @@ import { SectionWrapperBox } from "../SectionWrapperBox";
 import { LOCATIONS } from "../../constant/vendorOptions";
 
 export const InformationSection = () => {
-  const [role, setRole] = useState<string>("");
+  const initialData = {
+    fullName: "",
+    role: "",
+    email: "",
+    phone: "",
+    license: "",
+    sigMethod: "",
+    practice: "",
+    timezone: "",
+    city: "",
+    state: "",
+  };
+
+  const [formData, setFormData] = useState(initialData);
+
+  const handleChange = (field: string, value: string) => {
+    setFormData((prev) => {
+      const newData = { ...prev, [field]: value };
+      
+      // Auto-fill city/state if timezone changes
+      if (field === "timezone") {
+        const found = LOCATIONS.find((l) => l.value === value);
+        if (found) {
+          newData.city = found.city || prev.city;
+          newData.state = found.state || prev.state;
+        }
+      }
+      
+      return newData;
+    });
+  };
+
+  const handleReset = () => {
+    setFormData(initialData);
+  };
+
+  const isFormValid = () => {
+    return (
+      !!formData.fullName &&
+      !!formData.role &&
+      !!formData.email &&
+      !!formData.sigMethod &&
+      !!formData.practice &&
+      !!formData.timezone &&
+      !!formData.city
+    );
+  };
 
   return (
     <SectionWrapperBox title="Information" group="Profile">
       {/* Information */}
-
       <SectionWrapper
         title="Information"
         description="Your account info used in ordina"
@@ -25,6 +70,8 @@ export const InformationSection = () => {
             name="fullName"
             type="text"
             required
+            value={formData.fullName}
+            onChange={(e) => handleChange("fullName", e.target.value)}
             placeholder="Dr. John Doe"
           />
 
@@ -32,8 +79,8 @@ export const InformationSection = () => {
             label="Role"
             required
             placeholder="Select Role"
-            value={role}
-            onChange={setRole}
+            value={formData.role}
+            onChange={(val) => handleChange("role", val)}
             options={[
               { label: "Physician", value: "physician" },
               { label: "Therapist", value: "therapist" },
@@ -50,6 +97,8 @@ export const InformationSection = () => {
             name="email"
             type="email"
             required
+            value={formData.email}
+            onChange={(e) => handleChange("email", e.target.value)}
             placeholder="doctor@proactive.com"
           />
 
@@ -57,6 +106,8 @@ export const InformationSection = () => {
             label=" Phone (Optional)"
             name="phone"
             type="tel"
+            value={formData.phone}
+            onChange={(e) => handleChange("phone", e.target.value)}
             placeholder="+1"
           />
         </div>
@@ -66,6 +117,8 @@ export const InformationSection = () => {
             label="State license number"
             name="license"
             type="text"
+            value={formData.license}
+            onChange={(e) => handleChange("license", e.target.value)}
             placeholder="License#"
           />
 
@@ -73,9 +126,10 @@ export const InformationSection = () => {
             label="Create e-signature & initial"
             required
             placeholder="Select e-signature"
-            value={role}
-            onChange={setRole}
+            value={formData.sigMethod}
+            onChange={(val) => handleChange("sigMethod", val)}
             options={[
+              { label: "Signature", value: "signature" },
               { label: "Initial", value: "initial" },
               { label: "Both signature and initial", value: "both" },
             ]}
@@ -86,6 +140,7 @@ export const InformationSection = () => {
           This information helps agencies identify the signing provider and route order updates to the right inbox.
         </p>
       </SectionWrapper>
+
       {/* Practice Details */}
       <SectionWrapper
         title="Practice Details"
@@ -99,6 +154,8 @@ export const InformationSection = () => {
               name="practice"
               type="text"
               required
+              value={formData.practice}
+              onChange={(e) => handleChange("practice", e.target.value)}
               placeholder="e.g. Medical Group"
             />
 
@@ -106,8 +163,8 @@ export const InformationSection = () => {
               label="Timezone"
               required
               placeholder="Select Timezone"
-              value={role}
-              onChange={setRole}
+              value={formData.timezone}
+              onChange={(val) => handleChange("timezone", val)}
               options={LOCATIONS}
             />
           </div>
@@ -118,18 +175,26 @@ export const InformationSection = () => {
               name="city"
               type="text"
               required
+              value={formData.city}
+              onChange={(e) => handleChange("city", e.target.value)}
               placeholder="Los Angeles"
             />
 
-            <Input label="State" name="state" type="text" placeholder="CA" />
+            <Input
+              label="State"
+              name="state"
+              type="text"
+              value={formData.state}
+              onChange={(e) => handleChange("state", e.target.value)}
+              placeholder="CA"
+            />
           </div>
 
           <p className="text-[13px] text-gray-400 ">
             Practice details appear on order documents and help agencies validate the request.
           </p>
         </div>
-        <ActionButtons />
-
+        <ActionButtons onReset={handleReset} isSaveDisabled={!isFormValid()} />
       </SectionWrapper>
     </SectionWrapperBox>
   );

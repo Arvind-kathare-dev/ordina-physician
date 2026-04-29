@@ -86,55 +86,44 @@ export default function EfaxModal({ isOpen, onClose, onSave }: Props) {
 
   return (
     <div
-      className="fixed inset-0 bg-black/40 flex items-start justify-center z-50 p-4 overflow-y-auto"
+      className="fixed inset-0 bg-black/40 flex items-center justify-center z-50 p-4 sm:p-6"
       onClick={(e) => { if (e.target === e.currentTarget) handleClose(); }}
     >
       <div
-        className="bg-white w-full max-w-[886px] rounded-2xl shadow-2xl my-8"
+        className="bg-white w-full max-w-2xl rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[95vh]"
         role="dialog"
         aria-modal="true"
         aria-labelledby="efax-modal-title"
       >
         {/* Header */}
-        <div className="flex items-start justify-between px-6 pt-6 pb-4">
+        <div className="flex items-start justify-between px-4 sm:px-8 pt-6 pb-4 border-b border-gray-50">
           <div>
-            <h2 id="efax-modal-title" className="text-lg font-semibold text-gray-900 leading-snug">
+            <h2 id="efax-modal-title" className="text-xl font-bold text-gray-900 leading-snug">
               Set up primary eFax
             </h2>
-            <p className="text-sm text-gray-500 mt-0.5">
+            <p className="text-sm text-gray-500 mt-1">
               Choose an existing fax number or get a new one, then verify with a test fax.
             </p>
           </div>
-          <button onClick={handleClose} aria-label="Close" className="text-gray-400 hover:text-gray-600 transition-colors mt-0.5 ml-4 shrink-0">
+          <button onClick={handleClose} aria-label="Close" className="p-2 -mr-2 text-gray-400 hover:text-gray-600 transition-colors shrink-0">
             <CloseIcon />
           </button>
-
         </div>
 
         {/* Body */}
-        <div className="px-6 pb-6 flex flex-col gap-4">
+        <div className="px-4 sm:px-8 py-6 flex-1 overflow-y-auto flex flex-col gap-5">
 
           {/* Step 1 */}
           <SectionCard>
-            <div className="flex items-center justify-between mb-4">
-              <div className="flex items-center gap-2">
+            <div className="flex items-center justify-between mb-5">
+              <div className="flex items-center gap-2.5">
                 <RadioChecked />
-                <span className="text-sm font-semibold text-gray-800">Use existing eFax number</span>
+                <span className="text-[15px] font-bold text-gray-800">Use existing eFax number</span>
               </div>
               <StepBadge label="Step 1" />
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-3">
-              {/* <div className="flex flex-col gap-1.5">
-                <label className="text-sm font-medium text-gray-700">Fax number</label>
-                <input
-                  type="tel"
-                  value={faxNumber}
-                  onChange={(e) => setFaxNumber(e.target.value)}
-                  placeholder="eg. +1 212 565 0125"
-                  className="border border-gray-200 rounded-lg px-3 py-2.5 text-sm text-gray-700 placeholder:text-gray-300 outline-none focus:ring-2 focus:ring-[#4A90B8]/30 focus:border-[#4A90B8] transition-all"
-                />
-              </div> */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-2">
               <Input
                 label="Fax number"
                 type="tel"
@@ -144,18 +133,6 @@ export default function EfaxModal({ isOpen, onClose, onSave }: Props) {
                 required
                 fullWidth
               />
-              {/* <div className="flex flex-col gap-1.5">
-                <label className="text-sm font-medium text-gray-700">
-                  Label <span className="text-gray-400 font-normal">(optional)</span>
-                </label>
-                <input
-                  type="text"
-                  value={label}
-                  onChange={(e) => setLabel(e.target.value)}
-                  placeholder="eg. Main clinic fax"
-                  className="border border-gray-200 rounded-lg px-3 py-2.5 text-sm text-gray-700 placeholder:text-gray-300 outline-none focus:ring-2 focus:ring-[#4A90B8]/30 focus:border-[#4A90B8] transition-all"
-                />
-              </div> */}
               <Input
                 label="Label (optional)"
                 type="text"
@@ -167,22 +144,22 @@ export default function EfaxModal({ isOpen, onClose, onSave }: Props) {
               />
             </div>
 
-            <p className="text-xs text-gray-400">We&apos;ll send a test fax to verify this line.</p>
+            <p className="text-xs text-gray-400 mt-2">We&apos;ll send a test fax to verify this line.</p>
           </SectionCard>
 
           {/* Step 2 */}
           <SectionCard>
-            <div className="flex items-center justify-between mb-1">
-              <span className="text-sm font-semibold text-gray-800">Verification</span>
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-[15px] font-bold text-gray-800">Verification</span>
               <StepBadge label="Step 2" />
             </div>
-            <p className="text-sm text-gray-500 mb-4">We will send a test fax. Confirm once received.</p>
+            <p className="text-sm text-gray-500 mb-5">We will send a test fax. Confirm once received.</p>
 
             <button
               type="button"
               onClick={handleSendTestFax}
               disabled={!faxNumber.trim() || isSending || verificationState === "confirmed"}
-              className="w-full py-3 rounded-lg text-sm font-semibold text-white transition-all duration-200 mb-3 disabled:opacity-60 disabled:cursor-not-allowed"
+              className="w-full py-3.5 rounded-xl text-sm font-bold text-white transition-all duration-200 mb-4 disabled:opacity-60 disabled:cursor-not-allowed shadow-sm hover:shadow-md"
               style={{
                 background: verificationState === "confirmed"
                   ? "#319F43"
@@ -196,11 +173,11 @@ export default function EfaxModal({ isOpen, onClose, onSave }: Props) {
               type="button"
               onClick={handleConfirm}
               disabled={verificationState !== "sent"}
-              className={`w-full border border-ordinaBorder-300 rounded-lg px-4 py-3 text-sm text-left transition-all duration-200 
+              className={`w-full border rounded-xl px-5 py-4 text-sm text-left transition-all duration-200 
                 ${confirmed
-                  ? "border-primary bg-[#4A90B8]/5 text-primary font-medium"
+                  ? "border-blue-500 bg-blue-50/30 text-blue-700 font-bold"
                   : verificationState === "sent"
-                    ? "border-gray-200 bg-white text-gray-600 hover:border-[#4A90B8]/50 cursor-pointer"
+                    ? "border-gray-200 bg-white text-gray-700 hover:border-blue-400 cursor-pointer shadow-sm"
                     : "border-gray-200 bg-white text-gray-300 cursor-not-allowed"}`}
             >
               {confirmed ? "✓ I received the test fax" : "I received the test fax"}
@@ -208,23 +185,23 @@ export default function EfaxModal({ isOpen, onClose, onSave }: Props) {
           </SectionCard>
 
           {/* Fallback info */}
-          <div className="input-border border-dashed  rounded-md px-5 py-4 ">
+          <div className="input-border border-dashed border-gray-200 bg-gray-50/30 rounded-xl px-6 py-5">
             <p className="text-sm text-gray-500 leading-relaxed">
-              <span className="font-medium text-gray-600">Fallback logic:</span>{" "}
-              If primary fails, Ordina retries once, then uses secondary (if configured).
+              <span className="font-bold text-gray-700">Fallback logic:</span>{" "}
+              If primary fails, Ordina Health retries once, then uses secondary (if configured).
             </p>
           </div>
         </div>
 
         {/* Footer */}
-        <div className="flex items-center justify-end gap-3 px-6 py-4 border-t border-gray-100">
+        <div className="flex flex-col sm:flex-row items-center justify-end gap-3 px-4 sm:px-8 py-5 border-t border-gray-100 bg-gray-50/20">
 
-          <Button variant="secondary" size="base" onClick={handleClose}>
+          <Button variant="secondary" size="base" className="w-full sm:w-auto" onClick={handleClose}>
             Cancel
           </Button>
 
           <Button variant="primary" onClick={handleSave}
-            disabled={!confirmed} size="base" >
+            disabled={!confirmed} size="base" className="w-full sm:w-auto">
             Save eFax
           </Button>
         </div>

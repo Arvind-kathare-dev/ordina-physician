@@ -62,7 +62,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
                         onFocus={() => setIsFocused(true)}
                         onBlur={() => setIsFocused(false)}
                         className={`
-              w-full input-padding rounded-md border border-ordinaBorder-300 text-gray-400 placeholder:text-gray-400
+              w-full input-padding rounded-md border border-ordinaBorder-300 text-gray-900 placeholder:text-gray-400
               transition-all duration-200 outline-none
               bg-white
               ${leftIcon ? 'pl-10' : ''}

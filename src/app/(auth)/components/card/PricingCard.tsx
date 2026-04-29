@@ -1,21 +1,36 @@
 import { CheckIcon } from "lucide-react";
 import { PricingPlan } from "../../types/subscription.types";
 
-export const PricingCard: React.FC<{ plan: PricingPlan }> = ({ plan }) => {
+export const PricingCard: React.FC<{ 
+  plan: PricingPlan; 
+  isSelected?: boolean; 
+  onSelect?: (name: string) => void;
+}> = ({ plan, isSelected, onSelect }) => {
   const isStandard = plan.type === "standard";
   const isEnterprise = plan.type === "enterprise";
 
+  const getSelectionStyles = () => {
+    if (!isSelected) return "border-gray-200 shadow-sm hover:shadow-md";
+    
+    if (plan.badgeColor.includes("purple")) {
+      return "border-purple-500 shadow-[0_0_30px_rgba(168,85,247,0.25)] scale-[1.03] bg-purple-50/20";
+    }
+    if (plan.badgeColor.includes("green")) {
+      return "border-green-500 shadow-[0_0_30px_rgba(34,197,94,0.25)] scale-[1.03] bg-green-50/20";
+    }
+    return "border-blue-600 shadow-[0_0_30px_rgba(37,99,235,0.25)] scale-[1.03] bg-blue-50/20";
+  };
+
   return (
     <div
-      className={`relative max-h-[420px] bg-white rounded-2xl border p-4 flex flex-col gap-4   transition-all duration-300
-      ${
-        "highlight" in plan && plan.highlight
-          ? "border-ordina-300 shadow-lg scale-[1.02]"
-          : "border-gray-200 shadow-sm hover:shadow-md"
-      }`}
+      onClick={() => onSelect?.(plan.name)}
+      className={`relative h-[420px] bg-white rounded-2xl border-2 p-5 flex flex-col gap-4 cursor-pointer transition-all duration-500 ease-in-out
+      ${getSelectionStyles()}
+      ${!isSelected && "highlight" in plan && plan.highlight ? "border-ordina-300 shadow-lg scale-[1.02]" : ""}
+      `}
     >
       {/* 🔥 Highlight Badge */}
-      {"highlight" in plan && plan.highlight && (
+      {("highlight" in plan && plan.highlight) && (
         <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-blue-600 text-white text-xs font-semibold px-3 py-1 rounded-full">
           Most Popular
         </div>
@@ -98,21 +113,6 @@ export const PricingCard: React.FC<{ plan: PricingPlan }> = ({ plan }) => {
           </li>
         ))}
       </ul>
-
-      {/* ========================= */}
-      {/* CTA BUTTON */}
-      {/* ========================= */}
-
-      {/* <button
-        className={`mt-auto w-full rounded-xl py-2.5 text-sm font-semibold transition
-        ${
-          isStandard
-            ? "bg-gray-900 text-white hover:bg-gray-800"
-            : "bg-blue-600 text-white hover:bg-blue-700"
-        }`}
-      >
-        {isStandard ? "Get Started" : "Contact Sales"}
-      </button> */}
     </div>
   );
-};
+};

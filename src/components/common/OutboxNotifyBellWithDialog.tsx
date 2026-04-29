@@ -49,12 +49,12 @@ function ChatMessageBlock({
       <p className={`text-[11px] font-semibold uppercase tracking-wide ${labelClass}`}>
         {sender}
       </p>
-    <div
-      className={`border-l-[2px] ${borderClass} pl-3 py-1`}
-      aria-hidden
+      <div
+        className={`border-l-[2px] ${borderClass} pl-3 py-1`}
+        aria-hidden
       >
-      <p className="text-[13px] leading-snug text-[#333333]">{text}</p>
-    </div>
+        <p className="text-[13px] leading-snug text-[#333333]">{text}</p>
+      </div>
     </div>
   );
 }
@@ -109,14 +109,14 @@ export default function OutboxNotifyBellWithDialog({
     <>
       <button
         type="button"
-        className="rounded-md cursor-pointer"
+        className="rounded-md cursor-pointer p-0.5"
         aria-label="Notify"
         aria-haspopup="dialog"
         aria-expanded={open}
         onClick={() => setOpen(true)}
       >
         <HiOutlineBell
-          className={`h-5 w-5 ${urgent ? "text-[#E33629]" : "text-[#528DB5]"}`}
+          className={`h-[18px] w-[18px] ${urgent ? "text-[#E33629]" : "text-[#528DB5]"}`}
         />
       </button>
 
@@ -168,7 +168,7 @@ export default function OutboxNotifyBellWithDialog({
                       while sending out a reminder.
                     </p>
                   </div>
-                 <Image src={urgentBellImage} alt="Urgent" className="h-10 w-10 object-contain" />  
+                  <Image src={urgentBellImage} alt="Urgent" className="h-10 w-10 object-contain" />
                 </div>
               </div>
             </header>

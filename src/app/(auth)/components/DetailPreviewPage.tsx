@@ -1,107 +1,82 @@
 "use client";
 
-// ─── Types ───────────────────────────────────────────────────────────────────
-
-interface DetailField {
-  label: string;
-  value: React.ReactNode;
-}
-
 interface DetailSectionProps {
   title: string;
-  fields: DetailField[][];  // each inner array = one row (1 or 2 columns)
+  fields: { label: string; value: React.ReactNode }[][];
 }
 
-// ─── Data ─────────────────────────────────────────────────────────────────────
-
-const sections: DetailSectionProps[] = [
-  {
-    title: "CREDENTIALS",
-    fields: [
-      [{ label: "PECOS", value: "PECOS" }],
-    ],
-  },
-  {
-    title: "INFORMATION",
-    fields: [
-      [
-        { label: "State license number", value: "JH0865523" },
-        {
-          label: "Create e-signature & Initial",
-          value: "SIGNATURE", // special render
-        },
-      ],
-    ],
-  },
-  {
-    title: "PERSONAL INFORMATION",
-    fields: [
-      [
-        { label: "Full Name", value: "Dr. John Doe" },
-        { label: "Role", value: "Physician" },
-      ],
-      [
-        { label: "Email", value: "drjohn.doe@gmail.com" },
-        { label: "Phone (Optional)", value: "+1" },
-      ],
-    ],
-  },
-  {
-    title: "PRACTICE DETAILS",
-    fields: [
-      [
-        { label: "Practice / organization name", value: "Medical Group" },
-        { label: "Timezone", value: "San Diego, CA, USA (GMT-8)" },
-      ],
-      [
-        { label: "City", value: "Los Angeles" },
-        { label: "State", value: "CA" },
-      ],
-    ],
-  },
-  {
-    title: "ORDER DELIVERY PREFERENCE",
-    fields: [
-      [
-        { label: "Primary Email", value: "michael.anderson.us@gmail.com" },
-        { label: "Notify on delivery failure", value: "No" },
-      ],
-    ],
-  },
-];
+interface DetailPreviewPageProps {
+  data: {
+    pecos: { enrollmentId: string };
+    information: {
+      fullName: string;
+      email: string;
+      phone: string;
+      role: string;
+      licenseNumber: string;
+      eSignature: string;
+      eSignatureName: string;
+      organizationName: string;
+      city: string;
+      timeZone: string;
+      state: string;
+    };
+    orderDelivery: {
+      preferredMethod: string;
+      email: string;
+      faxNumber: string;
+      deliveryTime: string;
+      notifyFailureRole: string;
+    };
+    integration: {
+      ehrSystem: string;
+      apiKey: string;
+      webhookUrl: string;
+    };
+  };
+}
 
 // ─── Signature SVG (cursive handwriting style) ────────────────────────────────
 
-const SignatureDisplay = () => (
-  <svg
-    width="120"
-    height="40"
-    viewBox="0 0 120 40"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    className="mt-1"
-  >
-    <path
-      d="M8 28 C12 10, 18 8, 22 18 C26 28, 28 14, 34 16 C40 18, 38 26, 44 22
-         C50 18, 52 10, 58 14 C64 18, 62 28, 68 24 C74 20, 76 16, 82 20
-         C88 24, 86 30, 94 26 C100 23, 104 20, 112 22"
-      stroke="#1a1a1a"
-      strokeWidth="1.5"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      fill="none"
-    />
-  </svg>
-);
+const SignatureDisplay = ({ value, printedName }: { value: string; printedName?: string }) => {
+  const isImage = value && (value.startsWith("data:image/") || value.startsWith("blob:"));
+  
+  return (
+    <div className="flex flex-col mt-1 min-h-[40px] justify-center">
+      {isImage ? (
+        <img 
+          src={value} 
+          alt="User Signature" 
+          className="max-h-12 w-fit object-contain border-b border-gray-100 pb-1" 
+        />
+      ) : (
+        <span 
+          className="text-2xl text-gray-800 italic leading-none"
+          style={{ fontFamily: "'Brush Script MT', cursive, sans-serif" }}
+        >
+          {value || "No signature"}
+        </span>
+      )}
+      <div className="flex flex-col mt-1">
+        <span className="text-[10px] text-gray-400 italic uppercase tracking-tight">
+          {isImage ? "Digitally Signed" : "E-Signature"}
+        </span>
+        {printedName && (
+          <span className="text-sm font-semibold text-gray-800 mt-0.5">{printedName}</span>
+        )}
+      </div>
+    </div>
+  );
+};
 
 // ─── Integration Row ──────────────────────────────────────────────────────────
 
-const IntegrationRow = () => (
+const IntegrationRow = ({ ehrSystem }: { ehrSystem: string }) => (
   <div className="flex items-center gap-2">
     <span className="w-2.5 h-2.5 rounded-full bg-green-500 shrink-0" />
     <span className="text-sm font-medium text-gray-600">Connected</span>
     <div className="flex items-center gap-0.5 ml-1">
-      <span className="text-sm font-semibold text-gray-600">NextGen</span>
+      <span className="text-sm font-semibold text-gray-600 capitalize">{ehrSystem || "None"}</span>
       <svg
         width="20"
         height="20"
@@ -123,14 +98,14 @@ const IntegrationRow = () => (
 
 // ─── Field ────────────────────────────────────────────────────────────────────
 
-const Field = ({ label, value }: DetailField) => (
+const Field = ({ label, value }: { label: string; value: React.ReactNode }) => (
   <div className="flex flex-col gap-0.5">
     <span className="text-xs text-gray-400 font-normal leading-snug">{label}</span>
-    {value === "SIGNATURE" ? (
-      <SignatureDisplay />
+    {label.toLowerCase().includes("signature") ? (
+      <div className="mt-1">{value}</div>
     ) : (
       <span className="text-sm font-semibold text-gray-600 leading-snug">
-        {value}
+        {value || "N/A"}
       </span>
     )}
   </div>
@@ -167,18 +142,74 @@ const DetailSection = ({ title, fields }: DetailSectionProps) => (
 
 // ─── Integration Section ──────────────────────────────────────────────────────
 
-const IntegrationSection = () => (
+const IntegrationSection = ({ ehrSystem }: { ehrSystem: string }) => (
   <div className="py-6">
     <p className="text-xs font-semibold tracking-widest text-[#4A90B8] uppercase mb-4">
       INTEGRATION
     </p>
-    <IntegrationRow />
+    <IntegrationRow ehrSystem={ehrSystem} />
   </div>
 );
 
 // ─── Main Page ────────────────────────────────────────────────────────────────
 
-export default function DetailPreviewPage() {
+export default function DetailPreviewPage({ data }: DetailPreviewPageProps) {
+  const sections = [
+    {
+      title: "CREDENTIALS",
+      fields: [
+        [{ label: "PECOS", value: data.pecos.enrollmentId }],
+      ],
+    },
+    {
+      title: "INFORMATION",
+      fields: [
+        [
+          { label: "State license number", value: data.information.licenseNumber },
+          {
+            label: "Create e-signature & Initial",
+            value: <SignatureDisplay value={data.information.eSignature} printedName={data.information.eSignatureName} />, 
+          },
+        ],
+      ],
+    },
+    {
+      title: "PERSONAL INFORMATION",
+      fields: [
+        [
+          { label: "Full Name", value: data.information.fullName },
+          { label: "Role", value: data.information.role },
+        ],
+        [
+          { label: "Email", value: data.information.email },
+          { label: "Phone (Optional)", value: data.information.phone },
+        ],
+      ],
+    },
+    {
+      title: "PRACTICE DETAILS",
+      fields: [
+        [
+          { label: "Practice / organization name", value: data.information.organizationName },
+          { label: "Timezone", value: data.information.timeZone },
+        ],
+        [
+          { label: "City", value: data.information.city },
+          { label: "State", value: data.information.state },
+        ],
+      ],
+    },
+    {
+      title: "ORDER DELIVERY PREFERENCE",
+      fields: [
+        [
+          { label: "Delivery Method", value: data.orderDelivery.preferredMethod },
+          { label: "Notify on delivery failure", value: data.orderDelivery.notifyFailureRole },
+        ],
+      ],
+    },
+  ];
+
   return (
     <div className="min-h-screen  flex items-start justify-center p-4 sm:p-6 lg:p-8">
       <div className="w-full max-w-3xl">
@@ -197,7 +228,7 @@ export default function DetailPreviewPage() {
           ))}
 
           {/* Integration — special layout */}
-          <IntegrationSection />
+          <IntegrationSection ehrSystem={data.integration.ehrSystem} />
         </div>
       </div>
     </div>

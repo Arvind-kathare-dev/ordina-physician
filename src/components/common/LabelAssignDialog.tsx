@@ -89,7 +89,7 @@ export default function LabelAssignDialog({ row }: { row: OrderTableRow }) {
         aria-expanded={open}
         onClick={() => setOpen(true)}
       >
-        <HiOutlineTag className="h-5 w-5 text-[#528DB5]" />
+        <HiOutlineTag className="h-[18px] w-[18px] text-[#528DB5]" />
       </button>
 
       <Dialog

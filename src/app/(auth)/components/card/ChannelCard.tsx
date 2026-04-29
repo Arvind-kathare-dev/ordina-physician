@@ -150,29 +150,19 @@ export default function ChannelCard({
         <div className="mb-4">
           {/* Email: show connected Google account */}
           {isEmail && connectedAccount && (
-            <div className="flex items-center gap-3 border border-gray-200 rounded-md px-3 py-2 bg-gray-50">
-              <span
-                className="w-7 h-7 rounded-full flex items-center justify-center text-white text-xs font-semibold flex-shrink-0"
-                style={{ backgroundColor: connectedAccount.avatarColor }}
-              >
-                {connectedAccount.initials}
-              </span>
+            <div className="flex items-center gap-3 border border-ordinaBorder-200 rounded-[8px] px-[17px] py-[15px]">
               <div className="min-w-0">
-                <p className="text-sm font-medium text-gray-800 truncate">{connectedAccount.name}</p>
-                <p className="text-xs text-gray-500 truncate">{connectedAccount.email}</p>
+                <p className="text-sm font-medium text-gray-800 truncate">{connectedAccount.email}</p>
               </div>
             </div>
           )}
 
           {/* eFax: show saved fax number */}
           {isEfax && savedFax && (
-            <div className="flex items-center gap-2.5 border border-gray-200 rounded-md px-3 py-2.5 bg-gray-50">
+            <div className="flex items-center gap-2.5 border border-ordinaBorder-200 rounded-[8px] px-[17px] py-[15px]">
               {/* <FaxIcon /> */}
               <div className="min-w-0 flex-1">
                 <p className="text-sm font-medium text-gray-800 truncate">{savedFax.faxNumber}</p>
-                {savedFax.label && (
-                  <p className="text-xs text-gray-500 truncate">{savedFax.label}</p>
-                )}
               </div>
               {/* Connected pill */}
               <span className="text-xs text-green-600 bg-green-50 border border-green-200 px-2 py-0.5 rounded-full shrink-0">

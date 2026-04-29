@@ -102,14 +102,21 @@ export default function VendorSettingsSection() {
           </FormRow>
 
           <div className="flex justify-end gap-3 mb-6">
-            <Button variant="danger" onClick={() => {
-              setServiceType("");
-              setLocation("");
-              setSupplier([]);
-            }}>
-              Clear
+            <Button 
+              variant="secondary" 
+              onClick={() => {
+                setServiceType("");
+                setLocation("");
+                setSupplier([]);
+              }}
+            >
+              Reset
             </Button>
-            <Button variant="primary" onClick={handleAddRule}>
+            <Button 
+              variant="primary" 
+              onClick={handleAddRule}
+              disabled={!serviceType || !location || supplier.length === 0}
+            >
               Save Settings
             </Button>
           </div>

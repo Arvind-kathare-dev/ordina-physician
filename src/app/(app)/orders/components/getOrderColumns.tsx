@@ -32,6 +32,7 @@ export const getOrderColumns = (activeTab: number): Column<Order>[] => {
   const patientColumn: Column<Order> = {
     key: "patientName",
     header: "Patient Name",
+    gridWidth: "minmax(100px, 1.2fr)",
     render: (row) => (
       <span className="text-sm text-grayCustom-600">
         {row.patientName ?? "-"}
@@ -42,6 +43,7 @@ export const getOrderColumns = (activeTab: number): Column<Order>[] => {
   const orderTypeColumn: Column<Order> = {
     key: "orderType",
     header: "Order Type",
+    gridWidth: "minmax(90px, 1fr)",
     render: (row) => (
       <span className="text-sm text-grayCustom-600">
         {row.orderType ?? "-"}
@@ -52,6 +54,7 @@ export const getOrderColumns = (activeTab: number): Column<Order>[] => {
   const serviceTypeColumn: Column<Order> = {
     key: "serviceType",
     header: "Service Type",
+    gridWidth: "90px",
     render: (row) => (
       <span
         className={`text-sm px-2 py-1 rounded ${SERVICE_TYPE_STYLES[row.serviceType] ??
@@ -66,6 +69,7 @@ export const getOrderColumns = (activeTab: number): Column<Order>[] => {
   const agencyColumn: Column<Order> = {
     key: "agency",
     header: "Agency",
+    gridWidth: "minmax(90px, 1fr)",
     render: (row) => (
       <span className="text-sm text-grayCustom-600">
         {row.agency ?? "-"}
@@ -76,6 +80,7 @@ export const getOrderColumns = (activeTab: number): Column<Order>[] => {
   const receivedColumn: Column<Order> = {
     key: "receivedVia",
     header: "Received",
+    gridWidth: "90px",
     render: (row) => (
       <span className="flex items-center gap-1 text-sm text-grayCustom-600">
         <Mail size={14} />
@@ -87,6 +92,7 @@ export const getOrderColumns = (activeTab: number): Column<Order>[] => {
   const timeColumn: Column<Order> = {
     key: "orderReceived",
     header: "Time",
+    gridWidth: "110px",
     render: (row) => (
       <span className="text-sm text-grayCustom-600">
         {row.orderReceived ?? "-"}
@@ -97,6 +103,7 @@ export const getOrderColumns = (activeTab: number): Column<Order>[] => {
   const actionsColumn: Column<Order> = {
     key: "actions",
     header: "Actions",
+    gridWidth: "240px",
     render: (row) => (
       <OrderActionsCell row={row} activeTab={activeTab} />
     ),
@@ -107,6 +114,7 @@ export const getOrderColumns = (activeTab: number): Column<Order>[] => {
   const dateColumn: Column<Order> = {
     key: "date",
     header: "Date",
+    gridWidth: "80px",
     render: (row) => (
       <div className="text-sm text-gray-400">
         {row.date ?? "-"}
@@ -130,6 +138,7 @@ export const getOrderColumns = (activeTab: number): Column<Order>[] => {
   const dayColumn: Column<Order> = {
     key: "day",
     header: "#Days",
+    gridWidth: "55px",
     render: (row) => {
       const days = parseDays(row.day);
 
@@ -148,6 +157,7 @@ export const getOrderColumns = (activeTab: number): Column<Order>[] => {
   const labelColumn: Column<Order> = {
     key: "labels",
     header: "Label",
+    gridWidth: "70px",
     render: (row) => (
       <div className="flex gap-2 flex-wrap">
         {row.labels?.map((l, index) => (
@@ -212,7 +222,6 @@ export const getOrderColumns = (activeTab: number): Column<Order>[] => {
         agencyColumn,
         labelColumn,
         dayColumn,
-        timeColumn,
         actionsColumn,
       ];
     case 4: // Rejected
@@ -227,7 +236,7 @@ export const getOrderColumns = (activeTab: number): Column<Order>[] => {
         actionsColumn,
       ];
 
-    case 6: // Rejected
+    case 6: // Complete
       return [
         dateColumn,
         orderTypeColumn,

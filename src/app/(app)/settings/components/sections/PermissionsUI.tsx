@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect } from "react";
 import PermissionCard from "../card/PermissionCard";
 import { ChevronDown } from "lucide-react";
+import ActionButtons from "../ActionButtons";
 
 interface UserData {
   id: string;
@@ -201,20 +202,11 @@ export default function PermissionsUI({ users }: PermissionsUIProps) {
         </div>
 
         {/* Action Buttons */}
-        <div className="flex justify-end gap-3 pt-2">
-          <button
-            onClick={() => setPermissions(presets[selectedUser.role])}
-            className="px-6 py-2.5 text-[14px] font-bold text-[#4a4a4a] bg-white border border-gray-200 rounded-xl hover:bg-gray-50 transition-all"
-          >
-            Reset to Default
-          </button>
-          <button
-            onClick={handleSave}
-            className="px-8 py-2.5 text-[14px] font-bold text-white bg-[#5b94b7] rounded-xl hover:bg-[#4a7a96] transition-all shadow-sm"
-          >
-            Save Changes
-          </button>
-        </div>
+        <ActionButtons 
+          onSave={handleSave}
+          onReset={() => setPermissions({})}
+          isSaveDisabled={Object.values(permissions).every(p => p.length === 0)}
+        />
       </div>
     </div>
   );

@@ -13,6 +13,7 @@ import { getFaxColumns } from "./components/getFaxColumns";
 import StatCard from "./components/StatCard";
 import { faxData, statsData, tabs } from "./efax.data";
 import NewFaxDialog from "@/components/NewFaxDialog";
+import OrdersFilterDialog from "@/components/common/OrdersFilterDialog";
 
 export default function EFaxPage() {
   const [activeTab, setActiveTab] = useState(0);
@@ -20,6 +21,8 @@ export default function EFaxPage() {
   const [currentPage, setCurrentPage] = useState(1);
   const [tab, setTab] = useState("orders");
   const [newFaxOpen, setNewFaxOpen] = useState(false);
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
+
 
   const filteredFaxes = faxData.filter(
     (f) =>
@@ -73,7 +76,7 @@ export default function EFaxPage() {
           tabs={tabs}
           activeIndex={activeTab}
           onChange={setActiveTab}
-          rightSection={<TabsActionsMinimal />}
+          rightSection={<TabsActionsMinimal onClick={() => setIsFilterOpen(true)} />}
         />
         {/* Table */}
         <div className="w-full overflow-x-auto mt-4">
@@ -91,6 +94,7 @@ export default function EFaxPage() {
       </main>
 
       <NewFaxDialog open={newFaxOpen} onClose={() => setNewFaxOpen(false)} />
+      <OrdersFilterDialog open={isFilterOpen} onClose={() => setIsFilterOpen(false)} />
     </div>
   );
 }

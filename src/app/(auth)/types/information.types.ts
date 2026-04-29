@@ -6,6 +6,8 @@ export interface InformationStepProps {
     role: string;
     licenseNumber: string;
     eSignature: string;
+    eSignatureName: string;
+    initial: string;
     organizationName: string;
     city: string;
     timeZone: string;

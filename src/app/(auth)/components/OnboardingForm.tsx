@@ -40,6 +40,8 @@ export function OnboardingForm({
       role: "",
       licenseNumber: "",
       eSignature: "",
+      eSignatureName: "",
+      initial: "",
       organizationName: "",
       city: "",
       timeZone: "",
@@ -50,11 +52,15 @@ export function OnboardingForm({
       email: "",
       faxNumber: "",
       deliveryTime: "asap",
+      notifyFailureRole: "",
     },
     integration: {
       ehrSystem: "",
       apiKey: "",
       webhookUrl: "",
+    },
+    subscription: {
+      selectedPlan: "",
     },
   });
 
@@ -63,6 +69,40 @@ export function OnboardingForm({
       ...prev,
       [step]: { ...prev[step as keyof typeof prev], ...data },
     }));
+  };
+
+  const isStepValid = () => {
+    switch (currentStep) {
+      case 1:
+        return !!formData.pecos.enrollmentId;
+      case 2:
+        return (
+          !!formData.information.fullName &&
+          !!formData.information.email &&
+          !!formData.information.role &&
+          !!formData.information.licenseNumber &&
+          !!formData.information.eSignature &&
+          !!formData.information.organizationName &&
+          !!formData.information.city &&
+          !!formData.information.state &&
+          !!formData.information.timeZone
+        );
+      case 3:
+        // OrderDeliveryStep: check preferredMethod and notifyFailureRole
+        return !!formData.orderDelivery.preferredMethod && !!formData.orderDelivery.notifyFailureRole;
+      case 4:
+        if (subStep === 1) {
+          // IntegrationStep: check if ehrSystem is selected
+          return !!formData.integration.ehrSystem;
+        }
+        if (subStep === 2) {
+          // SubscriptionPlan: check if a plan is selected
+          return !!formData.subscription.selectedPlan;
+        }
+        return true;
+      default:
+        return true;
+    }
   };
 
   /* ========================= */
@@ -138,10 +178,15 @@ export function OnboardingForm({
             );
 
           case 2:
-            return <SubscriptionPlan />;
+            return (
+              <SubscriptionPlan 
+                data={formData.subscription} 
+                onChange={(data) => updateFormData("subscription", data)} 
+              />
+            );
 
           case 3:
-            return <DetailPreviewPage />;
+            return <DetailPreviewPage data={formData} />;
 
           default:
             return null;
@@ -188,7 +233,8 @@ export function OnboardingForm({
             onClick={handleSaveAndContinue} 
             size="base" 
             variant="primary" 
-            className="flex-1 sm:flex-none px-[20px] py-[10px] rounded-xl"
+            className={`flex-1 sm:flex-none px-[20px] py-[10px] rounded-xl ${!isStepValid() ? 'opacity-50 cursor-not-allowed' : ''}`}
+            disabled={!isStepValid()}
           >
             {isFinalStep ? "Finish Setup" : "Save & Continue"}
           </Button>

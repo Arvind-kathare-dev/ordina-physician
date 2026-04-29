@@ -151,6 +151,7 @@ export default function ReturnedDaysSection() {
             <FormRow col="4">
               <CustomSelect
                 label="Service Type"
+                required
                 value={serviceType}
                 onChange={setServiceType}
                 options={serviceOptions}
@@ -158,6 +159,7 @@ export default function ReturnedDaysSection() {
 
               <CustomSelect
                 label="Order Type (within service)"
+                required
                 value={orderType}
                 onChange={setOrderType}
                 options={orderOptions}
@@ -165,6 +167,7 @@ export default function ReturnedDaysSection() {
 
               <CustomSelect
                 label="Threshold"
+                required
                 value={threshold}
                 onChange={setThreshold}
                 options={thresholdOptions}
@@ -172,6 +175,7 @@ export default function ReturnedDaysSection() {
 
               <CustomSelect
                 label="Unit"
+                required
                 value={unit}
                 onChange={setUnit}
                 options={unitOptions}
@@ -186,12 +190,23 @@ export default function ReturnedDaysSection() {
 
             {/* Actions */}
             <div className="flex justify-end gap-3 mt-4">
-
-              <Button variant="secondary">
-                Set Default
+              <Button 
+                variant="secondary"
+                onClick={() => {
+                  setServiceType("");
+                  setOrderType("");
+                  setThreshold("");
+                  setUnit("");
+                }}
+              >
+                Reset
               </Button>
 
-              <Button variant="primary" onClick={handleAddRule}>
+              <Button 
+                variant="primary" 
+                onClick={handleAddRule}
+                disabled={!serviceType || !orderType || !threshold || !unit}
+              >
                 Add / Update
               </Button>
             </div>

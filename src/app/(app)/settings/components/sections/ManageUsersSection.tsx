@@ -66,6 +66,8 @@ export default function ManageUsersSection() {
         title="Manage Users"
         description="Add agency users and set permissions (sub-admin access)"
         icon={User}
+        badgeText="configured"
+        badgeVariant="success"
         headerAction={
           <button
             onClick={handleAdd}

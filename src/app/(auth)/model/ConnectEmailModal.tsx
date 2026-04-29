@@ -124,11 +124,38 @@ export default function ConnectEmailModal({
     >
       {/* ── Modal card ── */}
       <div
-        className="relative bg-white rounded-2xl shadow-2xl w-full max-w-[480px] mx-4 overflow-hidden"
+        className="relative bg-white rounded-2xl shadow-2xl w-full max-w-[400px] mx-4 overflow-hidden"
         style={{ maxHeight: "90vh" }}
       >
+        {/* Header */}
+        <div className="px-6 py-5 border-b border-gray-100 flex justify-between items-start">
+          <div>
+            <h2 className="text-xl font-semibold text-gray-900">Choose an account</h2>
+            <p className="text-sm text-gray-500 mt-1">to continue to Ordina Health</p>
+          </div>
+          <button
+            onClick={onClose}
+            className="p-1 rounded-full hover:bg-gray-100 text-gray-400 hover:text-gray-600 transition-colors"
+            aria-label="Close modal"
+          >
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <line x1="18" y1="6" x2="6" y2="18" />
+              <line x1="6" y1="6" x2="18" y2="18" />
+            </svg>
+          </button>
+        </div>
+
         {/* Scrollable account list */}
-        <ul className="overflow-y-auto divide-y divide-transparent">
+        <ul className="overflow-y-auto max-h-[400px] divide-y divide-gray-100 scrollbar-hide sm:scrollbar-default">
           {ACCOUNTS.map((account) => {
             // const isHighlighted = account.id === highlightedAccountId;
             return (

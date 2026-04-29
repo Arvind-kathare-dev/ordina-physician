@@ -12,6 +12,7 @@ type Step = 1 | 2;
 interface SignatureData {
   type: Tab;
   value: string; // typed text | base64 canvas | uploaded file base64
+  name?: string;
 }
 
 interface Props {
@@ -649,6 +650,9 @@ export default function ESignatureModal({ isOpen, onClose, onSave }: Props) {
   // Step 2 — Initial
   const [initial, setInitial] = useState("");
 
+  // Persistent signature data captured before moving to Step 2
+  const [capturedSig, setCapturedSig] = useState<SignatureData | null>(null);
+
   // Reset on close
   useEffect(() => {
     if (!isOpen) {
@@ -659,6 +663,7 @@ export default function ESignatureModal({ isOpen, onClose, onSave }: Props) {
       setDrawName("");
       setImagePreview(null);
       setInitial("");
+      setCapturedSig(null);
       const ctx = canvasRef.current?.getContext("2d");
       ctx?.clearRect(0, 0, canvasRef.current!.width, canvasRef.current!.height);
     }
@@ -679,7 +684,11 @@ export default function ESignatureModal({ isOpen, onClose, onSave }: Props) {
 
   const getSignatureData = (): SignatureData => {
     if (tab === "draw") {
-      return { type: "draw", value: canvasRef.current?.toDataURL() ?? "" };
+      return { 
+        type: "draw", 
+        value: canvasRef.current?.toDataURL() ?? "",
+        name: drawName 
+      };
     }
     if (tab === "image") {
       return { type: "image", value: imagePreview ?? "" };
@@ -689,9 +698,10 @@ export default function ESignatureModal({ isOpen, onClose, onSave }: Props) {
 
   const handleApplyNext = () => {
     if (step === 1) {
+      setCapturedSig(getSignatureData());
       setStep(2);
     } else {
-      onSave(getSignatureData(), initial);
+      onSave(capturedSig || getSignatureData(), initial);
       onClose();
     }
   };

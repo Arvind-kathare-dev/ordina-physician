@@ -11,18 +11,15 @@ interface OrderDeliveryStepProps {
     email: string;
     faxNumber: string;
     deliveryTime: string;
+    notifyFailureRole: string;
   };
   onChange: (data: Partial<OrderDeliveryStepProps['data']>) => void;
 }
 
-export function OrderDeliveryStep({ }: OrderDeliveryStepProps) {
-  const [role, setRole] = useState("");
+export function OrderDeliveryStep({ data, onChange }: OrderDeliveryStepProps) {
 
   return (
     <div className="space-y-6">
-
-
-
       {/* MAIN GRID */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
 
@@ -65,12 +62,11 @@ export function OrderDeliveryStep({ }: OrderDeliveryStepProps) {
           <CustomSelect
             label="Notify on delivery failure"
             required
-            value={role}
-            onChange={setRole}
+            value={data.notifyFailureRole}
+            onChange={(val) => onChange({ notifyFailureRole: val })}
             options={[
-              { label: "Physician", value: "physician" },
-              { label: "Nurse", value: "nurse" },
-              { label: "Admin", value: "admin" },
+              { label: "No", value: "no" },
+              { label: "Yes", value: "yes" },
             ]}
           />
 

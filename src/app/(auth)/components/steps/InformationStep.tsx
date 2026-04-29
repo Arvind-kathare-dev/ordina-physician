@@ -7,11 +7,7 @@ import ESignatureModal from "../../model/ESignatureModal";
 import CustomSelect from "@/components/ui/select/CustomSelect";
 
 export function InformationStep({ data, onChange }: InformationStepProps) {
-  const [role, setRole] = useState("");
   const [open, setOpen] = useState(false);
-  const [signature, setSignature] = useState<{ type: string; value: string } | null>(null);
-  const [initial, setInitial] = useState("");
-  const [timezone, setTimezone] = useState("");
 
   const timezoneToLocation: Record<string, { city: string; state: string }> = {
     "IST_CH": { city: "Raipur", state: "Chhattisgarh" },
@@ -21,7 +17,6 @@ export function InformationStep({ data, onChange }: InformationStepProps) {
   };
 
   const handleTimezoneChange = (val: string) => {
-    setTimezone(val);
     const location = timezoneToLocation[val];
     if (location) {
       onChange({ 
@@ -29,44 +24,28 @@ export function InformationStep({ data, onChange }: InformationStepProps) {
         state: location.state,
         timeZone: val 
       });
+    } else {
+      onChange({ timeZone: val });
     }
   };
 
-  const stateOptions = [
-    { label: "Chhattisgarh", value: "chhattisgarh" },
-    { label: "Maharashtra", value: "maharashtra" },
-    { label: "Madhya Pradesh", value: "madhya_pradesh" },
-    { label: "Delhi", value: "delhi" },
-  ];
-
-  const cityOptionsMap: Record<string, { label: string; value: string }[]> = {
-    chhattisgarh: [
-      { label: "Raipur", value: "raipur" },
-      { label: "Bilaspur", value: "bilaspur" },
-      { label: "Durg", value: "durg" },
-    ],
-    maharashtra: [
-      { label: "Mumbai", value: "mumbai" },
-      { label: "Pune", value: "pune" },
-      { label: "Nagpur", value: "nagpur" },
-    ],
-    madhya_pradesh: [
-      { label: "Bhopal", value: "bhopal" },
-      { label: "Indore", value: "indore" },
-      { label: "Gwalior", value: "gwalior" },
-    ],
-    delhi: [
-      { label: "New Delhi", value: "new_delhi" },
-      { label: "Dwarka", value: "dwarka" },
-      { label: "Rohini", value: "rohini" },
-    ],
+  const getSignatureDisplayValue = () => {
+    const sig = data.eSignature;
+    const init = data.initial;
+    
+    if (!sig) return "";
+    
+    const initialPart = init ? ` (${init})` : "";
+    
+    // Detect if it's a data URL (image)
+    if (sig.startsWith("data:") || sig.startsWith("blob:")) {
+      return `Signed${initialPart}`;
+    }
+    
+    // Otherwise it's the typed name
+    return `${sig}${initialPart}`;
   };
 
-  const options = [
-    { label: "Pending", value: "pending" },
-    { label: "Approved", value: "approved" },
-    { label: "Rejected", value: "rejected" },
-  ];
   return (
     <>
       <div className="space-y-6">
@@ -89,17 +68,16 @@ export function InformationStep({ data, onChange }: InformationStepProps) {
             placeholder="LIC123456789"
             required
           />
-
-        
-            <Input
-                label="Create e-signature & Initial"
-                name="signature"
-                value={signature ? `${signature.type === 'type' ? signature.value : 'Signed'} ${initial ? `(${initial})` : ''}` : ""}
-                onClick={() => setOpen(true)}
-                placeholder="Your e-signature"
-                required
-                readOnly 
-              />
+ 
+          <Input
+            label="Create e-signature & Initial"
+            name="signature"
+            value={getSignatureDisplayValue()}
+            onClick={() => setOpen(true)}
+            placeholder="Your e-signature"
+            required
+            readOnly 
+          />
         </div>
 
         <hr className="border-gray-50" />
@@ -136,8 +114,8 @@ export function InformationStep({ data, onChange }: InformationStepProps) {
               <CustomSelect
                 label="Role"
                 required
-                value={role}
-                onChange={setRole}
+                value={data.role}
+                onChange={(val) => onChange({ role: val })}
                 options={[
                   { label: "Physician", value: "physician" },
                   { label: "Nurse Practitioner", value: "nurse_practitioner" },
@@ -189,7 +167,7 @@ export function InformationStep({ data, onChange }: InformationStepProps) {
               <CustomSelect
                 label="Timezone"
                 required
-                value={timezone}
+                value={data.timeZone}
                 onChange={handleTimezoneChange}
                 placeholder="Select Timezone"
                 options={[
@@ -222,9 +200,11 @@ export function InformationStep({ data, onChange }: InformationStepProps) {
         isOpen={open}
         onClose={() => setOpen(false)}
         onSave={(sig, init) => {
-          setSignature(sig);
-          setInitial(init);
-          onChange({ eSignature: sig.value });
+          onChange({ 
+            eSignature: sig.value,
+            eSignatureName: sig.name || "",
+            initial: init 
+          });
           setOpen(false);
         }}
       />

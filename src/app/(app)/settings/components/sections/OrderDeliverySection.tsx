@@ -8,7 +8,16 @@ import { channelData } from "@/data/channelData"
 import ChannelCard from "@/app/(auth)/components/card/ChannelCard"
 
 export const OrderDeliverySection = () => {
-  const [role, setRole] = useState("");
+  const [notifyRole, setNotifyRole] = useState("");
+
+  const handleReset = () => {
+    setNotifyRole("");
+  };
+
+  const isFormValid = () => {
+    return !!notifyRole;
+  };
+
   return (
     <SectionWrapperBox title="Order Delivery Preference">
       <SectionWrapper
@@ -17,8 +26,6 @@ export const OrderDeliverySection = () => {
         icon={Truck}
       >
         <div>
-
-
           <div className="mb-6">
             <h3 className="text-[17px] text-gray-600 mb-6">Add one or more channels</h3>
             <p className="text-sm text-gray-500 mb-4">
@@ -33,8 +40,6 @@ export const OrderDeliverySection = () => {
               <p className="text-sm text-gray-400 mb-4 border border-ordinaBorder-300 rounded-10 px-[17px] py-[15px]">
                 You can change delivery preferences per order on form Settings.
               </p>
-
-
             </div>
 
             <hr className="border-t border-ordinaBorder-300 my-6" />
@@ -44,14 +49,14 @@ export const OrderDeliverySection = () => {
           <div className="mb-6">
             <h3 className="font-semibold text-gray-900 mb-2">Notify on delivery failure</h3>
             <CustomSelect
-              value={role}
-              onChange={setRole}
+              value={notifyRole}
+              onChange={setNotifyRole}
               options={[
-                { label: "Physician", value: "physician" },
-                { label: "Nurse", value: "nurse" },
-                { label: "Admin", value: "admin" },
+                { label: "No", value: "no" },
+                { label: "Yes", value: "yes" },
               ]}
-              placeholder="No"
+              placeholder="Select Role"
+              required
             />
             <p className="text-xs text-gray-500 mt-4 mb-6">
               Recommendation: enable alerts so you can recover quickly if a channel fails.
@@ -63,12 +68,9 @@ export const OrderDeliverySection = () => {
               HIPAA note: Emails are connected via Google (no password stored), eFax requires a short verification step using a test fax.
             </p>
           </div>
-
-
         </div>
-        <ActionButtons />
+        <ActionButtons onReset={handleReset} isSaveDisabled={!isFormValid()} />
       </SectionWrapper>
     </SectionWrapperBox>
-
   )
 }
