@@ -5,6 +5,10 @@ import { Fax } from "../types";
 import LabelAssignDialog from "@/components/common/LabelAssignDialog";
 
 import Tooltip from "@/components/common/Tooltip";
+import Image from "next/image";
+import deleteIcon from "../../../../assets/images/action-icons/delete.svg";
+import mailIcon from "../../../../assets/images/action-icons/mail.svg";
+import archiveIcon from "../../../../assets/images/action-icons/archive.svg";
 
 interface Props {
   row: Fax;
@@ -42,7 +46,8 @@ export default function FaxActionsCell({ row }: Props) {
             className="rounded-md cursor-pointer p-0.5"
             aria-label="Inbox"
           >
-            <HiOutlineInbox className="h-[18px] w-[18px]" />
+            {/* <HiOutlineInbox className="h-[18px] w-[18px]" /> */}
+            <Image src={mailIcon} alt="Inbox" width={18} height={18} />
           </button>
         </Tooltip>
 
@@ -52,7 +57,8 @@ export default function FaxActionsCell({ row }: Props) {
             className="rounded-md cursor-pointer p-0.5"
             aria-label="Archive"
           >
-            <HiOutlineArchive className="h-[18px] w-[18px]" />
+            {/* <HiOutlineArchive className="h-[18px] w-[18px]" /> */}
+            <Image src={archiveIcon} alt="Archive" width={18} height={18} />
           </button>
         </Tooltip>
 
@@ -62,11 +68,12 @@ export default function FaxActionsCell({ row }: Props) {
             className="rounded-md cursor-pointer p-0.5"
             aria-label="Delete"
           >
-            <HiOutlineTrash className="h-[18px] w-[18px]" />
+            {/* <HiOutlineTrash className="h-[18px] w-[18px]" /> */}
+            <Image src={deleteIcon} alt="Delete" width={18} height={18} />
           </button>
         </Tooltip>
 
-        <Tooltip text="Tag">
+        <Tooltip text="Label">
           <LabelAssignDialog row={rowData} />
         </Tooltip>
       </div>

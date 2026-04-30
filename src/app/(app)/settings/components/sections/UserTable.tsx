@@ -47,13 +47,13 @@ export default function UserTable({ users, onEdit, onDelete, onSettings, onAdd }
           />
         </div>
 
-        <div className="flex items-center gap-3">
-          <div className="flex items-center border border-gray-100 rounded-[14px] p-1 bg-white">
+        <div className="flex items-center gap-3 w-full lg:w-auto">
+          <div className="flex items-center border border-gray-100 rounded-[14px] p-1 bg-white overflow-x-auto no-scrollbar w-full sm:w-auto">
             {["All", "Active", "Invited", "Disabled"].map((tab) => (
               <button
                 key={tab}
                 onClick={() => setFilter(tab)}
-                className={`px-5 py-2 text-[13px] font-medium rounded-[12px] transition-all whitespace-nowrap ${
+                className={`px-4 sm:px-5 py-2 text-[13px] font-medium rounded-[12px] transition-all whitespace-nowrap flex-1 sm:flex-none ${
                   filter === tab 
                     ? "bg-[#eaf4ff] text-[#528DB5] border border-[#d0e6ff]" 
                     : "text-[#858585] hover:text-[#528DB5] border border-transparent"

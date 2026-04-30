@@ -13,6 +13,7 @@ import { getOrderColumns } from "./components/getOrderColumns";
 import OrdersFilterDialog from "@/components/common/OrdersFilterDialog";
 
 
+
 // ─── Main Component ──────────────────────────────────────────────────────────
 export default function OrdersTable() {
   const [activeTab, setActiveTab] = useState(0);
@@ -36,6 +37,8 @@ export default function OrdersTable() {
   );
 
   const columns = getOrderColumns(activeTab);
+
+
 
   return (
     <div className="min-h-screen">

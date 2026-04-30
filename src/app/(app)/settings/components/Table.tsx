@@ -6,6 +6,7 @@ interface TableProps<T> {
   columns: Column<T>[];
   onEdit?: (row: T) => void;
   onDelete?: (row: T) => void;
+  emptyMessage?: string;
 }
 
 export default function Table<T>({
@@ -13,13 +14,14 @@ export default function Table<T>({
   columns,
   onEdit,
   onDelete,
+  emptyMessage = "No data found. Add one above to get started.",
 }: TableProps<T>) {
   return (
     <div className="w-full overflow-hidden border border-gray-200 rounded-xl bg-white shadow-sm">
       <div className="overflow-x-auto">
         <table className="w-full text-left border-collapse">
           <thead>
-            <tr className="bg-gray-50 border-b border-gray-200">
+            <tr className="bg-[#EFF6FB] border-b border-gray-200">
               {columns.map((col) => (
                 <th
                   key={col.key}
@@ -40,7 +42,7 @@ export default function Table<T>({
                   colSpan={columns.length + 1}
                   className="px-4 py-10 text-center text-sm text-gray-400 italic"
                 >
-                  No data found. Add one above to get started.
+                  {emptyMessage}
                 </td>
               </tr>
             ) : (
@@ -57,8 +59,8 @@ export default function Table<T>({
                       {col.render
                         ? col.render(row)
                         : col.accessor
-                        ? String(row[col.accessor])
-                        : "-"}
+                          ? String(row[col.accessor])
+                          : "-"}
                     </td>
                   ))}
 

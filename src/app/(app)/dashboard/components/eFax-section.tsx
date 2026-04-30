@@ -1,3 +1,5 @@
+"use client";
+
 import Dropdown from "@/components/ui/dropdown/Dropdown";
 import { DropdownOption } from "@/types/dropdowm.types";
 import { useState } from "react";

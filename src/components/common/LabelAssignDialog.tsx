@@ -9,6 +9,8 @@ import {
 } from "react-icons/hi";
 import Dialog from "./Dialog";
 import type { OrderTableRow } from "../../data/ordersStaticData";
+import Image from "next/image";
+import labelIcon from "../../assets/images/action-icons/label.svg";
 
 const PRIMARY = "#528DB5";
 
@@ -89,7 +91,12 @@ export default function LabelAssignDialog({ row }: { row: OrderTableRow }) {
         aria-expanded={open}
         onClick={() => setOpen(true)}
       >
-        <HiOutlineTag className="h-[18px] w-[18px] text-[#528DB5]" />
+        <Image
+          src={labelIcon}
+          alt="Tag"
+          width={18}
+          height={18}
+        />
       </button>
 
       <Dialog
@@ -214,7 +221,7 @@ export default function LabelAssignDialog({ row }: { row: OrderTableRow }) {
                     <p className="text-xs font-semibold text-[#9B9B9B]">Existing Labels</p>
                     <p className="text-xs font-medium text-[#9B9B9B]">{filtered.length} Found</p>
                   </div>
-                  
+
                   <div className="min-h-[200px] flex-1 bg-white overflow-y-auto">
                     {filtered.length === 0 ? (
                       <p className="flex min-h-[180px] items-center justify-center px-4 text-center text-sm text-[#9B9B9B]">

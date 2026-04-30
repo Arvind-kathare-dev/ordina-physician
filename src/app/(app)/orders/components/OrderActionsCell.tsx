@@ -1,12 +1,14 @@
 "use client";
 
-import { HiOutlinePencil, HiOutlineDocumentAdd } from "react-icons/hi";
 import { Order } from "../orders.types";
 import OutboxNotifyBellWithDialog from "@/components/common/OutboxNotifyBellWithDialog";
 import OrderDetailsInfoDialog from "@/components/common/OrderDetailsInfoDialog";
 import LabelAssignDialog from "@/components/common/LabelAssignDialog";
-
 import Tooltip from "@/components/common/Tooltip";
+import editIcon from "../../../../assets/images/action-icons/edit.svg";
+import newOrderIcon from "../../../../assets/images/action-icons/newOrder.svg";
+import Image from "next/image";
+import RejectionReasonDialog from "@/components/common/RejectionReasonDialog";
 
 interface Props {
   row: Order;
@@ -17,6 +19,8 @@ export default function OrderActionsCell({ row, activeTab }: Props) {
   const isTab3 = activeTab === 3;
   const isTab4 = activeTab === 4;
   const isTab5 = activeTab === 5;
+  const isTab6 = activeTab === 6;
+
 
   /* ---------- Action Handlers ---------- */
   const handleOpen = () => console.log("Open", row.id);
@@ -47,23 +51,24 @@ export default function OrderActionsCell({ row, activeTab }: Props) {
           Re-open
         </button>
         <div className="flex flex-nowrap items-center gap-1 text-[#528DB5]">
-          <Tooltip text="Edit">
-            <button type="button" className="rounded-md cursor-pointer p-0.5" aria-label="Edit">
-              <HiOutlinePencil className="h-[18px] w-[18px]" />
-            </button>
+          <Tooltip text="Rejection Reason">
+            {/* <button type="button" className="rounded-md cursor-pointer p-0.5" aria-label="Rejection Reason">
+              <Image src={reasonIcon} alt="Rejection Reason" width={18} height={18} />
+            </button> */}
+            <RejectionReasonDialog row={rowData} />
           </Tooltip>
 
           <Tooltip text="Info">
             <OrderDetailsInfoDialog row={rowData} />
           </Tooltip>
 
-          <Tooltip text="Add Document">
-            <button type="button" className="rounded-md cursor-pointer p-0.5" aria-label="Add Document">
-              <HiOutlineDocumentAdd className="h-[18px] w-[18px]" />
+          <Tooltip text="New Order">
+            <button type="button" className="rounded-md cursor-pointer p-0.5" aria-label="New Order">
+              <Image src={newOrderIcon} alt="New Order" width={18} height={18} />
             </button>
           </Tooltip>
 
-          <Tooltip text="Tag">
+          <Tooltip text="Label">
             <LabelAssignDialog row={rowData} />
           </Tooltip>
         </div>
@@ -75,7 +80,7 @@ export default function OrderActionsCell({ row, activeTab }: Props) {
   return (
     <div className="flex flex-nowrap items-center gap-2">
       {/* Resend → Only Tab 3 */}
-      {isTab3 && !isTab5 && (
+      {isTab3 && !isTab5 && !isTab6 && (
         <button
           type="button"
           onClick={handleResend}
@@ -95,14 +100,17 @@ export default function OrderActionsCell({ row, activeTab }: Props) {
       </button>
 
       <div className="flex flex-nowrap items-center gap-1 text-[#528DB5]">
-        <Tooltip text="Edit">
-          <button type="button" className="rounded-md cursor-pointer p-0.5" aria-label="Edit">
-            <HiOutlinePencil className="h-[18px] w-[18px]" />
-          </button>
-        </Tooltip>
+        {!isTab5 && !isTab6 && (
+          <Tooltip text="Edit">
+            <button type="button" className="rounded-md cursor-pointer p-0.5" aria-label="Edit">
+              <Image src={editIcon} alt="Edit" width={18} height={18} />
+            </button>
+          </Tooltip>
+        )}
 
-        {/* Bell → Hide in Tab 3 & 5 */}
-        {!isTab3 && !isTab5 && (
+
+        {/* Bell → Hide in Tab 3 & 5 & 6 */}
+        {!isTab3 && !isTab5 && !isTab6 && (
           <Tooltip text="Notification">
             <OutboxNotifyBellWithDialog row={rowData} />
           </Tooltip>
@@ -114,11 +122,11 @@ export default function OrderActionsCell({ row, activeTab }: Props) {
 
         <Tooltip text="New Order">
           <button type="button" className="rounded-md cursor-pointer p-0.5" aria-label="New Order">
-            <HiOutlineDocumentAdd className="h-[18px] w-[18px]" />
+            <Image src={newOrderIcon} alt="New Order" width={18} height={18} />
           </button>
         </Tooltip>
 
-        <Tooltip text="Tag">
+        <Tooltip text="Label">
           <LabelAssignDialog row={rowData} />
         </Tooltip>
       </div>

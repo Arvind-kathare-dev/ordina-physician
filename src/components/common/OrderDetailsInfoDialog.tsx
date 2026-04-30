@@ -20,6 +20,9 @@ import {
 } from "react-icons/hi";
 import Dialog from "./Dialog";
 import type { OrderMailboxFilter, OrderTableRow } from "../../data/ordersStaticData";
+import Image from "next/image";
+import infoIcon from "../../assets/images/action-icons/info.svg";
+
 
 function daysProgress(row: OrderTableRow): { current: number; total: number } {
   const m = row.pending.text.match(/(\d+)/);
@@ -149,7 +152,8 @@ export default function OrderDetailsInfoDialog({ row }: { row: OrderTableRow }) 
         aria-expanded={open}
         onClick={() => setOpen(true)}
       >
-        <HiOutlineInformationCircle className="h-[18px] w-[18px] text-[#528DB5]" />
+        {/* <HiOutlineInformationCircle className="h-[18px] w-[18px] text-[#528DB5]" /> */}
+        <Image src={infoIcon} alt="Info" width={18} height={18} />
       </button>
 
       <Dialog
@@ -246,7 +250,7 @@ export default function OrderDetailsInfoDialog({ row }: { row: OrderTableRow }) 
                           />
                         </div>
                         <p className="mt-[2px] font-semibold text-[#606060] sm:text-[15px]">
-                        {current}/{total}
+                          {current}/{total}
                         </p>
                       </div>
                     </div>

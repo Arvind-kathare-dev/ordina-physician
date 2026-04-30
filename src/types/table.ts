@@ -8,7 +8,7 @@ export interface Label {
 }
 
 export interface Order {
-  id: number;
+  id: string | number;
   date: string;
   patientName: string;
   orderType: string;

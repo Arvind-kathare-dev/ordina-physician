@@ -57,6 +57,22 @@ const getBarColor = (name: string) => {
   return "#209F7F";
 };
 
+const CustomTooltip = ({ active, payload, label }: any) => {
+  if (active && payload && payload.length) {
+    return (
+      <div className="bg-white p-3 rounded-[12px] shadow-[0_4px_20px_rgba(0,0,0,0.08)] border border-gray-100 min-w-[80px]">
+        <p className="text-gray-700 font-medium text-[14px] whitespace-pre-line mb-1">
+          {label}
+        </p>
+        <p className="text-[#A2C7A8] font-medium text-[13px]">
+          count : {payload[0].value}
+        </p>
+      </div>
+    );
+  }
+  return null;
+};
+
 export const BillableBarChart = () => {
   const [value, setValue] = useState("month");
 
@@ -92,7 +108,6 @@ export const BillableBarChart = () => {
             <BarChart
               data={data}
               barSize={37}
-              style={{ pointerEvents: "none" }}
             >
               <XAxis
                 dataKey="name"
@@ -105,13 +120,8 @@ export const BillableBarChart = () => {
               <YAxis hide />
 
               <Tooltip
-                cursor={{ fill: "transparent" }}
-                formatter={(v: any) => [`₹${v.toLocaleString()}`, ""]}
-                contentStyle={{
-                  borderRadius: "8px",
-                  border: "1px solid #e5e7eb",
-                  fontSize: "12px",
-                }}
+                cursor={{ fill: "#e5e7eb" }}
+                content={<CustomTooltip />}
               />
 
               <Bar

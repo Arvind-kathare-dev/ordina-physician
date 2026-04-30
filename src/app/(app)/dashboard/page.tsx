@@ -1,4 +1,3 @@
-"use client";
 
 import EfaxSection from "./components/eFax-section";
 import OrdersTable from "./components/orders-table";
@@ -9,6 +8,7 @@ import { StatCard } from "./components/stats-card";
 import PhysicianSelector from "./components/physician-selector";
 import SearchBox from "@/components/ui/SearchBox";
 import { NotificationPanel } from "./components/notification-section";
+
 
 export default function Dashboard() {
   return (

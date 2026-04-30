@@ -15,6 +15,7 @@ import { InformationSection } from "./components/sections/InformationSection";
 
 
 
+
 export default function SettingsPage() {
     const state = useSettings();
 

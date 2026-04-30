@@ -1,5 +1,5 @@
 
-import { Mail } from "lucide-react";
+import { ChevronDown, Mail } from "lucide-react";
 import { Order } from "../orders.types";
 import { Column } from "@/types/table";
 import OrderActionsCell from "./OrderActionsCell";
@@ -31,7 +31,7 @@ export const getOrderColumns = (activeTab: number): Column<Order>[] => {
 
   const patientColumn: Column<Order> = {
     key: "patientName",
-    header: "Patient Name",
+    header: <div className="flex items-center gap-1 cursor-pointer">Patient Name <ChevronDown size={14} /></div> as any,
     gridWidth: "minmax(100px, 1.2fr)",
     render: (row) => (
       <span className="text-sm text-grayCustom-600">
@@ -42,7 +42,7 @@ export const getOrderColumns = (activeTab: number): Column<Order>[] => {
 
   const orderTypeColumn: Column<Order> = {
     key: "orderType",
-    header: "Order Type",
+    header: <div className="flex items-center gap-1 cursor-pointer">Order Type <ChevronDown size={14} /></div> as any,
     gridWidth: "minmax(90px, 1fr)",
     render: (row) => (
       <span className="text-sm text-grayCustom-600">
@@ -53,7 +53,7 @@ export const getOrderColumns = (activeTab: number): Column<Order>[] => {
 
   const serviceTypeColumn: Column<Order> = {
     key: "serviceType",
-    header: "Service Type",
+    header: <div className="flex items-center gap-1 cursor-pointer">Service Type <ChevronDown size={14} /></div> as any,
     gridWidth: "90px",
     render: (row) => (
       <span
@@ -68,7 +68,7 @@ export const getOrderColumns = (activeTab: number): Column<Order>[] => {
 
   const agencyColumn: Column<Order> = {
     key: "agency",
-    header: "Agency",
+    header: <div className="flex items-center gap-1 cursor-pointer">Agency <ChevronDown size={14} /></div> as any,
     gridWidth: "minmax(90px, 1fr)",
     render: (row) => (
       <span className="text-sm text-grayCustom-600">
@@ -79,7 +79,7 @@ export const getOrderColumns = (activeTab: number): Column<Order>[] => {
 
   const receivedColumn: Column<Order> = {
     key: "receivedVia",
-    header: "Received",
+    header: <div className="flex items-center gap-1 cursor-pointer">Received <ChevronDown size={14} /></div> as any,
     gridWidth: "90px",
     render: (row) => (
       <span className="flex items-center gap-1 text-sm text-grayCustom-600">
@@ -91,7 +91,7 @@ export const getOrderColumns = (activeTab: number): Column<Order>[] => {
 
   const timeColumn: Column<Order> = {
     key: "orderReceived",
-    header: "Time",
+    header: <div className="flex items-center gap-1 cursor-pointer">Time <ChevronDown size={14} /></div> as any,
     gridWidth: "110px",
     render: (row) => (
       <span className="text-sm text-grayCustom-600">
@@ -102,7 +102,7 @@ export const getOrderColumns = (activeTab: number): Column<Order>[] => {
 
   const actionsColumn: Column<Order> = {
     key: "actions",
-    header: "Actions",
+    header: <div className="flex items-center gap-1 cursor-pointer">Actions <ChevronDown size={14} /></div> as any,
     gridWidth: "240px",
     render: (row) => (
       <OrderActionsCell row={row} activeTab={activeTab} />
@@ -113,7 +113,7 @@ export const getOrderColumns = (activeTab: number): Column<Order>[] => {
 
   const dateColumn: Column<Order> = {
     key: "date",
-    header: "Date",
+    header: <div className="flex items-center gap-1 cursor-pointer">Date <ChevronDown size={14} /></div> as any,
     gridWidth: "80px",
     render: (row) => (
       <div className="text-sm text-gray-400">
@@ -137,7 +137,7 @@ export const getOrderColumns = (activeTab: number): Column<Order>[] => {
 
   const dayColumn: Column<Order> = {
     key: "day",
-    header: "#Days",
+    header: <div className="flex items-center gap-1 cursor-pointer">#Days <ChevronDown size={14} /></div> as any,
     gridWidth: "55px",
     render: (row) => {
       const days = parseDays(row.day);
@@ -156,7 +156,7 @@ export const getOrderColumns = (activeTab: number): Column<Order>[] => {
 
   const labelColumn: Column<Order> = {
     key: "labels",
-    header: "Label",
+    header: <div className="flex items-center gap-1 cursor-pointer">Label <ChevronDown size={14} /></div> as any,
     gridWidth: "70px",
     render: (row) => (
       <div className="flex gap-2 flex-wrap">

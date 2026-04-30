@@ -1,8 +1,8 @@
-// features/fax/components/getFaxColumns.tsx
 
 import { Column } from "@/types/table";
 import { Fax } from "../types";
 import FaxActionsCell from "./FaxActionsCell";
+import { ChevronDown } from "lucide-react";
 
 /* ---------------------------------- */
 /* Status Config                      */
@@ -24,10 +24,10 @@ const LABEL_STYLES: Record<string, string> = {
 /* Column Factory                     */
 /* ---------------------------------- */
 
-export const getFaxColumns = (activeTab:number): Column<Fax>[] => {
+export const getFaxColumns = (activeTab: number): Column<Fax>[] => {
   const faxColumn: Column<Fax> = {
     key: "fax",
-    header: "Fax No.",
+    header: <div className="flex items-center gap-1 cursor-pointer">Fax No. <ChevronDown size={14} /></div> as any,
     gridWidth: "100px",
     render: (row) => (
       <span className="text-sm text-grayCustom-600">
@@ -38,7 +38,7 @@ export const getFaxColumns = (activeTab:number): Column<Fax>[] => {
 
   const fromColumn: Column<Fax> = {
     key: "from",
-    header: "From",
+    header: <div className="flex items-center gap-1 cursor-pointer">From <ChevronDown size={14} /></div> as any,
     gridWidth: "minmax(100px, 1fr)",
     render: (row) => (
       <span className="text-sm text-grayCustom-600">
@@ -49,7 +49,7 @@ export const getFaxColumns = (activeTab:number): Column<Fax>[] => {
 
   const toColumn: Column<Fax> = {
     key: "to",
-    header: "To",
+    header: <div className="flex items-center gap-1 cursor-pointer">To <ChevronDown size={14} /></div> as any,
     gridWidth: "minmax(100px, 1fr)",
     render: (row) => (
       <span className="text-sm text-grayCustom-600">
@@ -60,7 +60,7 @@ export const getFaxColumns = (activeTab:number): Column<Fax>[] => {
 
   const subjectColumn: Column<Fax> = {
     key: "subject",
-    header: "Subject",
+    header: <div className="flex items-center gap-1 cursor-pointer">Subject <ChevronDown size={14} /></div> as any,
     gridWidth: "minmax(100px, 1fr)",
     render: (row) => (
       <span className="text-sm text-grayCustom-600">
@@ -91,7 +91,7 @@ export const getFaxColumns = (activeTab:number): Column<Fax>[] => {
 
   const labelColumn: Column<Fax> = {
     key: "label",
-    header: "Label",
+    header: <div className="flex items-center gap-1 cursor-pointer">Label <ChevronDown size={14} /></div> as any,
     gridWidth: "80px",
     render: (row) => (
       <span
@@ -107,7 +107,7 @@ export const getFaxColumns = (activeTab:number): Column<Fax>[] => {
 
   const timeColumn: Column<Fax> = {
     key: "time",
-    header: "Time",
+    header: <div className="flex items-center gap-1 cursor-pointer">Time <ChevronDown size={14} /></div> as any,
     gridWidth: "110px",
     render: (row) => (
       <span className="text-sm text-grayCustom-600">
@@ -118,7 +118,7 @@ export const getFaxColumns = (activeTab:number): Column<Fax>[] => {
 
   const actionsColumn: Column<Fax> = {
     key: "actions",
-    header: "Actions",
+    header: <div className="flex items-center gap-1 cursor-pointer">Actions <ChevronDown size={14} /></div> as any,
     gridWidth: "150px",
     render: (row) => <FaxActionsCell row={row} />,
   };

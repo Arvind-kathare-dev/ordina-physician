@@ -6,7 +6,10 @@ import Image from "next/image";
 import Dialog from "./Dialog";
 import type { OrderTableRow } from "../../data/ordersStaticData";
 import noAlertsImage from "../../assets/images/noti-image.png";
-import urgentBellImage from "../../assets/images/noti-icon.png";
+import bellIcon from "../../assets/images/action-icons/notification.svg";
+import urgentBellIcon from "../../assets/images/action-icons/argent-notification.svg";
+
+
 
 type OutboxNotifyBellWithDialogProps = {
   row: OrderTableRow;
@@ -115,9 +118,8 @@ export default function OutboxNotifyBellWithDialog({
         aria-expanded={open}
         onClick={() => setOpen(true)}
       >
-        <HiOutlineBell
-          className={`h-[18px] w-[18px] ${urgent ? "text-[#E33629]" : "text-[#528DB5]"}`}
-        />
+
+        <Image src={urgent ? urgentBellIcon : bellIcon} alt="Notify" width={16} height={16} />
       </button>
 
       <Dialog
@@ -168,7 +170,7 @@ export default function OutboxNotifyBellWithDialog({
                       while sending out a reminder.
                     </p>
                   </div>
-                  <Image src={urgentBellImage} alt="Urgent" className="h-10 w-10 object-contain" />
+                  <Image src={urgentBellIcon} alt="Urgent" width={17} height={17} className="" />
                 </div>
               </div>
             </header>

@@ -15,6 +15,7 @@ import { faxData, statsData, tabs } from "./efax.data";
 import NewFaxDialog from "@/components/NewFaxDialog";
 import OrdersFilterDialog from "@/components/common/OrdersFilterDialog";
 
+
 export default function EFaxPage() {
   const [activeTab, setActiveTab] = useState(0);
   const [searchQuery, setSearchQuery] = useState("");

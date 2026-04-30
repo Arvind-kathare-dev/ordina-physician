@@ -5,6 +5,7 @@ import { useState } from "react";
 import { StepIndicator } from "../components/steps/StepIndicator";
 import { OnboardingForm } from "../components/OnboardingForm";
 
+
 export default function Home() {
   const [currentStep, setCurrentStep] = useState(1);
   const [subStep, setSubStep] = useState(1);
@@ -41,9 +42,9 @@ export default function Home() {
         <div className="bg-white  overflow-hidden">
           {/* Step Indicator */}
           {!isPreviewPage && (
-            <StepIndicator 
-              currentStep={currentStep} 
-              onStepClick={handleStepChange} 
+            <StepIndicator
+              currentStep={currentStep}
+              onStepClick={handleStepChange}
             />
           )}
 

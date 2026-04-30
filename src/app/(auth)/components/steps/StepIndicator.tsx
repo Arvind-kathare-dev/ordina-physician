@@ -40,7 +40,7 @@ const steps = [
 export function StepIndicator({ currentStep, onStepClick }: StepIndicatorProps) {
 
   const currentStepData =
-  steps.find((step) => step.id === currentStep) || steps[0];
+    steps.find((step) => step.id === currentStep) || steps[0];
 
 
   const getStatus = (id: number) => {
@@ -54,10 +54,10 @@ export function StepIndicator({ currentStep, onStepClick }: StepIndicatorProps) 
       {/* Header */}
       <div className="mb-6">
         <h2 className="text-2xl md:text-3xl font-semibold text-black transition-all duration-300">
-         {currentStepData.title}
+          {currentStepData.title}
         </h2>
         <p className="text-sm md:text-base text-gray-500 mt-1">
-         {currentStepData.description}
+          {currentStepData.description}
         </p>
       </div>
 
@@ -67,9 +67,9 @@ export function StepIndicator({ currentStep, onStepClick }: StepIndicatorProps) 
           const status = getStatus(step.id);
 
           return (
-            <button
+            <div
               key={step.id}
-              onClick={() => onStepClick?.(step.id)}
+              // onClick={() => onStepClick?.(step.id)}
               className={`
                 flex items-center gap-3 px-4 py-3 rounded-xl border text-left
                 transition-all duration-300 group
@@ -99,9 +99,8 @@ export function StepIndicator({ currentStep, onStepClick }: StepIndicatorProps) 
 
               {/* Text */}
               <div className="flex flex-col leading-tight overflow-hidden">
-                <span className={`text-sm font-medium truncate transition-colors duration-300 ${
-                  status === 'current' ? 'text-black' : 'text-gray-500'
-                }`}>
+                <span className={`text-sm font-medium truncate transition-colors duration-300 ${status === 'current' ? 'text-black' : 'text-gray-500'
+                  }`}>
                   {step.name}
                 </span>
                 <span
@@ -122,7 +121,7 @@ export function StepIndicator({ currentStep, onStepClick }: StepIndicatorProps) 
                       : 'Pending'}
                 </span>
               </div>
-            </button>
+            </div>
           );
         })}
       </div>
@@ -135,11 +134,11 @@ export function StepIndicator({ currentStep, onStepClick }: StepIndicatorProps) 
           style={{ width: `${(currentStep / steps.length) * 100}%` }}
         />
         {/* Shine effect */}
-        <div 
+        <div
           className="absolute inset-y-0 left-0 w-full h-full opacity-20 bg-gradient-to-r from-transparent via-white to-transparent -translate-x-full animate-shine"
           style={{ transition: 'none' }}
         />
       </div>
     </div>
   );
-}
+}

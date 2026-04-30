@@ -18,7 +18,7 @@ export default function SectionWrapper({
   description,
   icon: Icon,
   children,
-  badgeText = "Needs Review",
+  badgeText,
   badgeVariant = "warning",
   headerAction,
 }: Props) {
