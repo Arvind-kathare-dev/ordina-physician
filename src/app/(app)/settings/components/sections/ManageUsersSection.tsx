@@ -71,10 +71,11 @@ export default function ManageUsersSection() {
         headerAction={
           <button
             onClick={handleAdd}
-            className="flex items-center gap-2 bg-[#5b94b7] text-white px-5 py-2.5 rounded-xl text-[14px] font-bold shadow-sm hover:bg-[#4a7a96] transition-all shrink-0"
+            className="flex items-center gap-2 bg-[#5b94b7] text-white px-3 sm:px-5 py-2 sm:py-2.5 rounded-xl text-[12px] sm:text-[14px] font-bold shadow-sm hover:bg-[#4a7a96] transition-all shrink-0"
           >
             <Plus className="w-4 h-4" />
-            Invite User
+            <span className="hidden xs:inline">Invite User</span>
+            <span className="xs:hidden">Invite</span>
           </button>
         }
       >
@@ -88,11 +89,11 @@ export default function ManageUsersSection() {
       </SectionWrapper>
 
       {/* Permissions + Notes */}
-      <div className="flex flex-col xl:flex-row gap-6 items-start px-4 sm:px-6 pb-6">
-        <div className="w-full xl:flex-1">
+      <div className="flex flex-col lg:flex-row gap-6 items-start px-3 sm:px-6 pb-6 w-full min-w-0 overflow-hidden">
+        <div className="w-full lg:flex-1 min-w-0">
           <PermissionsUI users={users} />
         </div>
-        <div className="w-full xl:w-80 shrink-0">
+        <div className="w-full lg:w-80 shrink-0 min-w-0">
           <NotesCard />
         </div>
       </div>

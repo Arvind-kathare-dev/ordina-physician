@@ -231,6 +231,7 @@ export default function Face2FaceReportPage() {
           statusType !== "") &&
           filteredRows.length > 0 ? (
           <DataTable
+            tableMinWidth="min-w-[1200px]"
             title="F2F Worklist"
             columns={columns}
             isBorderlessTable={true}

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ArrowLeft, Plus, ArrowUpFromLine, CloudSync, ChevronDown, ListFilter } from "lucide-react";
 import Tabs from "@/components/ui/tab/Tabs";
 import { TabsActions } from "@/components/ui/tab/TabsActions";
@@ -27,6 +27,10 @@ export default function OrdersTable() {
       o.orderType.toLowerCase().includes(searchQuery.toLowerCase()),
   );
 
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [searchQuery, activeTab]);
+
   const PAGE_SIZE = 4;
 
   const totalPages = Math.ceil(filtered.length / PAGE_SIZE) || 1;
@@ -44,35 +48,43 @@ export default function OrdersTable() {
     <div className="min-h-screen">
       <div className="w-full mx-auto">
         {/* ── Top Bar ── */}
-        <div className="flex items-center gap-2 mb-6 flex-wrap">
-          <h1 className="text-2xl font-semibold text-gray-600 mr-auto">
+        <div className="flex flex-col xl:flex-row xl:items-center justify-between gap-4 mb-6">
+          <h1 className="text-2xl font-semibold text-gray-600">
             {tabs[activeTab]?.label} Orders
           </h1>
 
-          {/* Search */}
-          <SearchBox value={searchQuery} onChange={setSearchQuery} />
+          <div className="flex flex-col sm:flex-row sm:justify-between flex-wrap items-start sm:items-center gap-3 w-full xl:w-auto">
+            {/* Search */}
+            <div className="w-full sm:w-auto">
+              <SearchBox value={searchQuery} onChange={setSearchQuery} />
+            </div>
 
-          <Button
-            variant="secondary"
-            size="md"
-            leftIcon={<ArrowUpFromLine size={14} />}
-          >
-            Export Orders
-          </Button>
-          <Button variant="tealGreen" size="md" leftIcon={<CloudSync size={14} />}>
-            Sync
-          </Button>
+            {/* Action Buttons */}
+            <div className="flex items-center gap-2 overflow-x-auto w-full sm:w-auto pb-1 sm:pb-0 scrollbar-hide max-w-full">
+              <Button
+                variant="secondary"
+                size="md"
+                leftIcon={<ArrowUpFromLine size={14} />}
+                className="whitespace-nowrap shrink-0"
+              >
+                Export Orders
+              </Button>
+              <Button variant="tealGreen" size="md" leftIcon={<CloudSync size={14} />} className="whitespace-nowrap shrink-0">
+                Sync
+              </Button>
 
-          {/* Filter Button */}
-          <div
-            className="h-[40px] px-3 flex items-center justify-center rounded-lg border border-green-540 text-green-540 hover:bg-green-50 transition-colors cursor-pointer"
-          >
-            <ChevronDown size={18} />
+              {/* Filter Button */}
+              <button
+                className="h-[40px] px-3 flex items-center justify-center rounded-lg border border-green-540 text-green-540 hover:bg-green-50 transition-colors cursor-pointer shrink-0"
+              >
+                <ChevronDown size={18} />
+              </button>
+
+              <Button variant="primary" size="md" leftIcon={<Plus size={14} />} className="whitespace-nowrap shrink-0">
+                New Order
+              </Button>
+            </div>
           </div>
-
-          <Button variant="primary" size="md" leftIcon={<Plus size={14} />}>
-            New Order
-          </Button>
         </div>
 
         <Tabs
@@ -87,7 +99,7 @@ export default function OrdersTable() {
             />
           }
         />
-        <p className="text-[12px] font-normal text-grayCustom-500 mt-2">Last synced on 11-19-2025 at 09:20 AM</p>
+        <p className="hidden xl:block text-[12px] font-normal text-grayCustom-500 mt-2">Last synced on 11-19-2025 at 09:20 AM</p>
 
         {/* ── Table ── */}
         <div className="w-full overflow-y-hidden overflow-x-auto mt-4">

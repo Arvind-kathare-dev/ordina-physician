@@ -11,9 +11,9 @@ export default function Footer() {
           <Image
             src={"/images/nav-icon.svg"}
             alt=""
-            width={20}
-            height={24}
-            className="h-5 w-auto max-h-5 object-contain object-left"
+            width={15}
+            height={15}
+            className="h-[15px] w-auto max-h-5 object-contain object-left"
             aria-hidden
           />
           <span className="font-semibold text-[#4a4a4a]">Ordina.</span>
@@ -21,7 +21,7 @@ export default function Footer() {
 
         <div className="flex flex-wrap items-center justify-center gap-x-1 sm:justify-self-center">
           <span>Connected with</span>
-          <Image src={"/images/footer-ads.png"} alt="" width={72} height={24} className="h-5 w-auto max-h-5 object-contain object-left" aria-hidden />  
+          <Image src={"/images/footer-ads.png"} alt="" width={72} height={24} className="h-5 w-auto max-h-5 object-contain object-left" aria-hidden />
         </div>
 
         <p className="text-center sm:justify-self-end sm:text-right">

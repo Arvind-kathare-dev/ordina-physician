@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Plus, ChevronFirst } from "lucide-react";
 import Tabs from "@/components/ui/tab/Tabs";
 import Button from "@/components/ui/button/Button";
@@ -24,6 +24,9 @@ export default function EFaxPage() {
   const [newFaxOpen, setNewFaxOpen] = useState(false);
   const [isFilterOpen, setIsFilterOpen] = useState(false);
 
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [searchQuery, activeTab, tab]);
 
   const filteredFaxes = faxData.filter(
     (f) =>
@@ -46,22 +49,21 @@ export default function EFaxPage() {
   return (
     <div className="min-h-screen flex flex-col">
       <main className="flex-1 flex flex-col gap-4">
-        <div className="flex justify-between items-center gap-2  flex-wrap">
-          <h1 className="text-2xl font-semibold text-grayCustom-600">eFax</h1>
-          <div className="w-2/3 justify-end flex items-center gap-3">
+        <div className="flex items-center justify-between gap-3">
+          <h1 className="text-2xl font-semibold text-grayCustom-600 shrink-0">eFax</h1>
+          <div className="flex-1 flex items-center justify-end">
             <SearchBox value={searchQuery} onChange={setSearchQuery} />
-
-            <Button variant="primary" onClick={() => setNewFaxOpen(true)} size="md" leftIcon={<Plus size={14} />}>
-              New Fax
-            </Button>
           </div>
+          <Button variant="primary" onClick={() => setNewFaxOpen(true)} size="md" leftIcon={<Plus size={14} />} className="shrink-0 whitespace-nowrap">
+            New Fax
+          </Button>
         </div>
         {/* Stat Cards */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4  relative">
+        <div className="grid grid-cols-2 xl:grid-cols-4 gap-4 relative">
           {statsData.map((stat) => (
             <StatCard key={stat.label} label={stat.label} value={stat.value} />
           ))}
-          <button className="absolute top-0 -right-10 p-2  rounded-lg bg-btn ">
+          <button className="hidden 2xl:flex absolute top-0 -right-10 p-2 rounded-lg bg-btn">
             <ChevronFirst size={16} className="text-ordinadark font-bold" />
           </button>
         </div>

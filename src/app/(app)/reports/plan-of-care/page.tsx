@@ -231,6 +231,7 @@ export default function PlanOfCareReportPage() {
           statusType !== "") &&
           filteredRows.length > 0 ? (
           <DataTable
+            tableMinWidth="min-w-[1200px]"
             title="Plan of Care (485)"
             columns={columns}
             isBorderlessTable={true}

@@ -231,6 +231,7 @@ export default function DMEReportPage() {
                     statusType !== "") &&
                     filteredRows.length > 0 ? (
                     <DataTable
+                        tableMinWidth="min-w-[1200px]"
                         title="DME Reports"
                         columns={columns}
                         isBorderlessTable={true}

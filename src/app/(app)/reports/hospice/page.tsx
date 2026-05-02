@@ -186,6 +186,7 @@ export default function HospiceReportPage() {
             <div className="mt-6 min-w-0 sm:mt-8">
                 {filteredRows.length > 0 ? (
                     <DataTable
+                        tableMinWidth="min-w-[1200px]"
                         columns={columns}
                         isBorderlessTable={true}
                         rows={filteredRows}

@@ -168,8 +168,8 @@ export default function Header() {
           className="relative hidden min-h-0 min-w-0 flex-1 md:block"
           aria-label="Primary"
         >
-          <div className="header-nav-scroll  scroll-smooth  flex justify-end items-start">
-            <div className=" flex w-max flex-nowrap items-center gap-[10px] px-0.5 py-0.5">
+          <div className="header-nav-scroll scroll-smooth flex justify-center lg:justify-end items-center">
+            <div className="flex w-max flex-nowrap items-center gap-2 lg:gap-[10px] px-0.5 py-0.5">
 
               {NAV_ITEMS.map((item) => (
                 <NavButton

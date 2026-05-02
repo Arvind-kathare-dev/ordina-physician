@@ -49,16 +49,19 @@ const columns: any[] = [
     key: "serviceType",
     header: "Service Type",
     accessor: "serviceType",
+    className: "min-w-[140px]",
   },
   {
     key: "order",
     header: "Order",
     accessor: "order",
+    className: "min-w-[180px]",
   },
   {
     key: "threshold",
     header: "Threshold",
     accessor: "threshold",
+    className: "min-w-[100px]",
   },
 ];
 
@@ -122,10 +125,10 @@ export default function ReturnedDaysSection() {
           icon={FileText}
         >
           {/* Add Rule */}
-          <div className="border border-[#EBEBEB] rounded-2xl p-6 mb-8 bg-white transition-all duration-300">
+          <div className="border border-[#EBEBEB] rounded-2xl p-4 sm:p-6 mb-8 bg-white transition-all duration-300">
             {/* Header */}
-            <div 
-              className="flex items-center justify-between cursor-pointer"
+            <div
+              className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 cursor-pointer"
               onClick={() => setIsAddRuleOpen(!isAddRuleOpen)}
             >
               <div>
@@ -133,7 +136,7 @@ export default function ReturnedDaysSection() {
                 <p className="text-[13px] text-[#686464] mt-0.5">Set a threshold per Service Type + Order Type</p>
               </div>
 
-              <button className="w-9 h-9 flex items-center justify-center border border-[#EBEBEB] rounded-xl bg-white hover:bg-gray-50 transition shadow-sm">
+              <button className="w-9 h-9 flex items-center justify-center border border-[#EBEBEB] rounded-xl bg-white hover:bg-gray-50 transition shadow-sm self-end sm:self-center">
                 <ChevronDown
                   className={`w-4 h-4 text-[#606060] transition-transform duration-300 ${isAddRuleOpen ? "rotate-180" : ""}`}
                 />
@@ -175,14 +178,14 @@ export default function ReturnedDaysSection() {
                 </FormRow>
 
                 <p className="text-[13px] text-[#686464] mt-4 leading-relaxed max-w-[800px]">
-                  Tip: If you want “Returned-in Time” to turn “late” after 48 hours, set 2 Days (or 48 Hours). 
+                  Tip: If you want “Returned-in Time” to turn “late” after 48 hours, set 2 Days (or 48 Hours).
                   We recommend keeping units consistent (days) unless your workflow is hour-based.
                 </p>
 
-                <div className="flex justify-end gap-3 mt-8">
-                  <Button 
+                <div className="flex flex-col sm:flex-row justify-end gap-3 mt-8">
+                  <Button
                     variant="secondary"
-                    className="min-w-[120px]"
+                    className="min-w-[120px] w-full sm:w-auto"
                     onClick={() => {
                       setServiceType("");
                       setOrderType("");
@@ -192,9 +195,9 @@ export default function ReturnedDaysSection() {
                   >
                     Set Default
                   </Button>
-                  <Button 
-                    variant="primary" 
-                    className="min-w-[120px]"
+                  <Button
+                    variant="primary"
+                    className="min-w-[120px] w-full sm:w-auto"
                     onClick={handleAddRule}
                     disabled={!serviceType || !orderType || !threshold || !unit}
                   >
@@ -206,8 +209,8 @@ export default function ReturnedDaysSection() {
           </div>
 
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 mb-4">
-            <SearchBox 
-              className="w-full sm:w-auto" 
+            <SearchBox
+              className="w-full sm:w-auto"
               placeholder="Search rules by service type, order type, or threshold..."
             />
             <Button variant="danger" className="w-full sm:w-auto">Clear All</Button>
@@ -227,7 +230,7 @@ export default function ReturnedDaysSection() {
 
       </SectionWrapperBox>
       {/* Info Card */}
-      <div className="bg-white shadow-[0_4px_24px_rgba(0,0,0,0.04)] border border-[#F5F5F5] rounded-[24px] p-5 sm:p-8 mb-6">
+      <div className="bg-white shadow-card2 border border-[#F5F5F5] rounded-[24px] p-4 sm:p-8 mb-6 mx-0">
         <h3 className="text-[16px] font-bold text-[#303030] mb-2">
           How this affects “Returned-in Days”
         </h3>
@@ -236,20 +239,20 @@ export default function ReturnedDaysSection() {
         </p>
 
         <div className="border border-[#EBEBEB] rounded-[20px] p-6">
-          <div 
-            className="flex items-center justify-between cursor-pointer"
+          <div
+            className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 cursor-pointer"
             onClick={() => setIsExampleOpen(!isExampleOpen)}
           >
             <div>
               <h4 className="text-[15px] font-bold text-[#303030]">Example logic (recommended)</h4>
               <p className="text-[13px] text-[#686464] mt-0.5">Green / Amber / Red based on how close to threshold you are</p>
             </div>
-            <div className="w-9 h-9 flex items-center justify-center border border-[#EBEBEB] rounded-xl bg-white hover:bg-gray-50 transition-colors">
-              <svg 
+            <div className="w-9 h-9 flex items-center justify-center border border-[#EBEBEB] rounded-xl bg-white hover:bg-gray-50 transition-colors self-end sm:self-center">
+              <svg
                 className={`w-4 h-4 text-[#686464] transition-transform duration-200 ${isExampleOpen ? "rotate-180" : ""}`}
-                fill="none" 
-                stroke="currentColor" 
-                strokeWidth={2.5} 
+                fill="none"
+                stroke="currentColor"
+                strokeWidth={2.5}
                 viewBox="0 0 24 24"
               >
                 <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />

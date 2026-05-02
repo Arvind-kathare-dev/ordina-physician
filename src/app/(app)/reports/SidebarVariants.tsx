@@ -85,16 +85,7 @@ export function SidebarDefaultBody({ pathname }: DefaultBodyProps) {
         </div>
 
         <div className="relative lg:static">
-          <div className="pointer-events-none absolute inset-y-0 left-0 z-[1] flex w-7 items-center bg-gradient-to-r from-[#ECEFF3] to-transparent sm:w-8 lg:hidden" />
-          <div className="pointer-events-none absolute inset-y-0 right-0 z-[1] flex w-7 items-center justify-end bg-gradient-to-l from-[#ECEFF3] to-transparent sm:w-8 lg:hidden" />
           <div className="flex items-stretch gap-1.5 lg:block lg:space-y-3">
-            <button
-              type="button"
-              className="z-[2] inline-flex h-8 w-8 shrink-0 items-center justify-center self-center rounded-lg border border-slate-200/90 bg-white text-primary-subtitle shadow-sm lg:hidden"
-              aria-label="Scroll left"
-            >
-              <HiChevronLeft className="h-4 w-4" />
-            </button>
             <div className="min-w-0 flex-1 overflow-x-auto pb-1 [-ms-overflow-style:none] [scrollbar-width:none] lg:overflow-visible lg:pb-0 [&::-webkit-scrollbar]:hidden">
               <div className="flex min-w-0 gap-3 pb-0.5 lg:flex-col lg:gap-3 lg:pb-0">
                 {RECENT_REPORT_LINKS.map((item) => {
@@ -136,13 +127,6 @@ export function SidebarDefaultBody({ pathname }: DefaultBodyProps) {
                 })}
               </div>
             </div>
-            <button
-              type="button"
-              className="z-[2] inline-flex h-8 w-8 shrink-0 items-center justify-center self-center rounded-lg border border-slate-200/90 bg-white text-primary-subtitle shadow-sm lg:hidden"
-              aria-label="Scroll right"
-            >
-              <HiChevronRight className="h-4 w-4" />
-            </button>
           </div>
         </div>
       </section>
@@ -151,13 +135,13 @@ export function SidebarDefaultBody({ pathname }: DefaultBodyProps) {
         <h2 className="mb-2.5 text-[16px] font-semibold text-[#858585]">
           One-Click Reports
         </h2>
-        <ul className="flex flex-col gap-2.5">
+        <ul className="flex flex-row overflow-x-auto lg:flex-col gap-2.5 pb-2 lg:pb-0 scrollbar-hide">
           {ONE_CLICK_REPORT_LINKS.map((r) => {
             const active = pathMatches(pathname, r.href);
             const isCustom = r.id === "custom";
             return (
-              <li key={r.id}>
-                <div className="relative overflow-visible pl-1 lg:w-full">
+              <li key={r.id} className="shrink-0 w-[148px] lg:w-full">
+                <div className="relative overflow-visible pl-1 w-full">
                   <Link
                     href={r.href}
                     className={sidebarOneClickCardClass(active, isCustom)}
@@ -311,11 +295,11 @@ export function SidebarRichBody({ pathname }: RichBodyProps) {
           </Link>
         </div>
 
-        <ul className="flex flex-col gap-3">
+        <ul className="flex flex-row overflow-x-auto lg:flex-col gap-3 pb-2 lg:pb-0 scrollbar-hide">
           {RICH_RECENT.map((item) => {
             const active = pathMatches(pathname, item.href);
             return (
-              <li key={item.id}>
+              <li key={item.id} className="shrink-0 w-[240px] lg:w-full">
                 <RichReportCard
                   href={item.href}
                   active={active}
@@ -333,11 +317,11 @@ export function SidebarRichBody({ pathname }: RichBodyProps) {
         <h2 className="mb-2.5 mt-5 text-[16px] font-semibold leading-tight text-[#6b6b6b]">
           One-Click Reports
         </h2>
-        <ul className="flex flex-col gap-3">
+        <ul className="flex flex-row overflow-x-auto lg:flex-col gap-3 pb-2 lg:pb-0 scrollbar-hide">
           {RICH_ONE_CLICK.map((item) => {
             const active = pathMatches(pathname, item.href);
             return (
-              <li key={item.id}>
+              <li key={item.id} className="shrink-0 w-[240px] lg:w-full">
                 <RichReportCard
                   href={item.href}
                   active={active}

@@ -40,6 +40,7 @@ type DataTableProps<T> = {
   isBorderlessTable?: boolean;
   showHeaderChevron?: boolean;
   pagination?: DataTablePagination;
+  tableMinWidth?: string;
 };
 
 function defaultGridTemplate(colCount: number) {
@@ -132,6 +133,7 @@ export default function DataTable<T>({
   getRowSurfaceClassName,
   showHeaderChevron = true,
   pagination,
+  tableMinWidth,
 }: DataTableProps<T>) {
   const colCount = columns.length;
   const cols =
@@ -193,7 +195,7 @@ export default function DataTable<T>({
                 : "block w-full min-w-0 align-top"
             }
           >
-            <table className="w-full min-w-0 border-collapse text-left">
+            <table className={`w-full border-collapse text-left ${tableMinWidth ? tableMinWidth : "min-w-0"}`}>
               <thead>
                 <tr>
                   <th

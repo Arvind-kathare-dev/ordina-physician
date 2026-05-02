@@ -133,16 +133,16 @@ export default function PermissionsUI({ users }: PermissionsUIProps) {
     <div className="w-full bg-white border border-gray-100 rounded-[18px] shadow-sm">
       
       {/* Header */}
-      <div className="border-b py-5 px-6 border-gray-100">
-        <h2 className="text-[17px] font-bold text-[#4a4a4a] mb-1">
+      <div className="border-b py-4 sm:py-5 px-4 sm:px-6 border-gray-100">
+        <h2 className="text-[16px] sm:text-[17px] font-bold text-[#4a4a4a] mb-1">
           Permissions
         </h2>
-        <p className="text-[13px] text-[#999]">
+        <p className="text-[12px] sm:text-[13px] text-[#999]">
           Select a user to edit permissions
         </p>
       </div>
 
-      <div className="flex flex-col gap-5 p-6">
+      <div className="flex flex-col gap-4 sm:gap-5 p-4 sm:p-6">
         
         {/* Editing Container */}
         <div className="relative border border-gray-100 rounded-[12px] p-4 bg-white shadow-[0_2px_8px_rgba(0,0,0,0.02)]">
@@ -151,15 +151,15 @@ export default function PermissionsUI({ users }: PermissionsUIProps) {
             <span className="text-[10px] font-bold text-[#c0c0c0] tracking-wider uppercase">PRESET</span>
           </div>
           
-          <div className="flex items-center gap-4">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
             {/* Custom Dropdown */}
-            <div className="relative flex-1" ref={dropdownRef}>
+            <div className="relative w-full flex-1" ref={dropdownRef}>
               <button 
                 onClick={() => setIsOpen(!isOpen)}
                 className="w-full flex items-center justify-between bg-white border border-[#5b94b7] rounded-lg px-4 py-2.5 text-[14px] font-medium text-[#4a4a4a] focus:outline-none focus:ring-2 focus:ring-[#5b94b7]/20 transition-all"
               >
-                <span>{selectedUser.name} — {selectedUser.role}</span>
-                <ChevronDown size={18} className={`transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`} />
+                <span className="truncate mr-2">{selectedUser.name} — {selectedUser.role}</span>
+                <ChevronDown size={18} className={`shrink-0 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`} />
               </button>
 
               {isOpen && (

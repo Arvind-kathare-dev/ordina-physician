@@ -88,19 +88,29 @@ export const StatsDetailModal = ({ isOpen, onClose, title }: StatsDetailModalPro
     >
       <div className="flex flex-col h-full bg-[#F8FAFC]">
         {/* Custom Header */}
-        <div className="flex items-center gap-4 px-6 py-4 bg-white">
+        <div className="flex items-center gap-3 px-4 sm:px-6 py-4 bg-white border-b border-gray-100">
           <button
             onClick={onClose}
-            className="p-1 hover:bg-gray-100 rounded-lg transition-colors"
+            className="p-1.5 hover:bg-gray-100 rounded-lg transition-colors shrink-0"
           >
             <ArrowLeft size={20} className="text-gray-600" />
           </button>
-          <h2 className="text-xl font-semibold text-gray-800">{title} details</h2>
+          <h2 className="text-lg sm:text-xl font-semibold text-gray-800 truncate">
+            {title} details
+          </h2>
         </div>
 
         {/* Table Content */}
-        <div className="flex-1 p-6 overflow-y-auto">
-          <Table data={mockData} columns={getStatsColumns()} colNum={getStatsColumns().length} />
+        <div className="flex-1 p-3 sm:p-6 overflow-y-auto">
+          <div className="w-full overflow-x-auto rounded-xl border border-gray-100 bg-white shadow-sm">
+            <div className="min-w-[1000px] xl:min-w-full">
+              <Table 
+                data={mockData} 
+                columns={getStatsColumns()} 
+                colNum={getStatsColumns().length} 
+              />
+            </div>
+          </div>
         </div>
       </div>
     </Modal>

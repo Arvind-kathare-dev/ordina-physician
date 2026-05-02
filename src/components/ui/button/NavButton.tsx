@@ -19,9 +19,7 @@ const NavButton: React.FC<NavButtonProps> = ({
   return (
     <Link
       href={href}
-      className={`nav-btn flex items-center gap-2  ${
-        active ? "nav-btn-active" : ""
-      }`}
+      className={`nav-btn ${active ? "nav-btn-active" : ""}`}
     >
       {icon && (
         <Image
@@ -29,11 +27,11 @@ const NavButton: React.FC<NavButtonProps> = ({
           alt={label}
           width={18}
           height={18}
-          className="nav-btn-icon"
+          className="nav-btn-icon shrink-0"
         />
       )}
 
-      <span className="text-gray-400 font-medium text-[12px]">{label}</span>
+      <span className="font-medium">{label}</span>
     </Link>
   );
 };

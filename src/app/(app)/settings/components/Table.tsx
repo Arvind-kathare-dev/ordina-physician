@@ -17,7 +17,7 @@ export default function Table<T>({
   emptyMessage = "No data found. Add one above to get started.",
 }: TableProps<T>) {
   return (
-    <div className="w-full overflow-hidden border border-gray-200 rounded-xl bg-white shadow-sm">
+    <div className="w-[302px] md:w-full bg-white overflow-scroll md:overflow-auto border border-gray-200 rounded-xl shadow-sm">
       <div className="overflow-x-auto">
         <table className="w-full text-left border-collapse">
           <thead>

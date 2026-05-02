@@ -237,25 +237,26 @@ export default function PatientReportPage() {
           location !== "") &&
           filteredRows.length > 0 ? (
           <DataTable
+            tableMinWidth="min-w-[1200px]"
             columns={columns}
-            isBorderlessTable={true}
-            rows={filteredRows}
-            getRowKey={(r) => r.id}
-            gridTemplateColumns={PATIENT_REPORT_TABLE_GRID_COLUMNS}
-            getRowSurfaceClassName={(r) =>
-              r.dateTags?.some((t) =>
-                t.text.toLowerCase().includes("rejected")
-              )
-                ? "bg-[#FFE8E9]"
-                : undefined
-            }
-            pagination={{
-              page: tablePage,
-              onPageChange: setTablePage,
-              summaryLabel: "Patient",
-              pageSize: 6,
-            }}
-          />
+              isBorderlessTable={true}
+              rows={filteredRows}
+              getRowKey={(r) => r.id}
+              gridTemplateColumns={PATIENT_REPORT_TABLE_GRID_COLUMNS}
+              getRowSurfaceClassName={(r) =>
+                r.dateTags?.some((t) =>
+                  t.text.toLowerCase().includes("rejected")
+                )
+                  ? "bg-[#FFE8E9]"
+                  : undefined
+              }
+              pagination={{
+                page: tablePage,
+                onPageChange: setTablePage,
+                summaryLabel: "Patient",
+                pageSize: 6,
+              }}
+            />
         ) : (
           <PatientEmptyState />
         )}

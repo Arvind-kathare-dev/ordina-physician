@@ -215,6 +215,7 @@ export default function AddOnReportPage() {
 
       <div className="mt-6  min-w-0 sm:mt-8">
         <DataTable
+          tableMinWidth="min-w-[1200px]"
           title="DME Reports"
           columns={columns}
           isBorderlessTable={true}

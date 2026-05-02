@@ -199,20 +199,20 @@ const Sidebar = ({ step }: SidebarProps) => {
   ];
 
   return (
-    <div className="w-52 shrink-0 bg-slate-50 border-r border-slate-100 p-6 flex flex-col gap-5">
+    <div className="w-full md:w-52 shrink-0 bg-slate-50 border-b md:border-b-0 md:border-r border-slate-100 p-4 md:p-6 flex flex-row md:flex-col justify-center md:justify-start gap-6 md:gap-5">
       {steps.map(({ id, label }) => {
         const isActive = step === id;
         const isPast = step > id;
         return (
-          <div key={id} className="flex items-center gap-3">
+          <div key={id} className="flex items-center gap-2 md:gap-3">
             <span
-              className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-semibold shrink-0 transition-colors duration-200
+              className={`w-5 h-5 md:w-6 md:h-6 rounded-full flex items-center justify-center text-[10px] md:text-xs font-semibold shrink-0 transition-colors duration-200
                 ${isActive ? "bg-[#4A90B8] text-white" : isPast ? "bg-[#4A90B8] text-white" : "bg-slate-200 text-slate-500"}`}
             >
               {id}
             </span>
             <span
-              className={`text-sm font-medium transition-colors duration-200
+              className={`text-xs md:text-sm font-medium transition-colors duration-200 whitespace-nowrap
                 ${isActive ? "text-[#4A90B8]" : "text-slate-400"}`}
             >
               {label}
@@ -238,18 +238,20 @@ const TABS: { id: Tab; label: string; Icon: React.FC }[] = [
 ];
 
 const TabBar = ({ active, onChange }: TabBarProps) => (
-  <div className="flex justify-center gap-8 border-b border-slate-100 pb-0 pt-8 rounded-tl-2xl rounded-tr-2xl mb-6 bg-gray-250">
+  <div className="flex justify-center gap-8 md:gap-8 border-b border-slate-100 pb-0 pt-4 md:pt-8 rounded-tl-2xl rounded-tr-2xl mb-4 md:mb-6 bg-gray-250">
     {TABS.map(({ id, label, Icon }) => {
       const isActive = active === id;
       return (
         <button
           key={id}
           onClick={() => onChange(id)}
-          className={`flex flex-col items-center gap-1.5 pb-3 border-b-2 transition-all duration-200 -mb-px
+          className={`flex flex-col items-center gap-1 md:gap-1.5 pb-2 md:pb-3 border-b-2 transition-all duration-200 -mb-px shrink-0
             ${isActive ? "border-ordina-400 text-ordina-400" : "border-transparent text-gray-400 hover:text-ordina-400"}`}
         >
-          <Icon />
-          <span className="text-sm font-medium">{label}</span>
+          <div className="scale-90 md:scale-100">
+            <Icon />
+          </div>
+          <span className="text-xs md:text-sm font-medium">{label}</span>
         </button>
       );
     })}
@@ -310,24 +312,19 @@ const TypeTab = ({
     <div className="flex flex-col gap-4">
       {/* Signature area */}
       <div className="border border-slate-200 rounded-xl overflow-hidden bg-white">
-        <div className="flex items-stretch min-h-[130px] pt-6 px-4">
+        <div className="flex items-stretch min-h-[100px] md:min-h-[130px] pt-4 md:pt-6 px-3 md:px-4">
           {/* Badge */}
-          {/* <div className="flex items-center justify-center px-2 bg-white">
-            <SignBadge size="lg" />
-          </div> */}
-
-          {/* Input area */}
-          <div className="flex-1 flex  border-b border-ordina-300">
-            <div className="flex items-center justify-center px-2 bg-white">
+          <div className="flex-1 flex border-b border-ordina-300">
+            <div className="flex items-center justify-center px-1 md:px-2 bg-white scale-75 md:scale-100 origin-center">
               <SignBadge size="lg" />
             </div>
             <div className="w-full justify-end flex items-end">
               <input
                 value={value}
                 onChange={(e) => onChange(e.target.value)}
-                placeholder="Type your signature Here"
-                className={`w-full bg-transparent p-2 outline-none text-slate-800 placeholder:text-slate-300 
-                ${FONT_STYLES[fontIdx].className}`}
+                placeholder="Type signature"
+                className={`w-full bg-transparent p-1 md:p-2 outline-none text-slate-800 placeholder:text-slate-300 
+                ${FONT_STYLES[fontIdx].className.replace("text-3xl", "text-xl md:text-3xl").replace("text-4xl", "text-2xl md:text-4xl").replace("text-2xl", "text-lg md:text-2xl")}`}
                 style={{
                   fontFamily:
                     fontIdx === 0
@@ -338,7 +335,6 @@ const TypeTab = ({
                 }}
               />
             </div>
-
           </div>
         </div>
 
@@ -470,14 +466,14 @@ const DrawTab = ({ canvasRef, onClear, name, onNameChange }: DrawTabProps) => {
     <div className="flex flex-col gap-4">
       {/* Canvas area */}
       <div className="border border-slate-200 rounded-xl overflow-hidden bg-white">
-        <div className="flex items-stretch min-h-[160px]">
+        <div className="flex items-stretch min-h-[120px] md:min-h-[160px]">
           {/* Badge */}
-          <div className="flex items-center justify-center px-2 bg-white">
+          <div className="flex items-center justify-center px-1 md:px-2 bg-white scale-75 md:scale-100 origin-center">
             <SignBadge size="lg" />
           </div>
 
           {/* Canvas */}
-          <div className="flex-1 relative">
+          <div className="flex-1 relative bg-white">
             <canvas
               ref={canvasRef}
               width={700}
@@ -684,10 +680,10 @@ export default function ESignatureModal({ isOpen, onClose, onSave }: Props) {
 
   const getSignatureData = (): SignatureData => {
     if (tab === "draw") {
-      return { 
-        type: "draw", 
+      return {
+        type: "draw",
         value: canvasRef.current?.toDataURL() ?? "",
-        name: drawName 
+        name: drawName
       };
     }
     if (tab === "image") {
@@ -711,14 +707,14 @@ export default function ESignatureModal({ isOpen, onClose, onSave }: Props) {
   return (
     /* Backdrop */
     <div
-      className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4"
+      className="fixed inset-0 bg-black/60 flex items-end md:items-center justify-center z-50 p-0 md:p-4 backdrop-blur-sm"
       onClick={(e) => {
         if (e.target === e.currentTarget) onClose();
       }}
     >
       {/* Dialog */}
       <div
-        className="bg-white w-full max-w-3xl rounded-2xl shadow-2xl flex overflow-hidden"
+        className="bg-white w-full max-w-3xl rounded-t-3xl md:rounded-2xl shadow-2xl flex flex-col md:flex-row overflow-hidden max-h-[95vh] md:max-h-[90vh] animate-in"
         role="dialog"
         aria-modal="true"
         aria-label="E-Signature"
@@ -727,14 +723,14 @@ export default function ESignatureModal({ isOpen, onClose, onSave }: Props) {
         <Sidebar step={step} />
 
         {/* Content */}
-        <div className="flex-1 flex flex-col p-6 min-h-0">
+        <div className="flex-1 flex flex-col p-4 md:p-6 min-h-0 overflow-y-auto">
           {step === 1 && (
-            <>
+            <div className="flex-1 flex flex-col min-h-0">
               {/* Tab bar */}
               <TabBar active={tab} onChange={setTab} />
 
               {/* Tab content */}
-              <div className="flex-1">
+              <div className="flex-1 min-h-0">
                 {tab === "type" && (
                   <TypeTab
                     value={typedSig}
@@ -761,7 +757,7 @@ export default function ESignatureModal({ isOpen, onClose, onSave }: Props) {
                   />
                 )}
               </div>
-            </>
+            </div>
           )}
 
           {step === 2 && (
@@ -771,25 +767,15 @@ export default function ESignatureModal({ isOpen, onClose, onSave }: Props) {
           )}
 
           {/* Footer */}
-          <div className="flex items-center justify-end gap-3 mt-6 pt-4 border-t border-slate-100">
+          <div className="flex items-center justify-end gap-3 mt-4 md:mt-6 pt-4 border-t border-slate-100 bg-white sticky bottom-0">
             <button
               onClick={onClose}
-              className="text-sm text-slate-500 hover:text-slate-700 px-4 py-2 rounded-lg transition-colors"
+              className="text-sm font-semibold text-slate-500 hover:text-slate-700 px-4 py-2 rounded-lg transition-colors"
             >
               Close
             </button>
 
-            {/* <button
-              onClick={handleApplyNext}
-              className="text-sm text-white font-medium px-5 py-2.5 rounded-lg transition-opacity hover:opacity-90 active:opacity-80"
-              style={{
-                background:
-                  "linear-gradient(135deg, #5ba3c9 0%, #4A90B8 60%, #3a7a9e 100%)",
-              }}
-            >
-             
-            </button> */}
-            <Button variant="primary" onClick={handleApplyNext}>
+            <Button variant="primary" onClick={handleApplyNext} className="min-w-[120px]">
               {step === 1 ? "Apply & Next" : "Save"}
             </Button>
           </div>

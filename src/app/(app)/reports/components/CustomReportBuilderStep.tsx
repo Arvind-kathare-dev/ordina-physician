@@ -953,7 +953,7 @@ export default function CustomReportBuilderStep({
   return (
     <div className="flex h-full min-h-0 flex-1 flex-col overflow-hidden bg-[#F8F9FA]">
       <div
-        className="z-20 flex shrink-0 flex-wrap items-center gap-3 border-b border-[#E0E0E0] px-4 py-3.5 text-[#606060] sm:gap-3"
+        className="z-20 flex shrink-0 flex-col sm:flex-row sm:items-center gap-3 sm:gap-4 border-b border-[#E0E0E0] px-4 py-3.5 text-[#606060]"
       >
         <div className="flex min-w-0 flex-1 flex-col gap-1 font-semibold tracking-wide">
           {isArchived ? (
@@ -971,14 +971,13 @@ export default function CustomReportBuilderStep({
             </div>
           )}
         </div>
-        <div className="ml-auto flex flex-wrap items-center gap-2.5">
+        <div className="flex sm:ml-auto flex-wrap items-center gap-2.5">
           {isArchived ? (
             <button
               type="button"
               onClick={openSaveConfirm}
               className="inline-flex cursor-pointer items-center gap-2 rounded-[10px] border-[0.5px] border-[#FF383C] bg-white px-3 py-2.5 text-xs font-semibold text-[#FF383C] shadow-none transition hover:bg-red-50 active:translate-y-px sm:text-sm"
             >
-              <HiOutlineArchive className="h-4 w-4 shrink-0" aria-hidden />
               Unarchive
             </button>
           ) : null}
@@ -987,7 +986,7 @@ export default function CustomReportBuilderStep({
             onClick={onBack}
             className="inline-flex cursor-pointer items-center gap-2 rounded-[10px] border-[0.5px] border-[#E0E0E0] bg-white px-3 py-2.5 text-xs font-semibold text-[#858585] shadow-none transition hover:bg-neutral-50 active:translate-y-px sm:text-sm"
           >
-            <HiArrowLeft className="h-4 w-4 shrink-0" aria-hidden /> Back
+            Back
           </button>
           <button
             type="button"

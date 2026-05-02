@@ -20,7 +20,7 @@ export default function Tabs({
     <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between  gap-2">
 
       {/* LEFT: Tabs */}
-      <div className="flex overflow-x-hidden scrollbar-hide">
+      <div className="flex overflow-x-auto scrollbar-hide w-full max-w-full">
         {tabs.map((tab, i) => {
           const isActive = activeIndex === i;
 
@@ -56,7 +56,7 @@ export default function Tabs({
 
       {/* RIGHT: Actions */}
       {rightSection && (
-        <div className="flex items-center gap-2 pb-1">
+        <div className="flex items-center justify-start sm:justify-end gap-2 pb-1 w-full sm:w-auto mt-2 sm:mt-0">
           {rightSection}
         </div>
       )}

@@ -1,4 +1,3 @@
-
 import EfaxSection from "./components/eFax-section";
 import OrdersTable from "./components/orders-table";
 import { BillableBarChart } from "./components/billable-bar-chart";
@@ -8,6 +7,7 @@ import { StatCard } from "./components/stats-card";
 import PhysicianSelector from "./components/physician-selector";
 import SearchBox from "@/components/ui/SearchBox";
 import { NotificationPanel } from "./components/notification-section";
+import PhysicianMultiSelect from "./components/physician-multi-select";
 
 
 export default function Dashboard() {
@@ -17,9 +17,9 @@ export default function Dashboard() {
       <header className="w-full flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
         <h1 className="text-2xl font-semibold text-black">Dashboard</h1>
 
-        <div className="flex w-full sm:w-auto items-center gap-3">
-          <SearchBox className="flex-1 sm:w-72 md:w-[455px]" />
-          <PhysicianSelector />
+        <div className="flex flex-wrap w-full sm:w-auto items-center gap-3">
+          <SearchBox className="flex-1 w-auto  md:w-[455px]" />
+          <PhysicianMultiSelect />
         </div>
       </header>
 
@@ -29,8 +29,8 @@ export default function Dashboard() {
           {/* LEFT CONTENT */}
           <div className="col-span-12 lg:col-span-9 space-y-4">
             {/* STATS ROW */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div className="flex flex-col sm:flex-row gap-4 p-4 rounded-xl bg-gradient-light-yellow border-[0.3px] border-yellow-450 ">
+            <div className="grid grid-cols-1 xl:grid-cols-2 gap-4">
+              <div className="flex flex-col md:flex-row gap-4 p-4 rounded-xl bg-gradient-light-yellow border-[0.3px] border-yellow-450 ">
                 <StatCard
                   title="New Orders for the Day"
                   subTitle="Order Type Breakdown"
@@ -57,7 +57,7 @@ export default function Dashboard() {
                 />
               </div>
 
-              <div className="flex flex-col sm:flex-row gap-4 p-4 rounded-xl bg-gradient-light-purple border-[0.2px] border-purple-450">
+              <div className="flex flex-col md:flex-row gap-4 p-4 rounded-xl bg-gradient-light-purple border-[0.2px] border-purple-450">
                 <StatCard
                   title="Pending Orders"
                   subTitle="By Order Type"

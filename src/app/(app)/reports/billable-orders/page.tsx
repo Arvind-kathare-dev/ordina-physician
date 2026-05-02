@@ -375,6 +375,7 @@ export default function BillableOrdersPage() {
 
         <div className="min-w-0">
           <DataTable
+            tableMinWidth="min-w-[1200px]"
             columns={columns}
             rows={filteredRows}
             getRowKey={(r) => r.id}

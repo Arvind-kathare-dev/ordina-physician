@@ -230,6 +230,7 @@ export default function AgencyReportPage() {
                     location !== "") &&
                     filteredRows.length > 0 ? (
                     <DataTable
+                        tableMinWidth="min-w-[1200px]"
                         columns={columns}
                         colNumber={columns.length}
                         isBorderlessTable={true}

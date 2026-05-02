@@ -8,7 +8,7 @@ export default function Table<T>({ data, columns, colNum = 8 }: TableProps<T>) {
 
       {/* HEADER */}
       <div
-        className="hidden md:grid  bg-primary-gradient shadow-custom-bottom  text-white text-sm px-4 py-3 rounded-10"
+        className="grid bg-primary-gradient shadow-custom-bottom text-white text-sm px-4 py-3 rounded-10"
         style={{
           gridTemplateColumns: `repeat(${colNum}, minmax(0, 1fr))`,
         }}

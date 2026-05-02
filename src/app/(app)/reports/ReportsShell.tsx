@@ -242,7 +242,7 @@ export default function ReportsShell({
         {expanded && (
           <aside
             id="reports-sidebar"
-            className={`relative bg-white rounded-xl order-3 w-full shrink-0 overflow-visible transition-[max-height,opacity,width] duration-300 ease-out lg:order-1 ${!isRich ? "lg:w-[min(100%,150px)]" : "lg:w-[min(100%,310px)]"}`}
+            className={`relative bg-white rounded-xl order-2 mb-4 lg:mb-0 w-full shrink-0 overflow-visible transition-[max-height,opacity,width] duration-300 ease-out lg:order-1 ${!isRich ? "lg:w-[min(100%,150px)]" : "lg:w-[min(100%,310px)]"}`}
           >
             <div
               className={`rounded-t-[18px] flex flex-row items-start justify-start p-3.5 pb-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] sm:p-4 
@@ -281,7 +281,7 @@ export default function ReportsShell({
           </aside>
         )}
 
-        <div className="order-2 min-w-0 flex-1 lg:order-2 lg:min-w-0">
+        <div className="order-3 min-w-0 flex-1 lg:order-2 lg:min-w-0">
           {children}
         </div>
       </div>
