@@ -146,7 +146,7 @@ export default function OrderDetailsInfoDialog({ row }: { row: OrderTableRow }) 
     <>
       <button
         type="button"
-        className="rounded-md cursor-pointer text-[#528DB5] p-0.5"
+        className="rounded-md cursor-pointer text-[#528DB5] p-0.5 shrink-0"
         aria-label="Order details"
         aria-haspopup="dialog"
         aria-expanded={open}

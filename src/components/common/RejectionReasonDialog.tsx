@@ -19,7 +19,7 @@ export default function RejectionReasonDialog({ row }: RejectionReasonDialogProp
     <>
       <button
         type="button"
-        className="rounded-md cursor-pointer p-0.5"
+        className="rounded-md cursor-pointer p-0.5 shrink-0"
         aria-label="Rejection Reason"
         onClick={() => setOpen(true)}
       >

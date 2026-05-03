@@ -30,7 +30,7 @@ export default function FaxActionsCell({ row }: Props) {
   };
 
   return (
-    <div className="flex flex-nowrap items-center gap-2">
+    <div className="flex flex-nowrap items-center gap-2 shrink-0">
       <button
         type="button"
         onClick={handleOpen}
@@ -39,11 +39,11 @@ export default function FaxActionsCell({ row }: Props) {
         Open
       </button>
 
-      <div className="flex flex-nowrap items-center gap-1.5 text-[#528DB5]">
+      <div className="flex flex-nowrap items-center gap-1.5 text-[#528DB5] shrink-0">
         <Tooltip text="Inbox">
           <button
             type="button"
-            className="rounded-md cursor-pointer p-0.5"
+            className="rounded-md cursor-pointer p-0.5 shrink-0"
             aria-label="Inbox"
           >
             {/* <HiOutlineInbox className="h-[18px] w-[18px]" /> */}
@@ -54,7 +54,7 @@ export default function FaxActionsCell({ row }: Props) {
         <Tooltip text="Archive">
           <button
             type="button"
-            className="rounded-md cursor-pointer p-0.5"
+            className="rounded-md cursor-pointer p-0.5 shrink-0"
             aria-label="Archive"
           >
             {/* <HiOutlineArchive className="h-[18px] w-[18px]" /> */}
@@ -65,7 +65,7 @@ export default function FaxActionsCell({ row }: Props) {
         <Tooltip text="Delete">
           <button
             type="button"
-            className="rounded-md cursor-pointer p-0.5"
+            className="rounded-md cursor-pointer p-0.5 shrink-0"
             aria-label="Delete"
           >
             {/* <HiOutlineTrash className="h-[18px] w-[18px]" /> */}

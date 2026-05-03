@@ -10,7 +10,7 @@ interface TooltipProps {
 
 export default function Tooltip({ children, text, position = "bottom" }: TooltipProps) {
   return (
-    <div className="group relative flex flex-col items-center">
+    <div className="group relative flex flex-col items-center shrink-0">
       {children}
 
       <div className="absolute bottom-full mb-0.5 hidden group-hover:flex animate-in fade-in slide-in-from-bottom-1 duration-200">

@@ -112,7 +112,7 @@ export default function OutboxNotifyBellWithDialog({
     <>
       <button
         type="button"
-        className="rounded-md cursor-pointer p-0.5"
+        className="rounded-md cursor-pointer p-0.5 shrink-0"
         aria-label="Notify"
         aria-haspopup="dialog"
         aria-expanded={open}

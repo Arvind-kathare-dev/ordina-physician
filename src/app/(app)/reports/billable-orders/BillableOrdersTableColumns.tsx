@@ -108,10 +108,10 @@ export function useBillableOrdersTableColumns(
           <div className="flex items-center gap-1.5">
             <span
               className={`h-2 w-2 rounded-full ${row.days.dot === "green"
-                  ? "bg-green-500"
-                  : row.days.dot === "orange"
-                    ? "bg-orange-500"
-                    : "bg-red-500"
+                ? "bg-green-500"
+                : row.days.dot === "orange"
+                  ? "bg-orange-500"
+                  : "bg-red-500"
                 }`}
             />
             <span className="text-xs font-medium text-[#606060]">{row.days.text}</span>

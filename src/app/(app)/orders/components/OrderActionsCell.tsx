@@ -42,7 +42,7 @@ export default function OrderActionsCell({ row, activeTab }: Props) {
   /* ---------- Tab 4 (Override Mode) ---------- */
   if (isTab4) {
     return (
-      <div className="flex flex-nowrap items-center gap-2">
+      <div className="flex flex-nowrap items-center gap-2 shrink-0">
         <button
           type="button"
           onClick={handleReopen}
@@ -50,7 +50,7 @@ export default function OrderActionsCell({ row, activeTab }: Props) {
         >
           Re-open
         </button>
-        <div className="flex flex-nowrap items-center gap-1 text-[#528DB5]">
+        <div className="flex flex-nowrap items-center gap-1 text-[#528DB5] shrink-0">
           <Tooltip text="Rejection Reason">
             {/* <button type="button" className="rounded-md cursor-pointer p-0.5" aria-label="Rejection Reason">
               <Image src={reasonIcon} alt="Rejection Reason" width={18} height={18} />
@@ -63,7 +63,7 @@ export default function OrderActionsCell({ row, activeTab }: Props) {
           </Tooltip>
 
           <Tooltip text="New Order">
-            <button type="button" className="rounded-md cursor-pointer p-0.5" aria-label="New Order">
+            <button type="button" className="rounded-md cursor-pointer p-0.5 shrink-0" aria-label="New Order">
               <Image src={newOrderIcon} alt="New Order" width={18} height={18} />
             </button>
           </Tooltip>
@@ -78,7 +78,7 @@ export default function OrderActionsCell({ row, activeTab }: Props) {
 
   /* ---------- Default Mode ---------- */
   return (
-    <div className="flex flex-nowrap items-center gap-2">
+    <div className="flex flex-nowrap items-center gap-2 shrink-0">
       {/* Resend → Only Tab 3 */}
       {isTab3 && !isTab5 && !isTab6 && (
         <button
@@ -99,10 +99,10 @@ export default function OrderActionsCell({ row, activeTab }: Props) {
         Open
       </button>
 
-      <div className="flex flex-nowrap items-center gap-1 text-[#528DB5]">
+      <div className="flex flex-nowrap items-center gap-1 text-[#528DB5] shrink-0">
         {!isTab5 && !isTab6 && (
           <Tooltip text="Edit">
-            <button type="button" className="rounded-md cursor-pointer p-0.5" aria-label="Edit">
+            <button type="button" className="rounded-md cursor-pointer p-0.5 shrink-0" aria-label="Edit">
               <Image src={editIcon} alt="Edit" width={18} height={18} />
             </button>
           </Tooltip>
@@ -121,7 +121,7 @@ export default function OrderActionsCell({ row, activeTab }: Props) {
         </Tooltip>
 
         <Tooltip text="New Order">
-          <button type="button" className="rounded-md cursor-pointer p-0.5" aria-label="New Order">
+          <button type="button" className="rounded-md cursor-pointer p-0.5 shrink-0" aria-label="New Order">
             <Image src={newOrderIcon} alt="New Order" width={18} height={18} />
           </button>
         </Tooltip>

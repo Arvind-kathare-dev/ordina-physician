@@ -85,7 +85,7 @@ export default function LabelAssignDialog({ row }: { row: OrderTableRow }) {
     <>
       <button
         type="button"
-        className="rounded-md text-[#528DB5] hover:bg-slate-100"
+        className="rounded-md text-[#528DB5] hover:bg-slate-100 shrink-0"
         aria-label="Tag"
         aria-haspopup="dialog"
         aria-expanded={open}
